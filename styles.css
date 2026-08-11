@@ -781,6 +781,42 @@ section[id] {
   color: #9a9180;
 }
 
+.footer__award {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 24px;
+  padding-top: 22px;
+  border-top: 1px solid #2b2620;
+}
+
+.footer__award img {
+  width: 76px;
+  height: auto;
+  flex-shrink: 0;
+  display: block;
+}
+
+.footer__award-text {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.footer__award-title {
+  font-size: 13px;
+  line-height: 1.4;
+  color: #bdb4a2;
+}
+
+.footer__award-meta {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #c19a4f;
+}
+
 .footer__heading {
   font-family: "JetBrains Mono", monospace;
   font-size: 11px;

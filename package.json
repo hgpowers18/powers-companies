@@ -1,0 +1,19 @@
+{
+  "name": "powers-companies",
+  "version": "1.0.0",
+  "description": "Marketing site for Powers Companies, built with Eleventy and edited through a git-based CMS.",
+  "private": true,
+  "scripts": {
+    "build": "eleventy",
+    "dev": "eleventy --serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hgpowers18/powers-companies.git"
+  },
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.6",
+    "js-yaml": "^5.2.3"
+  }
+}

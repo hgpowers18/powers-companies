@@ -1,0 +1,143 @@
+meta:
+  lang: en
+  title: "Powers Companies — Maryland & Pennsylvania Land Development"
+  description: "Powers Companies has been raising the standard of building across Maryland and Pennsylvania for more than four decades. Developments, commercial & office."
+
+nav:
+  logo: uploads/powers-logo.png
+  logo_alt: Powers Companies
+  links:
+    - label: Developments
+      href: "#homes"
+    - label: "Commercial & Office"
+      href: "#commercial"
+  cta:
+    label: Start a project
+    href: "#contact"
+
+hero:
+  eyebrow: "MARYLAND · PENNSYLVANIA"
+  title_lead: "We've built homes, neighborhoods, and the spaces"
+  title_emphasis: "in between."
+  body: "For more than four decades, the Powers Brothers have been raising the standard of building across Maryland and Pennsylvania."
+  audio:
+    file: uploads/powers_story.mp3
+    play_label: Hear our story
+    pause_label: Pause our story
+  carousel:
+    - image: uploads/paulbr75-new-home-4083239_1920.jpg
+      alt: New home under construction
+    - image: uploads/coldironexcavation-construction-site-10337339_1920.jpg
+      alt: Site excavation
+    - image: uploads/memorycatcher-bulldozer-410115_1920.jpg
+      alt: Grading equipment on site
+    - image: uploads/didgeman-excavator-800996_1920.jpg
+      alt: Excavator at work
+    - image: uploads/amanataliwarraich-development-7098153_1920.jpg
+      alt: Land development
+
+stats:
+  - value: "2,500"
+    suffix: "+"
+    label: Homes built
+  - value: "35"
+    suffix: "+"
+    label: Years building
+  - value: "5,000"
+    suffix: "+"
+    label: HOMESITES DEVELOPED
+
+ethos:
+  eyebrow: Our approach
+  lead_text: "We started with homes. Then neighborhoods. Then office buildings and industrial parks. Through all of it, one thing never changed — our"
+  lead_emphasis: "relentless attention to detail."
+  paragraphs:
+    - "With extensive knowledge of building and a demonstrated commitment to our customers, we deliver quality products and superlative craftsmanship on every project we touch."
+    - "We build commercial spaces and residential homes that are cutting edge and attractive — and we'll astound you with our creative use of space, style, and design."
+
+divisions_intro:
+  eyebrow: What we build
+  title_line_1: "Four divisions."
+  title_line_2: "One standard."
+  body: "Everything from a single custom home to a full industrial park — under one roof, with one team accountable end to end."
+
+divisions:
+  - id: homes
+    aria_label: Developments
+    image: uploads/image_f874027c.jpg
+    image_alt: Aerial view of a residential development
+    label: "01 — DEVELOPMENTS"
+    title: Developments copy goes here and here
+    body: "THE DEVS WILL GET LISTED HERE: With more than two decades in the new homes business, we've got the expertise to build your dream home across the greater Baltimore area — on schedule and on budget."
+    show_developments_list: true
+    features:
+      - title: "Custom & semi-custom"
+        body: Bring us your plans or build on ours.
+      - title: Neighborhoods
+        body: We develop the communities, not just the houses.
+  - id: commercial
+    aria_label: Commercial and Office
+    image: uploads/image_8c751d14.jpg
+    image_alt: Baltimore Inner Harbor at sunset
+    label: "02 — COMMERCIAL & OFFICE"
+    title: Office, retail, industrial. We've done it all.
+    body: "Office space, retail centers, industrial parks — we'll take any parcel of land and turn it into the business space you envisioned. Cutting-edge, attractive, and delivered on budget."
+    show_developments_list: false
+    features:
+      - title: "Office & retail"
+        body: Spaces designed around how your business runs.
+      - title: Industrial parks
+        body: Large-scale development, managed end to end.
+
+contact:
+  eyebrow: Contact
+  title_line_1: "Let's talk about"
+  title_line_2: your land
+  success_title: Thank you.
+  success_body: "We've received your message and a member of the Powers team will be in touch shortly."
+  labels:
+    name: Name
+    phone: Phone
+    email: Email
+    message: Tell us about your project
+    submit: Send message
+  photo: uploads/image_1a8e3b4b.jpg
+  photo_alt: Custom stone home at sunset
+  office_label: Office
+  address_lines:
+    - 113 Westminster Road
+    - Suite 200
+    - "Reisterstown, MD 21136"
+  phone_label: Phone
+  office_phone: 410-833-3700
+  fax_phone: 410-833-0043
+
+footer:
+  logo: uploads/powers-logo-white.png
+  logo_alt: Powers Companies
+  tagline: Raising the standards of building across Maryland and Pennsylvania for almost four decades.
+  award:
+    image: uploads/mbia-award-2016.png
+    title: Maryland Awards of Excellence
+    meta: "MBIA Winner · 2016"
+  divisions_heading: Divisions
+  division_links:
+    - label: Developments
+      href: "#homes"
+    - label: "Commercial & Office"
+      href: "#commercial"
+  office_heading: Office
+  office_lines:
+    - "113 Westminster Road, Suite 200"
+    - "Reisterstown, MD 21136"
+    - "O 410-833-3700 · F 410-833-0043"
+  connect_heading: Connect
+  connect_links:
+    - label: LinkedIn
+      href: "#"
+    - label: Facebook
+      href: "#"
+    - label: Contact us
+      href: "#contact"
+  copyright: Powers Companies. All rights reserved.
+  equal_housing: Equal Housing Opportunity

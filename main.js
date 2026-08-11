@@ -79,7 +79,14 @@
   const audioBtn = document.getElementById("audio-btn");
   const audioIcon = document.getElementById("audio-icon");
   const audioLabel = document.getElementById("audio-label");
-  const audio = new Audio("uploads/powers_story.mp3");
+
+  // The track and its labels are editable in the CMS, so read them off the
+  // button and fall back to the original values if the attributes are absent.
+  const audioSrc = (audioBtn && audioBtn.dataset.audioSrc) || "uploads/powers_story.mp3";
+  const playLabel = (audioBtn && audioBtn.dataset.playLabel) || "Hear our story";
+  const pauseLabel = (audioBtn && audioBtn.dataset.pauseLabel) || "Pause our story";
+
+  const audio = new Audio(audioSrc);
   audio.preload = "metadata";
 
   let lastSec = -1;
@@ -107,7 +114,7 @@
 
   function setPlaying(playing) {
     if (audioIcon) audioIcon.textContent = playing ? "❚❚" : "▶";
-    if (audioLabel) audioLabel.textContent = playing ? "Pause our story" : "Hear our story";
+    if (audioLabel) audioLabel.textContent = playing ? pauseLabel : playLabel;
     if (audioBtn) audioBtn.setAttribute("aria-pressed", playing ? "true" : "false");
   }
 

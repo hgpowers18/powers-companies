@@ -213,7 +213,9 @@ section[id] {
   background: #14120f;
   /* Slide up under the sticky nav so the video runs edge to edge. */
   margin-top: -78px;
-  padding: calc(78px + clamp(40px, 6vw, 80px)) clamp(20px, 4vw, 56px) clamp(28px, 4vw, 52px);
+  /* Vertical rhythm keys off viewport height so the stats bar stays above the
+     fold on short laptop screens as well as tall desktops. */
+  padding: calc(78px + clamp(24px, 6vh, 80px)) clamp(20px, 4vw, 56px) clamp(20px, 3vh, 52px);
   min-height: 100vh;
   min-height: 100svh;
   display: flex;
@@ -265,7 +267,7 @@ section[id] {
   margin: 0 auto;
   display: grid;
   grid-template-rows: 1fr auto;
-  gap: clamp(36px, 5vw, 64px);
+  gap: clamp(24px, 4vh, 64px);
 }
 
 .hero__copy {
@@ -286,17 +288,17 @@ section[id] {
 }
 
 .hero__eyebrow {
-  margin-bottom: 26px;
+  margin-bottom: clamp(16px, 2.6vh, 28px);
   color: #dcb771;
 }
 
 .hero__title {
   font-family: "DM Sans", sans-serif;
   font-weight: 400;
-  font-size: clamp(36px, 5.4vw, 74px);
+  font-size: clamp(36px, min(5.2vw, 8vh), 72px);
   line-height: 1.04;
   letter-spacing: -0.02em;
-  margin: 0 0 26px;
+  margin: 0 0 clamp(18px, 2.6vh, 26px);
   color: #f7f4ec;
   text-shadow: 0 1px 30px rgba(18, 16, 13, 0.45);
   text-wrap: balance;
@@ -314,7 +316,7 @@ section[id] {
   line-height: 1.6;
   color: rgba(243, 239, 230, 0.84);
   max-width: 560px;
-  margin: 0 0 30px;
+  margin: 0 0 clamp(20px, 3.4vh, 32px);
 }
 
 .audio-btn {
@@ -496,7 +498,7 @@ section[id] {
 }
 
 .stats__cell {
-  padding: clamp(18px, 2vw, 26px) 28px;
+  padding: clamp(14px, 2vh, 26px) 28px;
   border-right: 1px solid rgba(243, 239, 230, 0.22);
 }
 
@@ -510,7 +512,7 @@ section[id] {
 
 .stats__value {
   font-family: "DM Sans", sans-serif;
-  font-size: clamp(32px, 3.6vw, 50px);
+  font-size: clamp(28px, min(3.4vw, 5.6vh), 50px);
   line-height: 1;
   color: #f7f4ec;
 }
@@ -1023,24 +1025,57 @@ section[id] {
   }
 
   .hero {
-    padding-top: calc(78px + 40px);
+    padding-top: calc(78px + 28px);
+    padding-bottom: 20px;
+  }
+
+  .hero__inner {
+    gap: 24px;
+  }
+
+  .hero__eyebrow {
+    margin-bottom: 18px;
+  }
+
+  .hero__title {
+    font-size: clamp(30px, 7.6vw, 44px);
+    margin-bottom: 18px;
+  }
+
+  .hero__body {
+    font-size: 16.5px;
+    margin-bottom: 24px;
   }
 
   .carousel__frame {
     aspect-ratio: 4 / 3;
   }
 
+  /* One tight row on phones — a stacked bar would push the stats off screen. */
   .stats {
-    grid-template-columns: 1fr 1fr !important;
+    grid-template-columns: repeat(3, 1fr) !important;
   }
 
   .stats__cell {
-    padding: 18px 18px 18px 0 !important;
-    border-right: none !important;
+    padding: 14px 12px !important;
   }
 
-  .stats__cell:nth-child(n + 3) {
-    border-top: 1px solid rgba(243, 239, 230, 0.22);
+  .stats__cell:first-child {
+    padding-left: 0 !important;
+  }
+
+  .stats__cell:last-child {
+    padding-right: 0 !important;
+  }
+
+  .stats__value {
+    font-size: clamp(22px, 6.4vw, 30px);
+  }
+
+  .stats__label {
+    font-size: 9.5px;
+    letter-spacing: 0.1em;
+    margin-top: 7px;
   }
 
   .division__grid {
@@ -1104,25 +1139,46 @@ section[id] {
 }
 
 @media (max-width: 520px) {
-  .stats {
-    grid-template-columns: 1fr !important;
-  }
-
-  .stats__cell:nth-child(n + 2) {
-    border-top: 1px solid rgba(243, 239, 230, 0.22);
-  }
-
   .footer__bottom {
     flex-direction: column;
     align-items: flex-start !important;
   }
 }
 
-/* Short landscape phones: let the hero shrink to its content instead of
-   pushing the stats bar below the fold. */
+/* Short landscape phones: shrink the hero to its content rather than forcing a
+   full viewport it can't fill comfortably. */
 @media (max-height: 560px) and (orientation: landscape) {
   .hero {
     min-height: 0;
+    padding-top: calc(78px + 14px);
+  }
+
+  .hero__inner {
+    gap: 14px;
+  }
+
+  .hero__eyebrow {
+    margin-bottom: 12px;
+  }
+
+  .hero__title {
+    font-size: clamp(24px, 4vw, 36px);
+    margin-bottom: 12px;
+  }
+
+  .hero__body {
+    font-size: 15.5px;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .hero .audio-btn {
+    padding: 12px 24px;
+  }
+
+  .stats__cell {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
   }
 }
 

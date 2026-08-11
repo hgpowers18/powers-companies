@@ -1,0 +1,303 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+
+backend:
+  name: github
+  repo: hgpowers18/powers-companies
+  branch: main
+  # "Sign In with GitHub" routes through Netlify's OAuth broker, which this site
+  # does not use, so only the access token method is offered.
+  auth_methods: [token]
+  commit_messages:
+    update: "Update {{collection}} “{{slug}}” from the admin"
+    create: "Create {{collection}} “{{slug}}” from the admin"
+    delete: "Delete {{collection}} “{{slug}}” from the admin"
+    uploadMedia: "Upload “{{path}}” from the admin"
+    deleteMedia: "Delete “{{path}}” from the admin"
+
+app_title: Powers Companies
+logo:
+  src: /uploads/powers-logo.png
+
+media_folder: uploads
+public_folder: /uploads
+
+singletons:
+  - name: site
+    label: Site content
+    icon: home
+    file: _data/site.yml
+    format: yaml
+    fields:
+      - name: meta
+        label: Page title & search listing
+        widget: object
+        collapsed: true
+        fields:
+          - { name: title, label: Browser tab & Google title, widget: string }
+          - {
+              name: description,
+              label: Search engine description,
+              widget: text,
+              hint: Shown under the title in Google results. Aim for 150-160 characters.,
+            }
+          - { name: lang, widget: hidden, default: en }
+
+      - name: nav
+        label: Header
+        widget: object
+        collapsed: true
+        fields:
+          - {
+              name: logo,
+              label: Logo,
+              widget: image,
+              hint: Use the dark-text version. The header sits on a light background.,
+            }
+          - { name: logo_alt, label: Logo alt text, widget: string }
+          - name: links
+            label: Menu links
+            widget: list
+            label_singular: menu link
+            summary: "{{fields.label}}"
+            fields:
+              - { name: label, label: Label, widget: string }
+              - {
+                  name: href,
+                  label: Link,
+                  widget: string,
+                  hint: "Use #homes, #commercial or #contact to jump down the page.",
+                }
+          - name: cta
+            label: Button
+            widget: object
+            fields:
+              - { name: label, label: Label, widget: string }
+              - { name: href, label: Link, widget: string }
+
+      - name: hero
+        label: Hero (top of page)
+        widget: object
+        collapsed: true
+        fields:
+          - { name: eyebrow, label: Small label above headline, widget: string }
+          - { name: title_lead, label: Headline, widget: string }
+          - {
+              name: title_emphasis,
+              label: Headline italic ending,
+              widget: string,
+              hint: Shown in gold italic at the end of the headline.,
+            }
+          - { name: body, label: Intro paragraph, widget: text }
+          - name: audio
+            label: "“Hear our story” audio"
+            widget: object
+            fields:
+              - { name: file, label: Audio file, widget: file }
+              - { name: play_label, label: Button label, widget: string }
+              - { name: pause_label, label: Button label while playing, widget: string }
+          - name: carousel
+            label: Photo carousel
+            widget: list
+            label_singular: photo
+            collapsed: true
+            summary: "{{fields.alt}}"
+            thumbnail: image
+            fields:
+              - { name: image, label: Photo, widget: image }
+              - {
+                  name: alt,
+                  label: Description for screen readers,
+                  widget: string,
+                  hint: Describe what is in the photo.,
+                }
+
+      - name: stats
+        label: Numbers strip
+        widget: list
+        label_singular: number
+        collapsed: true
+        summary: "{{fields.value}}{{fields.suffix}} {{fields.label}}"
+        fields:
+          - { name: value, label: Number, widget: string }
+          - { name: suffix, label: Suffix, widget: string, required: false }
+          - { name: label, label: Caption, widget: string }
+
+      - name: ethos
+        label: Our approach
+        widget: object
+        collapsed: true
+        fields:
+          - { name: eyebrow, label: Small label, widget: string }
+          - { name: lead_text, label: Large statement, widget: text }
+          - {
+              name: lead_emphasis,
+              label: Statement italic ending,
+              widget: string,
+              hint: Shown in gold italic at the end of the statement.,
+            }
+          - name: paragraphs
+            label: Supporting paragraphs
+            widget: list
+            field: { name: paragraph, label: Paragraph, widget: text }
+
+      - name: divisions_intro
+        label: "“What we build” heading"
+        widget: object
+        collapsed: true
+        fields:
+          - { name: eyebrow, label: Small label, widget: string }
+          - { name: title_line_1, label: Heading line 1, widget: string }
+          - { name: title_line_2, label: Heading line 2, widget: string }
+          - { name: body, label: Paragraph, widget: text }
+
+      - name: divisions
+        label: The two sections
+        widget: list
+        collapsed: true
+        allow_add: false
+        allow_remove: false
+        allow_reorder: false
+        summary: "{{fields.title}}"
+        fields:
+          - { name: id, widget: hidden }
+          - { name: aria_label, label: Screen reader name, widget: string }
+          - { name: label, label: Small numbered label, widget: string }
+          - { name: title, label: Heading, widget: string }
+          - { name: body, label: Paragraph, widget: text }
+          - { name: image, label: Photo, widget: image }
+          - { name: image_alt, label: Photo description, widget: string }
+          - {
+              name: show_developments_list,
+              label: List the developments here,
+              widget: boolean,
+              hint: "When on, everything from the Developments list appears in this section.",
+            }
+          - name: features
+            label: Two highlights
+            widget: list
+            label_singular: highlight
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: body, label: Description, widget: string }
+
+      - name: contact
+        label: Contact section
+        widget: object
+        collapsed: true
+        fields:
+          - { name: eyebrow, label: Small label, widget: string }
+          - { name: title_line_1, label: Heading line 1, widget: string }
+          - { name: title_line_2, label: Heading line 2, widget: string }
+          - { name: success_title, label: Thank-you heading, widget: string }
+          - { name: success_body, label: Thank-you message, widget: text }
+          - name: labels
+            label: Form labels
+            widget: object
+            collapsed: true
+            fields:
+              - { name: name, label: Name field, widget: string }
+              - { name: phone, label: Phone field, widget: string }
+              - { name: email, label: Email field, widget: string }
+              - { name: message, label: Message field, widget: string }
+              - { name: submit, label: Submit button, widget: string }
+          - { name: photo, label: Photo, widget: image }
+          - { name: photo_alt, label: Photo description, widget: string }
+          - { name: office_label, label: "“Office” heading", widget: string }
+          - name: address_lines
+            label: Address
+            widget: list
+            field: { name: line, label: Line, widget: string }
+          - { name: phone_label, label: "“Phone” heading", widget: string }
+          - { name: office_phone, label: Office phone, widget: string }
+          - { name: fax_phone, label: Fax, widget: string }
+
+      - name: footer
+        label: Footer
+        widget: object
+        collapsed: true
+        fields:
+          - {
+              name: logo,
+              label: Logo,
+              widget: image,
+              hint: Use the white version. The footer background is dark.,
+            }
+          - { name: logo_alt, label: Logo alt text, widget: string }
+          - { name: tagline, label: Tagline, widget: text }
+          - name: award
+            label: Award badge
+            widget: object
+            fields:
+              - { name: image, label: Badge image, widget: image }
+              - { name: title, label: Award name, widget: string }
+              - { name: meta, label: Award detail, widget: string }
+          - { name: divisions_heading, label: "Column 2 heading", widget: string }
+          - name: division_links
+            label: "Column 2 links"
+            widget: list
+            label_singular: link
+            summary: "{{fields.label}}"
+            fields:
+              - { name: label, label: Label, widget: string }
+              - { name: href, label: Link, widget: string }
+          - { name: office_heading, label: "Column 3 heading", widget: string }
+          - name: office_lines
+            label: "Column 3 address lines"
+            widget: list
+            field: { name: line, label: Line, widget: string }
+          - { name: connect_heading, label: "Column 4 heading", widget: string }
+          - name: connect_links
+            label: "Column 4 links"
+            widget: list
+            label_singular: link
+            summary: "{{fields.label}}"
+            fields:
+              - { name: label, label: Label, widget: string }
+              - {
+                  name: href,
+                  label: Link,
+                  widget: string,
+                  hint: "Paste the full https:// address for LinkedIn and Facebook.",
+                }
+          - { name: copyright, label: Copyright line, widget: string }
+          - { name: equal_housing, label: Equal Housing text, widget: string }
+
+collections:
+  - name: developments
+    label: Developments
+    label_singular: Development
+    icon: location_city
+    description: >-
+      Each entry appears in the Developments section of the page. They are
+      listed in the order shown here.
+    folder: content/developments
+    extension: md
+    format: yaml-frontmatter
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    summary: "{{title}}"
+    sortable_fields: [title, location, status]
+    fields:
+      - { name: title, label: Name, widget: string }
+      - {
+          name: location,
+          label: Location,
+          widget: string,
+          required: false,
+          hint: "For example: Reisterstown, MD",
+        }
+      - {
+          name: status,
+          label: Status,
+          widget: string,
+          required: false,
+          hint: "For example: Now selling, Coming soon, Sold out",
+        }
+      - {
+          name: body,
+          label: Description,
+          widget: markdown,
+          required: false,
+        }

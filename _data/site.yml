@@ -4,7 +4,7 @@ meta:
   description: "Powers Companies has been raising the standard of building across Maryland and Pennsylvania for more than four decades. Developments, commercial & office."
 
 nav:
-  logo: uploads/powers-logo.png
+  logo: /uploads/powers-logo.png
   logo_alt: Powers Companies
   links:
     - label: Developments
@@ -21,19 +21,19 @@ hero:
   title_emphasis: "in between."
   body: "For more than four decades, the Powers Brothers have been raising the standard of building across Maryland and Pennsylvania."
   audio:
-    file: uploads/powers_story.mp3
+    file: /uploads/powers_story.mp3
     play_label: Hear our story
     pause_label: Pause our story
   carousel:
-    - image: uploads/paulbr75-new-home-4083239_1920.jpg
+    - image: /uploads/paulbr75-new-home-4083239_1920.jpg
       alt: New home under construction
-    - image: uploads/coldironexcavation-construction-site-10337339_1920.jpg
+    - image: /uploads/coldironexcavation-construction-site-10337339_1920.jpg
       alt: Site excavation
-    - image: uploads/memorycatcher-bulldozer-410115_1920.jpg
+    - image: /uploads/memorycatcher-bulldozer-410115_1920.jpg
       alt: Grading equipment on site
-    - image: uploads/didgeman-excavator-800996_1920.jpg
+    - image: /uploads/didgeman-excavator-800996_1920.jpg
       alt: Excavator at work
-    - image: uploads/amanataliwarraich-development-7098153_1920.jpg
+    - image: /uploads/amanataliwarraich-development-7098153_1920.jpg
       alt: Land development
 
 stats:
@@ -64,7 +64,7 @@ divisions_intro:
 divisions:
   - id: homes
     aria_label: Developments
-    image: uploads/image_f874027c.jpg
+    image: /uploads/image_f874027c.jpg
     image_alt: Aerial view of a residential development
     label: "01 — DEVELOPMENTS"
     title: Developments copy goes here and here
@@ -77,7 +77,7 @@ divisions:
         body: We develop the communities, not just the houses.
   - id: commercial
     aria_label: Commercial and Office
-    image: uploads/image_8c751d14.jpg
+    image: /uploads/image_8c751d14.jpg
     image_alt: Baltimore Inner Harbor at sunset
     label: "02 — COMMERCIAL & OFFICE"
     title: Office, retail, industrial. We've done it all.
@@ -101,7 +101,7 @@ contact:
     email: Email
     message: Tell us about your project
     submit: Send message
-  photo: uploads/image_1a8e3b4b.jpg
+  photo: /uploads/image_1a8e3b4b.jpg
   photo_alt: Custom stone home at sunset
   office_label: Office
   address_lines:
@@ -113,11 +113,11 @@ contact:
   fax_phone: 410-833-0043
 
 footer:
-  logo: uploads/powers-logo-white.png
+  logo: /uploads/powers-logo-white.png
   logo_alt: Powers Companies
   tagline: Raising the standards of building across Maryland and Pennsylvania for almost four decades.
   award:
-    image: uploads/mbia-award-2016.png
+    image: /uploads/mbia-award-2016.png
     title: Maryland Awards of Excellence
     meta: "MBIA Winner · 2016"
   divisions_heading: Divisions

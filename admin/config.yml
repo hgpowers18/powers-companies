@@ -269,13 +269,14 @@ collections:
     label_singular: Development
     icon: location_city
     description: >-
-      Each entry appears in the Developments section of the page. They are
-      listed in the order shown here.
+      Each entry appears in the Developments section of the page, in the order
+      shown here. Drag an entry to move it.
     folder: content/developments
     extension: md
     format: yaml-frontmatter
     create: true
     delete: true
+    reorder: true
     slug: "{{slug}}"
     summary: "{{title}}"
     sortable_fields: [title, location, status]

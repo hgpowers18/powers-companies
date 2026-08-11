@@ -34,6 +34,5 @@ Open the URL and check desktop + ≤860px mobile (burger nav, stacked hero, sing
 
 - Developments placeholder copy
 - “Four divisions. One standard.” → should become two divisions
-- Corrected logo (missing R)
 - Real LinkedIn / Facebook URLs
 - Form backend + Equal Housing Opportunity mark

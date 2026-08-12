@@ -3,6 +3,9 @@
   const mobileMenu = document.getElementById("mobile-menu");
   const menuIcon = document.getElementById("menu-icon");
   const yearEl = document.getElementById("year");
+  const nav = document.querySelector(".nav");
+  const hero = document.querySelector(".hero");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   if (yearEl) {
     yearEl.textContent = String(new Date().getFullYear());
@@ -15,7 +18,19 @@
     if (mobileMenu) mobileMenu.classList.toggle("is-open", open);
     if (menuIcon) menuIcon.textContent = open ? "✕" : "☰";
     if (menuBtn) menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    syncNav();
   }
+
+  /* ========== NAV OVER HERO ========== */
+  function syncNav() {
+    if (!nav || !hero) return;
+    const threshold = hero.offsetHeight - nav.offsetHeight - 8;
+    nav.classList.toggle("is-over-hero", !menuOpen && window.scrollY < threshold);
+  }
+
+  window.addEventListener("scroll", syncNav, { passive: true });
+  window.addEventListener("resize", syncNav);
+  syncNav();
 
   if (menuBtn) {
     menuBtn.addEventListener("click", () => setMenu(!menuOpen));
@@ -29,51 +44,53 @@
     if (e.key === "Escape" && menuOpen) setMenu(false);
   });
 
-  /* ========== CAROUSEL ========== */
-  const slides = Array.from(document.querySelectorAll(".carousel__img"));
-  const dots = Array.from(document.querySelectorAll(".carousel__dot"));
-  const prevBtn = document.getElementById("carousel-prev");
-  const nextBtn = document.getElementById("carousel-next");
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  /* ========== HERO VIDEO ========== */
+  const heroVideo = document.getElementById("hero-video");
 
-  let slide = 0;
-  let carTimer = null;
+  if (heroVideo) {
+    const conn =
+      navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const frugal = !!conn && (conn.saveData === true || /(^|-)2g$/.test(conn.effectiveType || ""));
+    const mobileSrc = heroVideo.dataset.srcMobile;
+    const src =
+      mobileSrc && window.matchMedia("(max-width: 760px)").matches
+        ? mobileSrc
+        : heroVideo.dataset.src;
 
-  function renderSlide() {
-    slides.forEach((img, i) => img.classList.toggle("is-active", i === slide));
-    dots.forEach((dot, i) => {
-      dot.classList.toggle("is-active", i === slide);
-      dot.setAttribute("aria-current", i === slide ? "true" : "false");
-    });
+    // On metered connections or with reduced motion requested we never fetch the
+    // video at all — the poster image is the hero.
+    if (src && !reduceMotion && !frugal) {
+      const play = () => {
+        const attempt = heroVideo.play();
+        if (attempt && attempt.catch) attempt.catch(() => {});
+      };
+
+      heroVideo.addEventListener("playing", () => heroVideo.classList.add("is-playing"));
+      heroVideo.addEventListener("error", () => heroVideo.classList.remove("is-playing"));
+
+      heroVideo.src = src;
+      play();
+
+      // iOS and some Android browsers hold autoplay until the first gesture.
+      document.addEventListener("touchstart", play, { once: true, passive: true });
+      document.addEventListener("visibilitychange", () => {
+        if (!document.hidden) play();
+      });
+
+      if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) play();
+              else heroVideo.pause();
+            });
+          },
+          { threshold: 0.05 }
+        );
+        io.observe(heroVideo);
+      }
+    }
   }
-
-  function startCarousel() {
-    clearInterval(carTimer);
-    if (reduceMotion || slides.length === 0) return;
-    carTimer = setInterval(() => {
-      slide = (slide + 1) % slides.length;
-      renderSlide();
-    }, 6000);
-  }
-
-  function goTo(i) {
-    slide = i;
-    renderSlide();
-    startCarousel();
-  }
-
-  if (prevBtn) {
-    prevBtn.addEventListener("click", () => goTo((slide + slides.length - 1) % slides.length));
-  }
-  if (nextBtn) {
-    nextBtn.addEventListener("click", () => goTo((slide + 1) % slides.length));
-  }
-  dots.forEach((dot, i) => {
-    dot.addEventListener("click", () => goTo(i));
-  });
-
-  renderSlide();
-  startCarousel();
 
   /* ========== AUDIO ========== */
   const audioBtn = document.getElementById("audio-btn");

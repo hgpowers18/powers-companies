@@ -8,14 +8,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="{{ site.hero.video.poster }}" fetchpriority="high">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="page">
 
-    <nav class="nav" aria-label="Primary">
+    <nav class="nav is-over-hero" aria-label="Primary">
       <a href="#top" class="nav__logo">
-        <img src="{{ site.nav.logo }}" alt="{{ site.nav.logo_alt }}" width="560" height="181">
+        <img class="nav__logo-img nav__logo-img--dark" src="{{ site.nav.logo_dark }}" alt="{{ site.nav.logo_alt }}" width="560" height="181">
+        <img class="nav__logo-img nav__logo-img--light" src="{{ site.nav.logo_light }}" alt="" width="560" height="181" aria-hidden="true">
       </a>
       <div class="nav__links">
         {%- for link in site.nav.links %}
@@ -45,39 +47,35 @@
     <main id="top">
 
       <section class="hero" aria-label="Hero">
+        <div class="hero__media" aria-hidden="true">
+          <img class="hero__poster" src="{{ site.hero.video.poster }}" alt="" width="1920" height="1080" fetchpriority="high">
+          <video
+            id="hero-video"
+            class="hero__video"
+            data-src="{{ site.hero.video.desktop }}"
+            data-src-mobile="{{ site.hero.video.mobile }}"
+            preload="none"
+            autoplay
+            muted
+            loop
+            playsinline
+            webkit-playsinline="true"
+            disableremoteplayback
+            disablepictureinpicture
+            tabindex="-1"
+          ></video>
+          <div class="hero__scrim"></div>
+        </div>
+
         <div class="hero__inner">
-          <div class="hero__grid">
-            <div class="hero__copy">
-              <div class="eyebrow hero__eyebrow">{{ site.hero.eyebrow }}</div>
-              <h1 class="hero__title">{{ site.hero.title_lead }} <em>{{ site.hero.title_emphasis }}</em></h1>
-              <p class="hero__body">{{ site.hero.body }}</p>
-              <button id="audio-btn" class="audio-btn" type="button" aria-pressed="false" data-audio-src="{{ site.hero.audio.file }}" data-play-label="{{ site.hero.audio.play_label }}" data-pause-label="{{ site.hero.audio.pause_label }}">
-                <span id="audio-icon" class="audio-btn__badge" aria-hidden="true">▶</span>
-                <span id="audio-label" class="audio-btn__label">{{ site.hero.audio.play_label }}</span>
-              </button>
-            </div>
-
-            <div class="carousel">
-              <div class="carousel__frame" aria-roledescription="carousel" aria-label="Project photography">
-                {%- for slide in site.hero.carousel %}
-                <img class="carousel__img{% if loop.first %} is-active{% endif %}" src="{{ slide.image }}" alt="{{ slide.alt }}"{% if loop.first %} fetchpriority="high"{% else %} loading="lazy"{% endif %}>
-                {%- endfor %}
-
-                <div class="carousel__scrim" aria-hidden="true"></div>
-
-                <button id="carousel-prev" class="carousel__arrow carousel__arrow--prev" type="button" aria-label="Previous image">‹</button>
-                <button id="carousel-next" class="carousel__arrow carousel__arrow--next" type="button" aria-label="Next image">›</button>
-
-                <div class="carousel__dots">
-                  <div class="carousel__dots-row" role="tablist" aria-label="Carousel slides">
-                    {%- for slide in site.hero.carousel %}
-                    <button class="carousel__dot{% if loop.first %} is-active{% endif %}" type="button" aria-label="Image {{ loop.index }}"{% if loop.first %} aria-current="true"{% endif %}></button>
-                    {%- endfor %}
-                  </div>
-                </div>
-              </div>
-              <div class="carousel__accent" aria-hidden="true"></div>
-            </div>
+          <div class="hero__copy">
+            <div class="eyebrow hero__eyebrow">{{ site.hero.eyebrow }}</div>
+            <h1 class="hero__title">{{ site.hero.title_lead }} <em>{{ site.hero.title_emphasis }}</em></h1>
+            <p class="hero__body">{{ site.hero.body }}</p>
+            <button id="audio-btn" class="audio-btn" type="button" aria-pressed="false" data-audio-src="{{ site.hero.audio.file }}" data-play-label="{{ site.hero.audio.play_label }}" data-pause-label="{{ site.hero.audio.pause_label }}">
+              <span id="audio-icon" class="audio-btn__badge" aria-hidden="true">▶</span>
+              <span id="audio-label" class="audio-btn__label">{{ site.hero.audio.play_label }}</span>
+            </button>
           </div>
 
           <div class="stats">

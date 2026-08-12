@@ -50,10 +50,11 @@ section[id] {
   justify-content: space-between;
   padding: 0 clamp(20px, 4vw, 56px);
   height: 78px;
-  background: rgba(243, 239, 230, 0.86);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  /* Opaque: a translucent bar turns muddy over the dark sections and smears
+     blurred ghosts of the copy passing beneath it. */
+  background: #f3efe6;
   border-bottom: 1px solid #e0d8c7;
+  transition: background 320ms ease, border-color 320ms ease;
 }
 
 .nav__logo {
@@ -62,10 +63,53 @@ section[id] {
   cursor: pointer;
 }
 
-.nav__logo img {
+.nav__logo-img {
   height: 38px;
   width: auto;
   display: block;
+}
+
+.nav__logo-img--light {
+  display: none;
+}
+
+/* Over the hero video the bar keeps a dark frosted matte, so hero copy
+   scrolling underneath reads as passing behind glass instead of colliding. */
+.nav.is-over-hero {
+  background: rgba(18, 16, 13, 0.52);
+  backdrop-filter: blur(16px) saturate(1.15);
+  -webkit-backdrop-filter: blur(16px) saturate(1.15);
+  border-bottom-color: rgba(243, 239, 230, 0.14);
+}
+
+.nav.is-over-hero .nav__logo-img--dark {
+  display: none;
+}
+
+.nav.is-over-hero .nav__logo-img--light {
+  display: block;
+}
+
+.nav.is-over-hero .nav__link {
+  color: rgba(243, 239, 230, 0.88);
+}
+
+.nav.is-over-hero .nav__link:hover {
+  color: #dcb771;
+}
+
+.nav.is-over-hero .nav__cta {
+  background: #f3efe6;
+  color: #1c1a17;
+}
+
+.nav.is-over-hero .nav__cta:hover {
+  background: #c19a4f;
+}
+
+.nav.is-over-hero .nav__burger {
+  border-color: rgba(243, 239, 230, 0.55);
+  color: #f3efe6;
 }
 
 .nav__links {
@@ -118,11 +162,16 @@ section[id] {
   padding: 0;
 }
 
+/* Fixed so opening the menu never shifts the hero out from under the nav. */
 .mobile-menu {
   display: none;
-  position: sticky;
+  position: fixed;
   top: 78px;
+  left: 0;
+  right: 0;
   z-index: 99;
+  max-height: calc(100svh - 78px);
+  overflow-y: auto;
   background: #f3efe6;
   border-bottom: 1px solid #e0d8c7;
   padding: 20px clamp(20px, 4vw, 56px) 26px;
@@ -159,23 +208,73 @@ section[id] {
 
 /* ========== HERO ========== */
 .hero {
-  padding: clamp(48px, 7vw, 96px) clamp(20px, 4vw, 56px) clamp(40px, 5vw, 72px);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #14120f;
+  /* Slide up under the sticky nav so the video runs edge to edge. */
+  margin-top: -78px;
+  /* Vertical rhythm keys off viewport height so the stats bar stays above the
+     fold on short laptop screens as well as tall desktops. */
+  padding: calc(78px + clamp(24px, 6vh, 80px)) clamp(20px, 4vw, 56px) clamp(20px, 3vh, 52px);
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+}
+
+.hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero__poster,
+.hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* The poster carries the hero until the video is actually painting frames,
+   and stays put if the video is skipped or fails. */
+.hero__video {
+  opacity: 0;
+  transition: opacity 900ms ease;
+}
+
+.hero__video.is-playing {
+  opacity: 1;
+}
+
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(18, 16, 13, 0.68) 0%, rgba(18, 16, 13, 0.34) 38%, rgba(18, 16, 13, 0.82) 100%),
+    radial-gradient(ellipse 120% 85% at 28% 42%, rgba(18, 16, 13, 0.1) 0%, rgba(18, 16, 13, 0.55) 100%);
 }
 
 .hero__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
   max-width: 1320px;
   margin: 0 auto;
-}
-
-.hero__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(390px, 1fr));
-  gap: clamp(32px, 5vw, 72px);
-  align-items: stretch;
+  grid-template-rows: 1fr auto;
+  gap: clamp(24px, 4vh, 64px);
 }
 
 .hero__copy {
   min-width: 0;
+  max-width: 900px;
+  align-self: center;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -190,17 +289,19 @@ section[id] {
 }
 
 .hero__eyebrow {
-  margin-bottom: 30px;
+  margin-bottom: clamp(16px, 2.6vh, 28px);
+  color: #dcb771;
 }
 
 .hero__title {
   font-family: "DM Sans", sans-serif;
   font-weight: 400;
-  font-size: clamp(34px, 4.2vw, 60px);
+  font-size: clamp(36px, min(5.2vw, 8vh), 72px);
   line-height: 1.04;
   letter-spacing: -0.02em;
-  margin: 0 0 28px;
-  color: #1c1a17;
+  margin: 0 0 clamp(18px, 2.6vh, 26px);
+  color: #f7f4ec;
+  text-shadow: 0 1px 30px rgba(18, 16, 13, 0.45);
   text-wrap: balance;
   width: 100%;
   max-width: 100%;
@@ -208,15 +309,15 @@ section[id] {
 
 .hero__title em {
   font-style: italic;
-  color: #c19a4f;
+  color: #dcb771;
 }
 
 .hero__body {
-  font-size: 17px;
+  font-size: clamp(17px, 1.4vw, 19px);
   line-height: 1.6;
-  color: #5e584d;
-  max-width: 520px;
-  margin: 0 0 28px;
+  color: rgba(243, 239, 230, 0.84);
+  max-width: 560px;
+  margin: 0 0 clamp(20px, 3.4vh, 32px);
 }
 
 .audio-btn {
@@ -239,6 +340,21 @@ section[id] {
   color: #1c1a17;
 }
 
+.hero .audio-btn {
+  background: rgba(243, 239, 230, 0.12);
+  border: 1px solid rgba(243, 239, 230, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #f3efe6;
+  transition: background 220ms ease, border-color 220ms ease, color 220ms ease;
+}
+
+.hero .audio-btn:hover {
+  background: #c19a4f;
+  border-color: #c19a4f;
+  color: #1c1a17;
+}
+
 .audio-btn__badge {
   display: inline-flex;
   align-items: center;
@@ -256,127 +372,21 @@ section[id] {
   font-size: 16px;
 }
 
-.carousel {
-  position: relative;
-  display: flex;
-  min-height: 100%;
-}
-
-.carousel__frame {
-  position: relative;
-  flex: 1;
-  width: 100%;
-  overflow: hidden;
-  background: #e7e0d0;
-}
-
-.carousel__img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 1400ms cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: opacity;
-  backface-visibility: hidden;
-}
-
-.carousel__img.is-active {
-  opacity: 1;
-}
-
-.carousel__scrim {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(20, 18, 15, 0.45) 0%, rgba(20, 18, 15, 0) 45%);
-  pointer-events: none;
-}
-
-.carousel__arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 42px;
-  height: 42px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(243, 239, 230, 0.88);
-  color: #1c1a17;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-  padding: 0;
-}
-
-.carousel__arrow--prev {
-  left: 14px;
-}
-
-.carousel__arrow--next {
-  right: 14px;
-}
-
-.carousel__arrow:hover {
-  background: #c19a4f;
-}
-
-.carousel__dots {
-  position: absolute;
-  left: 20px;
-  right: 20px;
-  bottom: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.carousel__dots-row {
-  display: flex;
-  gap: 8px;
-}
-
-.carousel__dot {
-  width: 26px;
-  height: 4px;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  background: rgba(243, 239, 230, 0.45);
-}
-
-.carousel__dot.is-active {
-  background: #c19a4f;
-}
-
-.carousel__accent {
-  position: absolute;
-  top: -1px;
-  right: -1px;
-  width: 64px;
-  height: 64px;
-  border-top: 2px solid #c19a4f;
-  border-right: 2px solid #c19a4f;
-  pointer-events: none;
-}
-
 /* ========== STATS ========== */
 .stats {
-  margin-top: clamp(48px, 6vw, 84px);
-  border-top: 1px solid #ddd5c2;
+  align-self: end;
+  border-top: 1px solid rgba(243, 239, 230, 0.22);
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
 }
 
 .stats__cell {
-  padding: 28px;
-  border-right: 1px solid #ddd5c2;
+  padding: clamp(14px, 2vh, 26px) 28px;
+  border-right: 1px solid rgba(243, 239, 230, 0.22);
 }
 
 .stats__cell:first-child {
-  padding: 28px 28px 28px 0;
+  padding-left: 0;
 }
 
 .stats__cell:last-child {
@@ -385,13 +395,13 @@ section[id] {
 
 .stats__value {
   font-family: "DM Sans", sans-serif;
-  font-size: clamp(34px, 4vw, 52px);
+  font-size: clamp(28px, min(3.4vw, 5.6vh), 50px);
   line-height: 1;
-  color: #1c1a17;
+  color: #f7f4ec;
 }
 
 .stats__value span {
-  color: #c19a4f;
+  color: #dcb771;
 }
 
 .stats__label {
@@ -399,7 +409,7 @@ section[id] {
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #938974;
+  color: rgba(243, 239, 230, 0.62);
   margin-top: 10px;
 }
 
@@ -940,27 +950,54 @@ section[id] {
     display: inline-flex !important;
   }
 
-  .hero__grid {
-    grid-template-columns: 1fr !important;
-    gap: 32px !important;
+  .hero {
+    padding-top: calc(78px + 28px);
+    padding-bottom: 20px;
   }
 
-  .carousel {
-    min-height: 0 !important;
+  .hero__inner {
+    gap: 24px;
   }
 
-  .carousel__frame {
-    aspect-ratio: 4 / 3;
+  .hero__eyebrow {
+    margin-bottom: 18px;
   }
 
+  .hero__title {
+    font-size: clamp(30px, 7.6vw, 44px);
+    margin-bottom: 18px;
+  }
+
+  .hero__body {
+    font-size: 16.5px;
+    margin-bottom: 24px;
+  }
+
+  /* One tight row on phones — a stacked bar would push the stats off screen. */
   .stats {
-    grid-template-columns: 1fr 1fr !important;
+    grid-template-columns: repeat(3, 1fr) !important;
   }
 
   .stats__cell {
-    padding: 22px 18px !important;
-    border-right: none !important;
-    border-top: 1px solid #ddd5c2;
+    padding: 14px 12px !important;
+  }
+
+  .stats__cell:first-child {
+    padding-left: 0 !important;
+  }
+
+  .stats__cell:last-child {
+    padding-right: 0 !important;
+  }
+
+  .stats__value {
+    font-size: clamp(22px, 6.4vw, 30px);
+  }
+
+  .stats__label {
+    font-size: 9.5px;
+    letter-spacing: 0.1em;
+    margin-top: 7px;
   }
 
   .division__grid {
@@ -1024,13 +1061,46 @@ section[id] {
 }
 
 @media (max-width: 520px) {
-  .stats {
-    grid-template-columns: 1fr !important;
-  }
-
   .footer__bottom {
     flex-direction: column;
     align-items: flex-start !important;
+  }
+}
+
+/* Short landscape phones: shrink the hero to its content rather than forcing a
+   full viewport it can't fill comfortably. */
+@media (max-height: 560px) and (orientation: landscape) {
+  .hero {
+    min-height: 0;
+    padding-top: calc(78px + 14px);
+  }
+
+  .hero__inner {
+    gap: 14px;
+  }
+
+  .hero__eyebrow {
+    margin-bottom: 12px;
+  }
+
+  .hero__title {
+    font-size: clamp(24px, 4vw, 36px);
+    margin-bottom: 12px;
+  }
+
+  .hero__body {
+    font-size: 15.5px;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .hero .audio-btn {
+    padding: 12px 24px;
+  }
+
+  .stats__cell {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
   }
 }
 
@@ -1039,7 +1109,7 @@ section[id] {
     scroll-behavior: auto;
   }
 
-  .carousel__img {
-    transition: none;
+  .hero__video {
+    display: none;
   }
 }

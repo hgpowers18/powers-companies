@@ -48,10 +48,16 @@ singletons:
         collapsed: true
         fields:
           - {
-              name: logo,
-              label: Logo,
+              name: logo_dark,
+              label: Logo (dark),
               widget: image,
-              hint: Use the dark-text version. The header sits on a light background.,
+              hint: "Shown once the page is scrolled, over a light background.",
+            }
+          - {
+              name: logo_light,
+              label: Logo (white),
+              widget: image,
+              hint: "Shown while the header sits over the hero video.",
             }
           - { name: logo_alt, label: Logo alt text, widget: string }
           - name: links
@@ -88,6 +94,23 @@ singletons:
               hint: Shown in gold italic at the end of the headline.,
             }
           - { name: body, label: Intro paragraph, widget: text }
+          - name: video
+            label: Background video
+            widget: object
+            fields:
+              - {
+                  name: poster,
+                  label: Still image,
+                  widget: image,
+                  hint: "Shown while the video loads, and instead of it on slow connections.",
+                }
+              - { name: desktop, label: Video, widget: file }
+              - {
+                  name: mobile,
+                  label: Video (mobile),
+                  widget: file,
+                  hint: "A smaller version used on phones to save data.",
+                }
           - name: audio
             label: "“Hear our story” audio"
             widget: object
@@ -95,21 +118,6 @@ singletons:
               - { name: file, label: Audio file, widget: file }
               - { name: play_label, label: Button label, widget: string }
               - { name: pause_label, label: Button label while playing, widget: string }
-          - name: carousel
-            label: Photo carousel
-            widget: list
-            label_singular: photo
-            collapsed: true
-            summary: "{{fields.alt}}"
-            thumbnail: image
-            fields:
-              - { name: image, label: Photo, widget: image }
-              - {
-                  name: alt,
-                  label: Description for screen readers,
-                  widget: string,
-                  hint: Describe what is in the photo.,
-                }
 
       - name: stats
         label: Numbers strip

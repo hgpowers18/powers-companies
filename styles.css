@@ -50,14 +50,15 @@ section[id] {
   justify-content: space-between;
   padding: 0 clamp(20px, 4vw, 56px);
   height: 78px;
-  /* Opaque: a translucent bar turns muddy over the dark sections and smears
-     blurred ghosts of the copy passing beneath it. */
-  background: #f3efe6;
+  background: rgba(243, 239, 230, 0.86);
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
   border-bottom: 1px solid #e0d8c7;
   transition: background 320ms ease, border-color 320ms ease;
 }
 
 .nav__logo {
+  position: relative;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -67,47 +68,51 @@ section[id] {
   height: 38px;
   width: auto;
   display: block;
+  transition: opacity 320ms ease;
 }
 
+/* Both marks are stacked so the swap crossfades with the bar's tint. */
 .nav__logo-img--light {
-  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
 }
 
-/* Over the hero video the bar keeps a dark frosted matte, so hero copy
-   scrolling underneath reads as passing behind glass instead of colliding. */
-.nav.is-over-hero {
-  background: rgba(18, 16, 13, 0.52);
-  backdrop-filter: blur(16px) saturate(1.15);
-  -webkit-backdrop-filter: blur(16px) saturate(1.15);
+/* Frosted glass takes the tone of what it sits over: cream on the light
+   sections, dark over the hero video and the dark bands. A cream tint over
+   those dark sections would only ever blend down to a muddy grey. */
+.nav.is-dark {
+  background: rgba(18, 16, 13, 0.55);
   border-bottom-color: rgba(243, 239, 230, 0.14);
 }
 
-.nav.is-over-hero .nav__logo-img--dark {
-  display: none;
+.nav.is-dark .nav__logo-img--dark {
+  opacity: 0;
 }
 
-.nav.is-over-hero .nav__logo-img--light {
-  display: block;
+.nav.is-dark .nav__logo-img--light {
+  opacity: 1;
 }
 
-.nav.is-over-hero .nav__link {
+.nav.is-dark .nav__link {
   color: rgba(243, 239, 230, 0.88);
 }
 
-.nav.is-over-hero .nav__link:hover {
+.nav.is-dark .nav__link:hover {
   color: #dcb771;
 }
 
-.nav.is-over-hero .nav__cta {
+.nav.is-dark .nav__cta {
   background: #f3efe6;
   color: #1c1a17;
 }
 
-.nav.is-over-hero .nav__cta:hover {
+.nav.is-dark .nav__cta:hover {
   background: #c19a4f;
 }
 
-.nav.is-over-hero .nav__burger {
+.nav.is-dark .nav__burger {
   border-color: rgba(243, 239, 230, 0.55);
   color: #f3efe6;
 }
@@ -124,6 +129,7 @@ section[id] {
   letter-spacing: 0.01em;
   color: #3b362c;
   cursor: pointer;
+  transition: color 320ms ease;
 }
 
 .nav__link:hover {
@@ -141,6 +147,7 @@ section[id] {
   font-weight: 600;
   letter-spacing: 0.03em;
   cursor: pointer;
+  transition: background 320ms ease, color 320ms ease;
 }
 
 .nav__cta:hover {
@@ -160,6 +167,7 @@ section[id] {
   font-size: 20px;
   cursor: pointer;
   padding: 0;
+  transition: border-color 320ms ease, color 320ms ease;
 }
 
 /* Fixed so opening the menu never shifts the hero out from under the nav. */

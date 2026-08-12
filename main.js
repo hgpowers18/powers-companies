@@ -4,7 +4,6 @@
   const menuIcon = document.getElementById("menu-icon");
   const yearEl = document.getElementById("year");
   const nav = document.querySelector(".nav");
-  const hero = document.querySelector(".hero");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   if (yearEl) {
@@ -21,15 +20,35 @@
     syncNav();
   }
 
-  /* ========== NAV OVER HERO ========== */
+  /* ========== NAV TINT ========== */
+  // The bar is frosted glass, so it has to take the tone of whatever band is
+  // behind it — cream over the light sections, dark over the video and the
+  // dark ones. Sections opt in with data-nav="dark".
+  const darkBands = Array.from(document.querySelectorAll('[data-nav="dark"]'));
+
   function syncNav() {
-    if (!nav || !hero) return;
-    const threshold = hero.offsetHeight - nav.offsetHeight - 8;
-    nav.classList.toggle("is-over-hero", !menuOpen && window.scrollY < threshold);
+    if (!nav) return;
+    const probe = nav.offsetHeight / 2;
+    const overDark = darkBands.some((band) => {
+      const rect = band.getBoundingClientRect();
+      return rect.top <= probe && rect.bottom > probe;
+    });
+    nav.classList.toggle("is-dark", overDark && !menuOpen);
   }
 
-  window.addEventListener("scroll", syncNav, { passive: true });
-  window.addEventListener("resize", syncNav);
+  let navQueued = false;
+
+  function queueSyncNav() {
+    if (navQueued) return;
+    navQueued = true;
+    requestAnimationFrame(() => {
+      navQueued = false;
+      syncNav();
+    });
+  }
+
+  window.addEventListener("scroll", queueSyncNav, { passive: true });
+  window.addEventListener("resize", queueSyncNav);
   syncNav();
 
   if (menuBtn) {

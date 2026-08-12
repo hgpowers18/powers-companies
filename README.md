@@ -210,9 +210,13 @@ Upload it as **Video (mobile)** in the admin.
 
 All of these are now editable at `/admin`; they just need real values.
 
-- Developments section still shows placeholder copy, and no developments are listed yet
-- "Four divisions. One standard." should become two divisions
 - LinkedIn and Facebook links still point at `#`
+- The ten communities listed under Developments were taken from
+  powerscompanies.com, which contradicts itself on which of them are still
+  selling — the menu there marks nine as sold out while some of the pages
+  behind it still say "Now Selling" or "Only 3 Villas remain". Every entry here
+  follows the menu; correct any that are wrong under **Developments** in the
+  admin.
 
 The contact form needs the three Resend variables above set in Vercel before it can deliver
 anything, and an address to deliver to.

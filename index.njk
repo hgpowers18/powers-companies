@@ -144,7 +144,7 @@
       </section>
       {%- for division in site.divisions %}
 
-      <section id="{{ division.id }}" class="division" aria-label="{{ division.aria_label }}">
+      <section id="{{ division.id }}" class="division{% if division.show_developments_list %} division--listed{% endif %}" aria-label="{{ division.aria_label }}">
         <div class="division__grid">
           <div class="division__media">
             <img src="{{ division.image }}" alt="{{ division.image_alt }}" loading="lazy">
@@ -171,6 +171,9 @@
               </li>
               {%- endfor %}
             </ul>
+            {%- if division.list_note %}
+            <p class="division__list-note">{{ division.list_note }}</p>
+            {%- endif %}
             {%- endif %}
             <div class="division__features">
               {%- for feature in division.features %}

@@ -567,6 +567,14 @@ section[id] {
   background: #e7e0d0;
 }
 
+/* The listed division runs long, which would otherwise leave its photo adrift
+   in an empty column. Pinning it below the nav keeps it beside the list. */
+.division--listed .division__media {
+  position: sticky;
+  top: 102px;
+  align-self: start;
+}
+
 .division__media img {
   position: absolute;
   inset: 0;
@@ -644,6 +652,16 @@ section[id] {
 
 .division__list-body p:last-child {
   margin-bottom: 0;
+}
+
+/* The roll of earlier communities: long, so it sits back from the list above
+   it and reads as a footnote rather than another paragraph of the pitch. */
+.division__list-note {
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: #8a7f6a;
+  margin: -8px 0 26px;
+  max-width: 520px;
 }
 
 .division__features {
@@ -1112,6 +1130,11 @@ section[id] {
   .division__grid {
     grid-template-columns: 1fr !important;
     gap: 28px !important;
+  }
+
+  /* Stacked, a pinned photo would sit on top of the list it belongs beside. */
+  .division--listed .division__media {
+    position: static !important;
   }
 
   .division__features {

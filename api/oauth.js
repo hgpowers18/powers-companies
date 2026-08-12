@@ -26,6 +26,14 @@ const CSRF_COOKIE = "csrf-token";
 const escapeRegExp = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 /**
+ * GitHub client IDs are ~20 characters with no spaces. A username or a
+ * placeholder here would otherwise redirect to a bare GitHub 404, so catch the
+ * obvious cases and say what is wrong instead. Deliberately permissive: only
+ * values that cannot be a client ID are rejected.
+ */
+const looksLikeClientId = (id) => id.length >= 12 && !/\s/.test(id);
+
+/**
  * Respond with the page that hands the result back to the CMS window that
  * opened this one. The message format is what Sveltia and Decap listen for.
  */
@@ -68,6 +76,16 @@ const startAuth = (request, url) => {
   if (!GITHUB_CLIENT_ID || !GITHUB_CLIENT_SECRET) {
     return outputHTML({
       error: "OAuth app client ID or secret is not configured.",
+      errorCode: "MISCONFIGURED_CLIENT",
+    });
+  }
+
+  if (!looksLikeClientId(GITHUB_CLIENT_ID)) {
+    return outputHTML({
+      error:
+        "GITHUB_CLIENT_ID is not an OAuth app client ID. Register an app at " +
+        "github.com/settings/developers and copy its Client ID, which is about " +
+        "20 characters. It is not your GitHub username or password.",
       errorCode: "MISCONFIGURED_CLIENT",
     });
   }

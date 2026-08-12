@@ -73,7 +73,15 @@
             <h1 class="hero__title">{{ site.hero.title_lead }} <em>{{ site.hero.title_emphasis }}</em></h1>
             <p class="hero__body">{{ site.hero.body }}</p>
             <button id="audio-btn" class="audio-btn" type="button" aria-pressed="false" data-audio-src="{{ site.hero.audio.file }}" data-play-label="{{ site.hero.audio.play_label }}" data-pause-label="{{ site.hero.audio.pause_label }}">
-              <span id="audio-icon" class="audio-btn__badge" aria-hidden="true">▶</span>
+              <span class="audio-btn__badge" aria-hidden="true">
+                <svg class="audio-btn__icon audio-btn__icon--play" viewBox="0 0 14 14" focusable="false">
+                  <path d="M4 2.4 11 7l-7 4.6Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"></path>
+                </svg>
+                <svg class="audio-btn__icon audio-btn__icon--pause" viewBox="0 0 14 14" focusable="false">
+                  <rect x="3.2" y="2.2" width="2.9" height="9.6" rx="1.1" fill="currentColor"></rect>
+                  <rect x="7.9" y="2.2" width="2.9" height="9.6" rx="1.1" fill="currentColor"></rect>
+                </svg>
+              </span>
               <span id="audio-label" class="audio-btn__label">{{ site.hero.audio.play_label }}</span>
             </button>
           </div>

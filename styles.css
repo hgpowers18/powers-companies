@@ -380,8 +380,39 @@ section[id] {
   border-radius: 50%;
   background: #c19a4f;
   color: #1c1a17;
-  font-size: 10px;
   flex-shrink: 0;
+  transition: background 220ms ease, color 220ms ease;
+}
+
+/* Hover fills the button with the same gold as the badge, so invert the badge
+   to keep the circle from disappearing into it. */
+.audio-btn:hover .audio-btn__badge {
+  background: #1c1a17;
+  color: #c19a4f;
+}
+
+/* Drawn rather than typed: ▶ and ❚❚ get substituted with colour emoji on iOS. */
+.audio-btn__icon {
+  width: 11px;
+  height: 11px;
+  display: block;
+}
+
+/* A triangle reads as off-centre when its bounding box is centred. */
+.audio-btn__icon--play {
+  margin-left: 1px;
+}
+
+.audio-btn__icon--pause {
+  display: none;
+}
+
+.audio-btn.is-playing .audio-btn__icon--play {
+  display: none;
+}
+
+.audio-btn.is-playing .audio-btn__icon--pause {
+  display: block;
 }
 
 .audio-btn__label {

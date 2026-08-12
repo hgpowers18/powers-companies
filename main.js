@@ -135,7 +135,6 @@
 
   /* ========== AUDIO ========== */
   const audioBtn = document.getElementById("audio-btn");
-  const audioIcon = document.getElementById("audio-icon");
   const audioLabel = document.getElementById("audio-label");
 
   // The track and its labels are editable in the CMS, so read them off the
@@ -171,9 +170,12 @@
   audio.addEventListener("pause", () => setPlaying(false));
 
   function setPlaying(playing) {
-    if (audioIcon) audioIcon.textContent = playing ? "❚❚" : "▶";
     if (audioLabel) audioLabel.textContent = playing ? pauseLabel : playLabel;
-    if (audioBtn) audioBtn.setAttribute("aria-pressed", playing ? "true" : "false");
+
+    if (audioBtn) {
+      audioBtn.setAttribute("aria-pressed", playing ? "true" : "false");
+      audioBtn.classList.toggle("is-playing", playing);
+    }
   }
 
   if (audioBtn) {

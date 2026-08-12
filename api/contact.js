@@ -220,10 +220,6 @@ export default {
     // it has nothing to learn from, but nothing is sent.
     if (String(fields[HONEYPOT] ?? "").trim()) return succeed();
 
-    const ip = (request.headers.get("x-forwarded-for") ?? "").split(",")[0].trim();
-
-    if (ip && rateLimited(ip)) return fail(429, "rate_limited");
-
     const { submission, errors } = validate(fields);
 
     if (Object.keys(errors).length) {
@@ -236,6 +232,12 @@ export default {
               "reply to.",
           );
     }
+
+    // Counted here rather than on arrival, so someone mistyping their email a
+    // few times is not locked out.
+    const ip = (request.headers.get("x-forwarded-for") ?? "").split(",")[0].trim();
+
+    if (ip && rateLimited(ip)) return fail(429, "rate_limited");
 
     return (await sendEmail(submission)) ? succeed() : fail(502, "send_failed");
   },

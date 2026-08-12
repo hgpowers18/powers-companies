@@ -567,14 +567,6 @@ section[id] {
   background: #e7e0d0;
 }
 
-/* The listed division runs long, which would otherwise leave its photo adrift
-   in an empty column. Pinning it below the nav keeps it beside the list. */
-.division--listed .division__media {
-  position: sticky;
-  top: 102px;
-  align-self: start;
-}
-
 .division__media img {
   position: absolute;
   inset: 0;
@@ -611,59 +603,6 @@ section[id] {
   max-width: 520px;
 }
 
-.division__list {
-  list-style: none;
-  margin: 0 0 26px;
-  padding: 0;
-  border-top: 1px solid #ddd5c2;
-  max-width: 520px;
-}
-
-.division__list-item {
-  padding: 18px 0;
-  border-bottom: 1px solid #ddd5c2;
-}
-
-.division__list-name {
-  font-family: "DM Sans", sans-serif;
-  font-size: 18px;
-  color: #1c1a17;
-}
-
-.division__list-meta {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #8a7f6a;
-  margin-top: 6px;
-}
-
-.division__list-body {
-  font-size: 14.5px;
-  line-height: 1.6;
-  color: #5e584d;
-  margin-top: 10px;
-}
-
-.division__list-body p {
-  margin: 0 0 8px;
-}
-
-.division__list-body p:last-child {
-  margin-bottom: 0;
-}
-
-/* The roll of earlier communities: long, so it sits back from the list above
-   it and reads as a footnote rather than another paragraph of the pitch. */
-.division__list-note {
-  font-size: 13.5px;
-  line-height: 1.7;
-  color: #8a7f6a;
-  margin: -8px 0 26px;
-  max-width: 520px;
-}
-
 .division__features {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -683,6 +622,163 @@ section[id] {
   font-size: 14.5px;
   line-height: 1.55;
   color: #5e584d;
+}
+
+/* ========== COMMUNITIES RAIL ========== */
+/* Too many communities to read as a column, so they run sideways: swipe on a
+   phone, arrows or a trackpad on a desktop, snapping a card at a time. */
+.rail {
+  max-width: 1320px;
+  margin: clamp(40px, 5vw, 64px) auto 0;
+}
+
+.rail__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-top: 1px solid #ddd5c2;
+  padding-top: 20px;
+  margin-bottom: 22px;
+}
+
+.rail__eyebrow {
+  margin: 0;
+}
+
+.rail__arrows {
+  display: flex;
+  gap: 8px;
+}
+
+.rail__arrows[hidden] {
+  display: none;
+}
+
+.rail__arrow {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  background: transparent;
+  border: 1px solid #ddd5c2;
+  color: #1c1a17;
+  cursor: pointer;
+  transition: background 200ms ease, border-color 200ms ease, color 200ms ease;
+}
+
+.rail__arrow svg {
+  width: 16px;
+  height: 16px;
+}
+
+.rail__arrow:hover:not(:disabled) {
+  background: #1c1a17;
+  border-color: #1c1a17;
+  color: #f3efe6;
+}
+
+.rail__arrow:disabled {
+  color: #b3a892;
+  border-color: #e8e1d2;
+  cursor: default;
+}
+
+.rail__track {
+  display: flex;
+  align-items: stretch;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0 0 4px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  /* The arrows and the swipe are the affordance; the bar itself would cut
+     across the bottom of the cards. */
+  scrollbar-width: none;
+}
+
+.rail__track::-webkit-scrollbar {
+  display: none;
+}
+
+.rail__track:focus-visible {
+  outline: 2px solid #c19a4f;
+  outline-offset: 4px;
+}
+
+.community {
+  flex: 0 0 auto;
+  width: clamp(248px, 74vw, 292px);
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 24px 26px;
+  background: #fbf9f3;
+  border: 1px solid #e6dfcf;
+}
+
+.community__status {
+  align-self: flex-start;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 5px 9px;
+  margin-bottom: 18px;
+  background: #c19a4f;
+  color: #1c1a17;
+}
+
+.community--sold .community__status {
+  background: #1c1a17;
+  color: #f3efe6;
+}
+
+.community__name {
+  font-family: "DM Sans", sans-serif;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 0 0 8px;
+  color: #1c1a17;
+}
+
+.community__place {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8a7f6a;
+  margin-bottom: 14px;
+}
+
+.community__body {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #5e584d;
+}
+
+.community__body p {
+  margin: 0 0 8px;
+}
+
+.community__body p:last-child {
+  margin-bottom: 0;
+}
+
+/* The roll of earlier communities reads as a footnote to the rail, not as
+   another paragraph of the pitch. */
+.rail__note {
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: #8a7f6a;
+  margin: 24px 0 0;
+  max-width: 780px;
 }
 
 /* ========== CONTACT ========== */
@@ -1130,11 +1226,6 @@ section[id] {
   .division__grid {
     grid-template-columns: 1fr !important;
     gap: 28px !important;
-  }
-
-  /* Stacked, a pinned photo would sit on top of the list it belongs beside. */
-  .division--listed .division__media {
-    position: static !important;
   }
 
   .division__features {

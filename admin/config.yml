@@ -210,8 +210,14 @@ singletons:
           - { name: image, label: Photo, widget: image }
           - { name: image_alt, label: Photo description, widget: string }
           - {
+              name: list_eyebrow,
+              label: Heading above the communities,
+              widget: string,
+              required: false,
+            }
+          - {
               name: list_note,
-              label: Note under the list,
+              label: Note under the communities,
               widget: text,
               required: false,
               hint: "Used for the roll of earlier communities. Leave empty to hide it.",
@@ -360,7 +366,9 @@ collections:
           label: Status,
           widget: string,
           required: false,
-          hint: "For example: Now selling, Coming soon, Sold out",
+          hint: "For example: Now selling, Coming soon, Sold out. Anything with
+            the word “sold” in it is stamped dark on the card; everything else
+            is stamped gold.",
         }
       - {
           name: body,

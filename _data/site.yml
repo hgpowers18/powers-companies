@@ -52,23 +52,24 @@ ethos:
     - We build commercial spaces and residential homes that are cutting edge and attractive — and we'll astound you with our creative use of space, style, and design.
 divisions_intro:
   eyebrow: What we build
-  title_line_1: Four divisions.
+  title_line_1: Two divisions.
   title_line_2: One standard.
   body: Everything from a single custom home to a full industrial park — under one roof, with one team accountable end to end.
 divisions:
   - id: homes
     aria_label: Developments
     label: 01 — DEVELOPMENTS
-    title: Developments copy goes here and here
-    body: "THE DEVS WILL GET LISTED HERE: With more than two decades in the new homes business, we've got the expertise to build your dream home across the greater Baltimore area — on schedule and on budget."
+    title: Communities that sell out.
+    body: Three-acre lots backing onto Liberty Reservoir, wooded homesites in Woodstock, waterfront villas in Essex. We buy the land, lay out the homesites and build the homes that go on them — and almost every community we have opened is now sold out.
     image: /uploads/image_f874027c.jpg
     image_alt: Aerial view of a residential development
+    list_note: Before these came Bounty Vista, Brynwood Hills, Camelot, Carroll Pointe, Cokesbury Manor, Collins Estates, Creekside, Diamond Hills, Eagleview Estates, Fields of Sagamore, Forest Oaks, Franklin Station, Glyndon Meadows, Green Meadows, Hammonds Estates, Hawk Ridge Farm, Heritage Hills, Holden Hills, Marks Manor, Marshalee Estates, McDonogh Chase, Piedmont Estates, Piney Meadow, Plains of Paran, Pooledale, Reservoir Woods, Rockburn Township, Roops Mill, Stonemill, Summit Ridge, Sun Valley, The Hills at Valley View, The Meadows, The Village at South Mountain, Washingtonville, West Valley Oaks, Whitehurst, Winands Overlook, Worthington Green and Zabel Farm — built, sold and lived in.
     show_developments_list: true
     features:
       - title: Custom & semi-custom
         body: Bring us your plans or build on ours.
-      - title: Neighborhoods
-        body: We develop the communities, not just the houses.
+      - title: Where we build
+        body: Eldersburg, Sykesville, Manchester, Reisterstown, Woodstock, Essex.
   - id: commercial
     aria_label: Commercial and Office
     label: 02 — COMMERCIAL & OFFICE

@@ -133,6 +133,59 @@
     }
   }
 
+  /* ========== COMMUNITIES RAIL ========== */
+  // The rail scrolls on its own with a swipe or a trackpad; the arrows are for
+  // everyone else, and they take themselves away when every card already fits.
+  const rail = document.querySelector("[data-rail]");
+  const railArrows = document.querySelector("[data-rail-arrows]");
+
+  if (rail && railArrows) {
+    const buttons = Array.from(railArrows.querySelectorAll("[data-rail-dir]"));
+
+    function railStep() {
+      const card = rail.firstElementChild;
+      const gap = parseFloat(getComputedStyle(rail).columnGap) || 0;
+
+      return card ? card.getBoundingClientRect().width + gap : rail.clientWidth;
+    }
+
+    function syncRail() {
+      // A card's width can land on a fraction of a pixel, so the ends need a
+      // little slack or the arrow never re-enables.
+      const end = rail.scrollWidth - rail.clientWidth;
+
+      railArrows.hidden = end <= 1;
+      buttons.forEach((button) => {
+        const forward = Number(button.dataset.railDir) > 0;
+        button.disabled = forward ? rail.scrollLeft >= end - 1 : rail.scrollLeft <= 1;
+      });
+    }
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        rail.scrollBy({
+          left: railStep() * Number(button.dataset.railDir),
+          behavior: reduceMotion ? "auto" : "smooth",
+        });
+      });
+    });
+
+    let railQueued = false;
+
+    function queueSyncRail() {
+      if (railQueued) return;
+      railQueued = true;
+      requestAnimationFrame(() => {
+        railQueued = false;
+        syncRail();
+      });
+    }
+
+    rail.addEventListener("scroll", queueSyncRail, { passive: true });
+    window.addEventListener("resize", queueSyncRail);
+    syncRail();
+  }
+
   /* ========== AUDIO ========== */
   const audioBtn = document.getElementById("audio-btn");
   const audioLabel = document.getElementById("audio-label");

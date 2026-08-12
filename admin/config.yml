@@ -204,6 +204,13 @@ singletons:
           - { name: title_line_2, label: Heading line 2, widget: string }
           - { name: success_title, label: Thank-you heading, widget: string }
           - { name: success_body, label: Thank-you message, widget: text }
+          - {
+              name: error_title,
+              label: Failed-to-send heading,
+              widget: string,
+              hint: "Shown if the message cannot be sent, so leave a phone number in the text below.",
+            }
+          - { name: error_body, label: Failed-to-send message, widget: text }
           - name: labels
             label: Form labels
             widget: object
@@ -214,6 +221,15 @@ singletons:
               - { name: email, label: Email field, widget: string }
               - { name: message, label: Message field, widget: string }
               - { name: submit, label: Submit button, widget: string }
+              - { name: sending, label: Submit button while sending, widget: string }
+          - name: validation
+            label: Messages next to a field
+            widget: object
+            collapsed: true
+            fields:
+              - { name: required, label: Field left empty, widget: string }
+              - { name: invalid, label: Email address not usable, widget: string }
+              - { name: too_long, label: Answer too long, widget: string }
           - { name: photo, label: Photo, widget: image }
           - { name: photo_alt, label: Photo description, widget: string }
           - { name: office_label, label: "“Office” heading", widget: string }

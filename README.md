@@ -26,6 +26,7 @@ index.njk                    the page template
 _data/site.yml               all copy and image paths
 content/developments/*.md    one file per development
 admin/                       the CMS (index.html + config.yml)
+api/                         serverless functions (admin login, contact form)
 styles.css  main.js  uploads/
 ```
 
@@ -67,6 +68,33 @@ Optional variables:
 Once you've confirmed the GitHub button works, change `auth_methods` in `admin/config.yml` from
 `[oauth, token]` to `[oauth]` to retire token sign-in.
 
+## The contact form
+
+`api/contact.js` receives the form in the Contact section and emails it on through
+[Resend](https://resend.com), so there is no mail server to run. The visitor's address becomes the
+Reply-To, so hitting reply in the inbox answers them directly.
+
+Three environment variables in Vercel under Settings → Environment Variables, for Production:
+
+- `RESEND_API_KEY` — an API key from <https://resend.com/api-keys> with send permission
+- `CONTACT_TO` — the inbox that receives submissions. Comma separate for more than one.
+- `CONTACT_FROM` — the address the email is sent from, e.g.
+  `Powers Companies <website@powerscompanies.com>`. Its domain has to be verified with Resend
+  first, under Domains; sending from a gmail.com or similar address will be rejected.
+
+Redeploy after adding them. Until they exist the form tells the visitor it could not send and
+asks them to phone instead, and the reason is in the function's log in Vercel.
+
+Everything the visitor reads — the thank-you, the failure message, the notes beside a field —
+is editable under **Contact section** in the admin. Only the fallback page described below is
+not.
+
+The page posts the form in the background and swaps in the thank-you panel. If scripts are
+blocked the browser posts the form normally instead and the function answers with a plain page
+saying the same thing, so the form still works. Two spam defences are in place: a hidden field
+that only a bot fills in (its submission is quietly dropped) and a per-address cap of five
+submissions in ten minutes.
+
 ## Working locally
 
 ```bash
@@ -74,6 +102,9 @@ npm install
 npm run dev      # http://localhost:8080 with live reload
 npm run build    # writes _site/
 ```
+
+`npm run dev` serves the pages but not `api/`, so the contact form and the admin login only work
+against a deployment or under `npx vercel dev`.
 
 Vercel runs `npm run build` and serves `_site`. Check desktop and ≤860px mobile (burger nav,
 full-height video hero, single-column grids).
@@ -141,7 +172,7 @@ Upload it as **Video (mobile)** in the admin.
   hero scrolls past
 - Full-height hero video with the stats bar across the bottom
 - "Hear our story" audio with localStorage position
-- Contact form success state (client-side only — wire a backend before launch)
+- Contact form success state
 
 ## Still needs client content
 
@@ -151,5 +182,5 @@ All of these are now editable at `/admin`; they just need real values.
 - "Four divisions. One standard." should become two divisions
 - LinkedIn and Facebook links still point at `#`
 
-Still needs code, not content: a form backend, so the contact form emails someone instead of
-only showing a success message.
+The contact form needs the three Resend variables above set in Vercel before it can deliver
+anything, and an address to deliver to.

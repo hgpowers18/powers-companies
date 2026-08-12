@@ -191,12 +191,117 @@
   /* ========== FORM ========== */
   const form = document.getElementById("contact-form");
   const success = document.getElementById("contact-success");
+  const formError = document.getElementById("contact-error");
 
   if (form && success) {
-    form.addEventListener("submit", (e) => {
+    const submitBtn = form.querySelector(".contact__submit");
+    const submitLabel = submitBtn ? submitBtn.textContent : "";
+    const sendingLabel = (submitBtn && submitBtn.dataset.sendingLabel) || "Sending…";
+    const inputs = Array.from(form.querySelectorAll("input, textarea")).filter(
+      (input) => input.name !== "company",
+    );
+
+    // api/contact.js reports a problem with a field as one of these codes, so
+    // the wording stays with the rest of the copy in the CMS.
+    const messages = {
+      required: form.dataset.errorRequired || "Please fill this in.",
+      invalid: form.dataset.errorInvalid || "Please check this.",
+      too_long: form.dataset.errorTooLong || "Please shorten this.",
+    };
+
+    let sending = false;
+
+    function setFieldError(input, code) {
+      const field = input.closest(".field");
+      const message = field && field.querySelector(".field__error");
+
+      if (field) field.classList.toggle("field--invalid", !!code);
+      if (message) message.textContent = code ? messages[code] || messages.invalid : "";
+      input.setAttribute("aria-invalid", code ? "true" : "false");
+    }
+
+    function showFieldErrors(errors) {
+      let first = null;
+
+      inputs.forEach((input) => {
+        const code = errors[input.name];
+
+        setFieldError(input, code);
+        if (code && !first) first = input;
+      });
+
+      if (first) first.focus();
+
+      return !!first;
+    }
+
+    /** The same checks the endpoint runs, so a mistake is caught before a round trip. */
+    function validate() {
+      const errors = {};
+
+      inputs.forEach((input) => {
+        if (input.validity.valueMissing) errors[input.name] = "required";
+        else if (input.validity.typeMismatch) errors[input.name] = "invalid";
+      });
+
+      return !showFieldErrors(errors);
+    }
+
+    function setSending(state) {
+      sending = state;
+
+      if (!submitBtn) return;
+      submitBtn.disabled = state;
+      submitBtn.textContent = state ? sendingLabel : submitLabel;
+    }
+
+    function showFormError(show) {
+      if (formError) formError.classList.toggle("is-hidden", !show);
+    }
+
+    inputs.forEach((input) => {
+      input.addEventListener("input", () => setFieldError(input, ""));
+    });
+
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
+
+      if (sending) return;
+
+      showFormError(false);
+
+      if (!validate()) return;
+
+      setSending(true);
+
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify(Object.fromEntries(new FormData(form))),
+        });
+
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok || !result.ok) {
+          // Only fall back to the general message when the endpoint has not
+          // told us which field it objected to.
+          if (!result.fields || !showFieldErrors(result.fields)) showFormError(true);
+          setSending(false);
+
+          return;
+        }
+      } catch {
+        showFormError(true);
+        setSending(false);
+
+        return;
+      }
+
       form.classList.add("is-hidden");
       success.classList.remove("is-hidden");
+      success.setAttribute("tabindex", "-1");
+      success.focus();
     });
   }
 })();

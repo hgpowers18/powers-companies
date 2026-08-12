@@ -136,7 +136,9 @@ Upload it as **Video (mobile)** in the admin.
 ## What matches the design
 
 - Exact colors, type (DM Sans / Hanken Grotesk / JetBrains Mono), spacing, breakpoints
-- Sticky nav + mobile menu — dark frosted matte over the hero video, solid cream past the fold
+- Sticky nav + mobile menu — frosted glass tinted to the band behind it (cream over the
+  light sections, dark over the video and dark bands), thickening from near-clear as the
+  hero scrolls past
 - Full-height hero video with the stats bar across the bottom
 - "Hear our story" audio with localStorage position
 - Contact form success state (client-side only — wire a backend before launch)

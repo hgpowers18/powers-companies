@@ -82,9 +82,17 @@ section[id] {
 /* Frosted glass takes the tone of what it sits over: cream on the light
    sections, dark over the hero video and the dark bands. A cream tint over
    those dark sections would only ever blend down to a muddy grey. */
+.nav.is-ramping {
+  transition: none;
+}
+
+/* Over the hero the glass thickens as you scroll (see --nav-* in main.js), so
+   the video reads cleanly at rest and the copy still passes behind frost. */
 .nav.is-dark {
-  background: rgba(18, 16, 13, 0.55);
-  border-bottom-color: rgba(243, 239, 230, 0.14);
+  background: rgba(18, 16, 13, var(--nav-tint, 0.55));
+  backdrop-filter: blur(var(--nav-blur, 18px)) saturate(1.2);
+  -webkit-backdrop-filter: blur(var(--nav-blur, 18px)) saturate(1.2);
+  border-bottom-color: rgba(243, 239, 230, var(--nav-rule, 0.14));
 }
 
 .nav.is-dark .nav__logo-img--dark {

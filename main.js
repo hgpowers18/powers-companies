@@ -26,6 +26,19 @@
   // dark ones. Sections opt in with data-nav="dark".
   const darkBands = Array.from(document.querySelectorAll('[data-nav="dark"]'));
 
+  // At rest on the hero the glass is nearly clear so the video reads; it
+  // thickens to full frost by the time the stats row has passed under the bar.
+  const heroStats = document.querySelector(".hero .stats");
+  const CLEAR = { tint: 0.12, blur: 3, rule: 0 };
+  const FROSTED = { tint: 0.55, blur: 18, rule: 0.14 };
+
+  function frostProgress() {
+    if (!heroStats || !nav) return 1;
+    const rampEnd = heroStats.getBoundingClientRect().bottom + window.scrollY - nav.offsetHeight;
+    if (rampEnd <= 0) return 1;
+    return Math.min(1, Math.max(0, window.scrollY / rampEnd));
+  }
+
   function syncNav() {
     if (!nav) return;
     const probe = nav.offsetHeight / 2;
@@ -34,6 +47,15 @@
       return rect.top <= probe && rect.bottom > probe;
     });
     nav.classList.toggle("is-dark", overDark && !menuOpen);
+
+    const p = frostProgress();
+    const lerp = (from, to) => from + (to - from) * p;
+    nav.style.setProperty("--nav-tint", lerp(CLEAR.tint, FROSTED.tint).toFixed(3));
+    nav.style.setProperty("--nav-blur", `${lerp(CLEAR.blur, FROSTED.blur).toFixed(1)}px`);
+    nav.style.setProperty("--nav-rule", lerp(CLEAR.rule, FROSTED.rule).toFixed(3));
+    // Mid-ramp the tint has to track the scroll frame for frame; the crossfade
+    // is only wanted when the bar switches bands.
+    nav.classList.toggle("is-ramping", p < 1);
   }
 
   let navQueued = false;

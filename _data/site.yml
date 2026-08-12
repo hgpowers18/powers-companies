@@ -2,6 +2,14 @@ meta:
   lang: en
   title: "Powers Companies — Maryland & Pennsylvania Land Development"
   description: "Powers Companies has been raising the standard of building across Maryland and Pennsylvania for more than four decades. Developments, commercial & office."
+  # Where the site lives. Share previews need whole addresses rather than
+  # /paths, so this is stuck on the front of the image link below.
+  url: https://powers-companies.vercel.app
+  social:
+    title: "Powers Companies: MD & PA Land Development"
+    description: "Four decades of developments, commercial space, and custom homes across Maryland and Pennsylvania."
+    image: /uploads/powers-og-share.png
+    image_alt: Powers Companies
 
 nav:
   # Two logos: the dark one shows over light backgrounds once the nav is

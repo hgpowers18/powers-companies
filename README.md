@@ -27,6 +27,7 @@ _data/site.yml               all copy and image paths
 content/developments/*.md    one file per development
 admin/                       the CMS (index.html + config.yml)
 api/                         serverless functions (admin login, contact form)
+icons/                       favicons, copied to the root of the site
 styles.css  main.js  uploads/
 ```
 
@@ -62,8 +63,9 @@ Optional variables:
 - `ALLOWED_DOMAINS` — restricts which site may use the broker. Defaults to whichever host serves
   the function, so it only needs setting if the admin is served from a different domain.
 
-**Moving to a custom domain** means updating three things together: `base_url` in
-`admin/config.yml`, the OAuth app's callback URL, and `ALLOWED_DOMAINS`.
+**Moving to a custom domain** means updating four things together: `base_url` in
+`admin/config.yml`, the OAuth app's callback URL, `ALLOWED_DOMAINS`, and `meta.url` in
+`_data/site.yml` (see below).
 
 Once you've confirmed the GitHub button works, change `auth_methods` in `admin/config.yml` from
 `[oauth, token]` to `[oauth]` to retire token sign-in.
@@ -108,6 +110,36 @@ against a deployment or under `npx vercel dev`.
 
 Vercel runs `npm run build` and serves `_site`. Check desktop and ≤860px mobile (burger nav,
 full-height video hero, single-column grids).
+
+## Icons and the link preview
+
+The tab icon is a brown tile with the logo's `P` on it, cut from `uploads/powers-logo.png` so the
+letterform matches. Three sizes live in `icons/` and Eleventy copies them to the root of the
+site, which is where browsers look for them:
+
+```
+icons/favicon.ico            16/32/48px, the one browsers ask for by name
+icons/favicon-96.png         sharper tab icon on high-density screens
+icons/apple-touch-icon.png   180px, used when the site is added to a home screen
+```
+
+Texting or posting a link shows a card instead of a bare URL, built from the `og:` and `twitter:`
+tags in `index.njk`. Everything in the card is editable under **Site content → Page title, search
+listing & link previews → Link preview**:
+
+- **Preview title** — the bold line on the card. Messages cuts off long ones, so it is kept
+  shorter than the Google title.
+- **Preview description** — shown by Facebook and LinkedIn; Messages ignores it.
+- **Preview image** — `uploads/powers-og-share.png`, the logo on a dark field at 1200 × 630.
+  Replacements should keep that size or they'll be cropped.
+
+`meta.url` in `_data/site.yml` is the whole address of the live site. It's stuck on the front of
+the image path because previews are fetched by other people's servers, which can't resolve a
+`/path`. A stale value here means no image in the card.
+
+Previews are cached hard by the services that fetch them, so after a change re-scrape with
+[Facebook's debugger](https://developers.facebook.com/tools/debug/) or send the link to yourself
+in a fresh conversation.
 
 ## Hero background video
 

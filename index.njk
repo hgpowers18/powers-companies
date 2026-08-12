@@ -5,10 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ site.meta.title }}</title>
   <meta name="description" content="{{ site.meta.description }}">
+  <link rel="canonical" href="{{ site.meta.url }}/">
+
   <link rel="icon" href="/favicon.ico" sizes="32x32">
   <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <meta name="theme-color" content="#1c1a17">
+
+  {# Messages, Slack and the social networks read these rather than the title
+     above, so the preview card can stay shorter than the Google listing. #}
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Powers Companies">
+  <meta property="og:url" content="{{ site.meta.url }}/">
+  <meta property="og:title" content="{{ site.meta.social.title }}">
+  <meta property="og:description" content="{{ site.meta.social.description }}">
+  <meta property="og:image" content="{{ site.meta.url }}{{ site.meta.social.image }}">
+  <meta property="og:image:alt" content="{{ site.meta.social.image_alt }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ site.meta.social.title }}">
+  <meta name="twitter:description" content="{{ site.meta.social.description }}">
+  <meta name="twitter:image" content="{{ site.meta.url }}{{ site.meta.social.image }}">
+  <meta name="twitter:image:alt" content="{{ site.meta.social.image_alt }}">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

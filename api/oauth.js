@@ -81,12 +81,14 @@ const startAuth = (request, url) => {
   }
 
   if (!looksLikeClientId(GITHUB_CLIENT_ID)) {
+    // A code the CMS does not have its own wording for, so it shows this
+    // message verbatim rather than a generic one.
     return outputHTML({
       error:
         "GITHUB_CLIENT_ID is not an OAuth app client ID. Register an app at " +
         "github.com/settings/developers and copy its Client ID, which is about " +
         "20 characters. It is not your GitHub username or password.",
-      errorCode: "MISCONFIGURED_CLIENT",
+      errorCode: "INVALID_CLIENT_ID",
     });
   }
 

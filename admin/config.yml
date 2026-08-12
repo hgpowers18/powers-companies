@@ -210,6 +210,13 @@ singletons:
           - { name: image, label: Photo, widget: image }
           - { name: image_alt, label: Photo description, widget: string }
           - {
+              name: list_note,
+              label: Note under the list,
+              widget: text,
+              required: false,
+              hint: "Used for the roll of earlier communities. Leave empty to hide it.",
+            }
+          - {
               name: show_developments_list,
               label: List the developments here,
               widget: boolean,

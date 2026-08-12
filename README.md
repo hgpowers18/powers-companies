@@ -28,7 +28,7 @@ The hero plays a muted, looping video full-bleed behind the headline. The page
 expects the file at:
 
 ```
-uploads/powers-hero-background-v2.mp4
+uploads/powers-hero-background-v3.mp4
 ```
 
 That file is **not** in the repo — drop your copy in and the hero picks it up.
@@ -41,18 +41,18 @@ Silent, 1080p, `faststart` so playback can begin before the whole file lands.
 Aim for under ~6 MB — a 8–12 second loop at CRF 26 usually gets there:
 
 ```bash
-ffmpeg -i powers-hero-background-v2.mp4 \
+ffmpeg -i powers-hero-background-v3.mp4 \
   -vf "scale=1920:-2" -r 25 \
   -c:v libx264 -profile:v high -pix_fmt yuv420p -crf 26 \
   -movflags +faststart -an \
-  uploads/powers-hero-background-v2.mp4
+  uploads/powers-hero-background-v3.mp4
 ```
 
 Regenerate the poster from a frame of the video so the handoff to playback is
 invisible (pick a timestamp near the start):
 
 ```bash
-ffmpeg -ss 0.5 -i uploads/powers-hero-background-v2.mp4 -frames:v 1 -q:v 5 uploads/hero-poster.jpg
+ffmpeg -ss 0.5 -i uploads/powers-hero-background-v3.mp4 -frames:v 1 -q:v 5 uploads/hero-poster.jpg
 ```
 
 ### Optional smaller file for phones
@@ -61,15 +61,15 @@ Encode a 720p version and point the hero at it — `main.js` uses it below 760px
 and falls back to the main file everywhere else:
 
 ```bash
-ffmpeg -i powers-hero-background-v2.mp4 -vf "scale=1280:-2" -r 25 \
+ffmpeg -i powers-hero-background-v3.mp4 -vf "scale=1280:-2" -r 25 \
   -c:v libx264 -pix_fmt yuv420p -crf 28 -movflags +faststart -an \
-  uploads/powers-hero-background-v2-mobile.mp4
+  uploads/powers-hero-background-v3-mobile.mp4
 ```
 
 Then add the attribute to the `<video id="hero-video">` tag in `index.html`:
 
 ```html
-data-src-mobile="uploads/powers-hero-background-v2-mobile.mp4"
+data-src-mobile="uploads/powers-hero-background-v3-mobile.mp4"
 ```
 
 ### How playback behaves

@@ -34,7 +34,7 @@ singletons:
     format: yaml
     fields:
       - name: meta
-        label: Page title & search listing
+        label: Page title, search listing & link previews
         widget: object
         collapsed: true
         fields:
@@ -45,6 +45,36 @@ singletons:
               widget: text,
               hint: Shown under the title in Google results. Aim for 150-160 characters.,
             }
+          - name: social
+            label: Link preview
+            widget: object
+            collapsed: true
+            hint: What people see when the site is texted, messaged or posted.
+            fields:
+              - {
+                  name: title,
+                  label: Preview title,
+                  widget: string,
+                  hint: Keep it short — long titles get cut off in Messages.,
+                }
+              - {
+                  name: description,
+                  label: Preview description,
+                  widget: text,
+                  hint: Shown on Facebook and LinkedIn, under the title.,
+                }
+              - {
+                  name: image,
+                  label: Preview image,
+                  widget: image,
+                  hint: "Use a 1200 × 630 image; anything else gets cropped.",
+                }
+              - {
+                  name: image_alt,
+                  label: Preview image description,
+                  widget: string,
+                }
+          - { name: url, widget: hidden, default: "https://powers-companies.vercel.app" }
           - { name: lang, widget: hidden, default: en }
 
       - name: nav

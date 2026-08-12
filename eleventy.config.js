@@ -18,6 +18,14 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("uploads");
   eleventyConfig.addPassthroughCopy("admin");
 
+  // Browsers and bookmark tools look for the icons at the root of the site,
+  // not in the folder they are kept in.
+  eleventyConfig.addPassthroughCopy({
+    "icons/favicon.ico": "favicon.ico",
+    "icons/favicon-96.png": "favicon-96.png",
+    "icons/apple-touch-icon.png": "apple-touch-icon.png",
+  });
+
   return {
     // Markdown is enabled for the developments collection only; those entries
     // set permalink: false so they feed the list without generating pages.

@@ -4,9 +4,14 @@ backend:
   name: github
   repo: hgpowers18/powers-companies
   branch: main
-  # "Sign In with GitHub" routes through Netlify's OAuth broker, which this site
-  # does not use, so only the access token method is offered.
-  auth_methods: [token]
+  # Sign in through GitHub itself, brokered by api/oauth.js on this site rather
+  # than Netlify. Update base_url, the OAuth app's callback URL and
+  # ALLOWED_DOMAINS together if the site moves to a custom domain.
+  base_url: https://powers-companies.vercel.app
+  auth_endpoint: api/oauth
+  # Token sign-in stays available as a fallback. Once the GitHub button is
+  # confirmed working, narrow this to [oauth] to hide it.
+  auth_methods: [oauth, token]
   commit_messages:
     update: "Update {{collection}} “{{slug}}” from the admin"
     create: "Create {{collection}} “{{slug}}” from the admin"

@@ -5,9 +5,10 @@ from content files, and those content files are edited through a browser admin a
 
 ## Editing the site
 
-Go to `https://<your-site>/admin` and choose **Sign In Using Access Token**. The prompt links
-straight to GitHub's token page with the right permissions pre-selected; generate a token, paste
-it in, and you're in. The token is stored in your browser, so this is a one-time step per device.
+Go to `https://<your-site>/admin` and choose **Sign In with GitHub**. You sign in on GitHub's own
+page with your username, password and 2FA, then land back in the admin. Nothing to paste and no
+separate password to remember. Anyone you add to this repository as a collaborator with write
+access can sign in the same way.
 
 Saving writes a commit to this repository, which triggers a deploy. Changes are live in a minute
 or two.
@@ -30,6 +31,41 @@ styles.css  main.js  uploads/
 
 `_data/site.yml` and `admin/config.yml` mirror each other. If you add a field to one, add it to
 the other or it won't be editable.
+
+## How the admin login works
+
+The CMS runs in the browser, so it can't hold an OAuth client secret. `api/oauth.js` is a small
+Vercel function on this site that does the GitHub code-for-token exchange server side. It's
+adapted from [Sveltia's Cloudflare worker](https://github.com/sveltia/sveltia-cms-auth) so there
+is no second service to host or pay for.
+
+It needs a GitHub OAuth app, which is a one-time setup:
+
+1. Create one at <https://github.com/settings/applications/new>
+   - **Application name:** anything, e.g. `Powers Companies admin`
+   - **Homepage URL:** `https://powers-companies.vercel.app`
+   - **Authorization callback URL:** `https://powers-companies.vercel.app/api/oauth`
+2. Generate a client secret, then add both values to Vercel under
+   Settings → Environment Variables, for Production:
+   - `GITHUB_CLIENT_ID`
+   - `GITHUB_CLIENT_SECRET`
+3. Redeploy so the function picks them up.
+
+Until those exist, the GitHub button reports that the client isn't configured and token sign-in
+still works.
+
+Optional variables:
+
+- `GITHUB_OAUTH_SCOPE` — defaults to `public_repo`, which lets the CMS commit here but gives it
+  no access to private repositories. If this repo is ever made private, set it to `repo`.
+- `ALLOWED_DOMAINS` — restricts which site may use the broker. Defaults to whichever host serves
+  the function, so it only needs setting if the admin is served from a different domain.
+
+**Moving to a custom domain** means updating three things together: `base_url` in
+`admin/config.yml`, the OAuth app's callback URL, and `ALLOWED_DOMAINS`.
+
+Once you've confirmed the GitHub button works, change `auth_methods` in `admin/config.yml` from
+`[oauth, token]` to `[oauth]` to retire token sign-in.
 
 ## Working locally
 

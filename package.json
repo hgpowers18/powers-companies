@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Marketing site for Powers Companies, built with Eleventy and edited through a git-based CMS.",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "eleventy",
     "dev": "eleventy --serve"

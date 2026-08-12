@@ -1,8 +1,8 @@
-const yaml = require("js-yaml");
+import { load as parseYAML } from "js-yaml";
 
-module.exports = function (eleventyConfig) {
+export default function (eleventyConfig) {
   // Content is authored as YAML so the CMS writes files a human can still read.
-  eleventyConfig.addDataExtension("yml,yaml", (contents) => yaml.load(contents));
+  eleventyConfig.addDataExtension("yml,yaml", (contents) => parseYAML(contents));
 
   // The CMS persists drag-and-drop ordering as a numeric `order` field, so the
   // page follows the order shown in the admin rather than filename or date.

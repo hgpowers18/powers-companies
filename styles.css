@@ -73,12 +73,13 @@ section[id] {
   display: none;
 }
 
-/* Over the hero video the bar drops out to a gradient wash. */
+/* Over the hero video the bar keeps a dark frosted matte, so hero copy
+   scrolling underneath reads as passing behind glass instead of colliding. */
 .nav.is-over-hero {
-  background: linear-gradient(to bottom, rgba(18, 16, 13, 0.62), rgba(18, 16, 13, 0));
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  border-bottom-color: transparent;
+  background: rgba(18, 16, 13, 0.52);
+  backdrop-filter: blur(16px) saturate(1.15);
+  -webkit-backdrop-filter: blur(16px) saturate(1.15);
+  border-bottom-color: rgba(243, 239, 230, 0.14);
 }
 
 .nav.is-over-hero .nav__logo-img--dark {
@@ -369,124 +370,6 @@ section[id] {
 
 .audio-btn__label {
   font-size: 16px;
-}
-
-/* ========== GALLERY ========== */
-.gallery {
-  padding: clamp(56px, 7vw, 100px) clamp(20px, 4vw, 56px) clamp(8px, 2vw, 24px);
-}
-
-.gallery__inner {
-  max-width: 1320px;
-  margin: 0 auto;
-}
-
-.gallery__eyebrow {
-  margin-bottom: 22px;
-}
-
-.carousel {
-  position: relative;
-}
-
-.carousel__frame {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  background: #e7e0d0;
-}
-
-.carousel__img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 1400ms cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: opacity;
-  backface-visibility: hidden;
-}
-
-.carousel__img.is-active {
-  opacity: 1;
-}
-
-.carousel__scrim {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(20, 18, 15, 0.45) 0%, rgba(20, 18, 15, 0) 45%);
-  pointer-events: none;
-}
-
-.carousel__arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 42px;
-  height: 42px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(243, 239, 230, 0.88);
-  color: #1c1a17;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-  padding: 0;
-}
-
-.carousel__arrow--prev {
-  left: 14px;
-}
-
-.carousel__arrow--next {
-  right: 14px;
-}
-
-.carousel__arrow:hover {
-  background: #c19a4f;
-}
-
-.carousel__dots {
-  position: absolute;
-  left: 20px;
-  right: 20px;
-  bottom: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.carousel__dots-row {
-  display: flex;
-  gap: 8px;
-}
-
-.carousel__dot {
-  width: 26px;
-  height: 4px;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  background: rgba(243, 239, 230, 0.45);
-}
-
-.carousel__dot.is-active {
-  background: #c19a4f;
-}
-
-.carousel__accent {
-  position: absolute;
-  top: -1px;
-  right: -1px;
-  width: 64px;
-  height: 64px;
-  border-top: 2px solid #c19a4f;
-  border-right: 2px solid #c19a4f;
-  pointer-events: none;
 }
 
 /* ========== STATS ========== */
@@ -1047,10 +930,6 @@ section[id] {
     margin-bottom: 24px;
   }
 
-  .carousel__frame {
-    aspect-ratio: 4 / 3;
-  }
-
   /* One tight row on phones — a stacked bar would push the stats off screen. */
   .stats {
     grid-template-columns: repeat(3, 1fr) !important;
@@ -1185,10 +1064,6 @@ section[id] {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-
-  .carousel__img {
-    transition: none;
   }
 
   .hero__video {

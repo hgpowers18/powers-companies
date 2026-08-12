@@ -92,51 +92,6 @@
     }
   }
 
-  /* ========== CAROUSEL ========== */
-  const slides = Array.from(document.querySelectorAll(".carousel__img"));
-  const dots = Array.from(document.querySelectorAll(".carousel__dot"));
-  const prevBtn = document.getElementById("carousel-prev");
-  const nextBtn = document.getElementById("carousel-next");
-
-  let slide = 0;
-  let carTimer = null;
-
-  function renderSlide() {
-    slides.forEach((img, i) => img.classList.toggle("is-active", i === slide));
-    dots.forEach((dot, i) => {
-      dot.classList.toggle("is-active", i === slide);
-      dot.setAttribute("aria-current", i === slide ? "true" : "false");
-    });
-  }
-
-  function startCarousel() {
-    clearInterval(carTimer);
-    if (reduceMotion || slides.length === 0) return;
-    carTimer = setInterval(() => {
-      slide = (slide + 1) % slides.length;
-      renderSlide();
-    }, 6000);
-  }
-
-  function goTo(i) {
-    slide = i;
-    renderSlide();
-    startCarousel();
-  }
-
-  if (prevBtn) {
-    prevBtn.addEventListener("click", () => goTo((slide + slides.length - 1) % slides.length));
-  }
-  if (nextBtn) {
-    nextBtn.addEventListener("click", () => goTo((slide + 1) % slides.length));
-  }
-  dots.forEach((dot, i) => {
-    dot.addEventListener("click", () => goTo(i));
-  });
-
-  renderSlide();
-  startCarousel();
-
   /* ========== AUDIO ========== */
   const audioBtn = document.getElementById("audio-btn");
   const audioIcon = document.getElementById("audio-icon");

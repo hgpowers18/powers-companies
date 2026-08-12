@@ -83,9 +83,8 @@ data-src-mobile="uploads/powers-hero-background-v3-mobile.mp4"
 ## What matches the design
 
 - Exact colors, type (DM Sans / Hanken Grotesk / JetBrains Mono), spacing, breakpoints
-- Sticky nav + mobile menu — transparent over the hero video, solid past the fold
+- Sticky nav + mobile menu — dark frosted matte over the hero video, solid cream past the fold
 - Full-height hero video with the stats bar across the bottom
-- “On site” photo carousel (6s autoplay, 1400ms crossfade)
 - “Hear our story” audio with localStorage position
 - Contact form success state (client-side only — wire a backend before launch)
 

@@ -50,9 +50,9 @@ section[id] {
   justify-content: space-between;
   padding: 0 clamp(20px, 4vw, 56px);
   height: 78px;
-  background: rgba(243, 239, 230, 0.86);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  /* Opaque: a translucent bar turns muddy over the dark sections and smears
+     blurred ghosts of the copy passing beneath it. */
+  background: #f3efe6;
   border-bottom: 1px solid #e0d8c7;
   transition: background 320ms ease, border-color 320ms ease;
 }

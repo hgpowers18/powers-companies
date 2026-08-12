@@ -717,6 +717,11 @@ section[id] {
   padding: 44px 36px;
 }
 
+/* Focused only to move the reader to it after a send; the border is the cue. */
+.contact__success:focus {
+  outline: none;
+}
+
 .contact__success-title {
   font-family: "DM Sans", sans-serif;
   font-size: 28px;
@@ -771,6 +776,57 @@ section[id] {
   border-color: #c19a4f;
 }
 
+.field--invalid input,
+.field--invalid textarea {
+  border-color: #c96f5b;
+}
+
+/* Overrides the mono uppercase treatment the labels share. */
+.field .field__error {
+  font-family: "Hanken Grotesk", sans-serif;
+  font-size: 13.5px;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #d59182;
+}
+
+.field .field__error:empty {
+  display: none;
+}
+
+/* Off screen rather than display:none, which a bot can spot and skip. */
+.contact__trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.contact__error {
+  border: 1px solid #c96f5b;
+  background: #2a1d19;
+  padding: 18px 20px;
+}
+
+.contact__error.is-hidden {
+  display: none;
+}
+
+.contact__error-title {
+  font-family: "DM Sans", sans-serif;
+  font-size: 18px;
+  color: #f3efe6;
+  margin-bottom: 6px;
+}
+
+.contact__error p {
+  font-size: 15px;
+  line-height: 1.55;
+  color: #c7b7a9;
+  margin: 0;
+}
+
 .contact__submit {
   align-self: flex-start;
   background: #c19a4f;
@@ -786,6 +842,12 @@ section[id] {
 
 .contact__submit:hover {
   background: #f3efe6;
+}
+
+.contact__submit:disabled {
+  background: #6f5c33;
+  color: #2a251d;
+  cursor: default;
 }
 
 .contact__aside {

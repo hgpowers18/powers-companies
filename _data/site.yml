@@ -91,12 +91,19 @@ contact:
   title_line_2: your land
   success_title: Thank you.
   success_body: "We've received your message and a member of the Powers team will be in touch shortly."
+  error_title: "That didn't go through."
+  error_body: "Something went wrong sending your message. Please try again, or call the office on 410-833-3700."
   labels:
     name: Name
     phone: Phone
     email: Email
     message: Tell us about your project
     submit: Send message
+    sending: Sending…
+  validation:
+    required: Please fill this in.
+    invalid: "Enter an email address we can reply to."
+    too_long: Please shorten this.
   photo: /uploads/image_1a8e3b4b.jpg
   photo_alt: Custom stone home at sunset
   office_label: Office

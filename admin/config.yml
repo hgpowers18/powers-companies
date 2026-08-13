@@ -206,7 +206,10 @@ singletons:
           - { name: aria_label, label: Screen reader name, widget: string }
           - { name: label, label: Small numbered label, widget: string }
           - { name: title, label: Heading, widget: string }
-          - { name: body, label: Paragraph, widget: text }
+          - name: paragraphs
+            label: Paragraphs
+            widget: list
+            field: { name: paragraph, label: Paragraph, widget: text }
           - { name: image, label: Photo, widget: image }
           - { name: image_alt, label: Photo description, widget: string }
           - {

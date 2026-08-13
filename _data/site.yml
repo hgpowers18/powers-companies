@@ -60,7 +60,10 @@ divisions:
     aria_label: Developments
     label: 01 — DEVELOPMENTS
     title: Communities that sell out.
-    body: Three-acre lots backing onto Liberty Reservoir, wooded homesites in Woodstock, waterfront villas in Essex. We buy the land, lay out the homesites and build the homes that go on them — and almost every community we have opened is now sold out.
+    paragraphs:
+      - Three-acre lots backing onto Liberty Reservoir, wooded homesites in Woodstock, waterfront villas in Essex. We buy the land, lay out the homesites and build the homes that go on them — and almost every community we have opened is now sold out.
+      - "Every plan in the portfolio can be built as drawn or reworked around the way your family actually lives, and the specification starts where other builders stop — maple kitchens with staggered cabinetry, motion-sensor lighting in the owner's closet, concealed sprinkler heads, Energy Star certification."
+      - The brothers who choose the land are the same people walking the site while the drywall goes up — which is how a community of twenty-three homes still gets the attention of a one-off custom build.
     image: /uploads/image_f874027c.jpg
     image_alt: Aerial view of a residential development
     list_eyebrow: Our communities
@@ -70,13 +73,20 @@ divisions:
     features:
       - title: Custom & semi-custom
         body: Bring us your plans or build on ours.
+      - title: Homesites
+        body: One to three-plus acres, most of them wooded and private.
       - title: Where we build
         body: Eldersburg, Sykesville, Manchester, Reisterstown, Woodstock, Essex.
+      - title: Standard, not extra
+        body: Energy Star certification, concealed sprinklers, maple kitchens.
   - id: commercial
     aria_label: Commercial and Office
     label: 02 — COMMERCIAL & OFFICE
     title: Office, retail, industrial. We've done it all.
-    body: Office space, retail centers, industrial parks — we'll take any parcel of land and turn it into the business space you envisioned. Cutting-edge, attractive, and delivered on budget.
+    paragraphs:
+      - Office space, retail centers, industrial parks — we'll take any parcel of land and turn it into the business space you envisioned. Cutting-edge, attractive, and delivered on budget.
+      - The West Branch Trade Center runs to 40,000 square feet on Tech Court in Westminster. A shrub-covered lot on Sykesville Road became the 26,500 square foot Westminster branch of the Y of Central Maryland. The Professional Center at 795 leased out in full, with Carroll Hospital Center at the front of it, and a second building followed.
+      - Across the Pennsylvania line we built the Jefferson Codorus Joint Sewer Authority a treatment plant that handles 240,000 gallons a day for two townships. The range runs from a suite of consulting rooms to public infrastructure, and the same team sees each of them through.
     image: /uploads/image_8c751d14.jpg
     image_alt: Baltimore Inner Harbor at sunset
     note_label: Selected projects
@@ -87,6 +97,10 @@ divisions:
         body: Spaces designed around how your business runs.
       - title: Industrial parks
         body: Large-scale development, managed end to end.
+      - title: Build to suit
+        body: A single suite or a 40,000 square foot shell.
+      - title: Where we build
+        body: Westminster, Reisterstown, Towson, Eldersburg, southern Pennsylvania.
 contact:
   eyebrow: Contact
   title_line_1: Let's talk about

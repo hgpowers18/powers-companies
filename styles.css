@@ -557,12 +557,14 @@ section[id] {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: clamp(32px, 5vw, 72px);
-  align-items: center;
+  align-items: stretch;
 }
 
+/* The photo takes its height from the column of copy beside it rather than
+   from a fixed shape, so neither side is left with a stretch of nothing. */
 .division__media {
   position: relative;
-  aspect-ratio: 5 / 4;
+  min-height: 420px;
   overflow: hidden;
   background: #e7e0d0;
 }
@@ -601,6 +603,14 @@ section[id] {
   color: #5e584d;
   margin: 0 0 26px;
   max-width: 520px;
+}
+
+.division__body p {
+  margin: 0 0 16px;
+}
+
+.division__body p:last-child {
+  margin-bottom: 0;
 }
 
 .division__features {
@@ -1238,6 +1248,12 @@ section[id] {
   .division__grid {
     grid-template-columns: 1fr !important;
     gap: 28px !important;
+  }
+
+  /* Stacked there is no column to match, so the photo goes back to a shape. */
+  .division__media {
+    aspect-ratio: 5 / 4;
+    min-height: 0 !important;
   }
 
   .past {

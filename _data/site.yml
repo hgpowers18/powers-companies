@@ -62,11 +62,13 @@ divisions:
     title: Communities that sell out.
     paragraphs:
       - Three-acre lots backing onto Liberty Reservoir, wooded homesites in Woodstock, waterfront villas in Essex. We buy the land, lay out the homesites and build the homes that go on them — and almost every community we have opened is now sold out.
-      - "Every plan in the portfolio can be built as drawn or reworked around the way your family actually lives, and the specification starts where other builders stop — maple kitchens with staggered cabinetry, motion-sensor lighting in the owner's closet, concealed sprinkler heads, Energy Star certification."
+      - Every plan in the portfolio can be built as drawn or reworked around the way your family actually lives, and the specification starts where other builders stop — maple kitchens with staggered cabinetry, motion-sensor lighting in the owner's closet, concealed sprinkler heads, Energy Star certification.
       - The brothers who choose the land are the same people walking the site while the drywall goes up — which is how a community of twenty-three homes still gets the attention of a one-off custom build.
     image: /uploads/image_f874027c.jpg
     image_alt: Aerial view of a residential development
     list_eyebrow: Our communities
+    note_label: ''
+    note: ''
     show_developments_list: true
     features:
       - title: Custom & semi-custom
@@ -85,8 +87,11 @@ divisions:
       - Office space, retail centers, industrial parks — we'll take any parcel of land and turn it into the business space you envisioned. Cutting-edge, attractive, and delivered on budget.
       - The West Branch Trade Center runs to 40,000 square feet on Tech Court in Westminster. A shrub-covered lot on Sykesville Road became the 26,500 square foot Westminster branch of the Y of Central Maryland. The Professional Center at 795 leased out in full, with Carroll Hospital Center at the front of it, and a second building followed.
       - Across the Pennsylvania line we built the Jefferson Codorus Joint Sewer Authority a treatment plant that handles 240,000 gallons a day for two townships. The range runs from a suite of consulting rooms to public infrastructure, and the same team sees each of them through.
-    image: /uploads/image_8c751d14.jpg
+    image: /uploads/usdj01rlsngjso4m2da0.avif
     image_alt: Baltimore Inner Harbor at sunset
+    list_eyebrow: ''
+    note_label: ''
+    note: ''
     show_developments_list: false
     features:
       - title: Office & retail

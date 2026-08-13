@@ -67,8 +67,6 @@ divisions:
     image: /uploads/image_f874027c.jpg
     image_alt: Aerial view of a residential development
     list_eyebrow: Our communities
-    note_label: Earlier communities
-    note: Bounty Vista, Brynwood Hills, Camelot, Carroll Pointe, Cokesbury Manor, Collins Estates, Creekside, Diamond Hills, Eagleview Estates, Fields of Sagamore, Forest Oaks, Franklin Station, Glyndon Meadows, Green Meadows, Hammonds Estates, Hawk Ridge Farm, Heritage Hills, Holden Hills, Marks Manor, Marshalee Estates, McDonogh Chase, Piedmont Estates, Piney Meadow, Plains of Paran, Pooledale, Reservoir Woods, Rockburn Township, Roops Mill, Stonemill, Summit Ridge, Sun Valley, The Hills at Valley View, The Meadows, The Village at South Mountain, Washingtonville, West Valley Oaks, Whitehurst, Winands Overlook, Worthington Green and Zabel Farm — built, sold and lived in.
     show_developments_list: true
     features:
       - title: Custom & semi-custom
@@ -89,8 +87,6 @@ divisions:
       - Across the Pennsylvania line we built the Jefferson Codorus Joint Sewer Authority a treatment plant that handles 240,000 gallons a day for two townships. The range runs from a suite of consulting rooms to public infrastructure, and the same team sees each of them through.
     image: /uploads/image_8c751d14.jpg
     image_alt: Baltimore Inner Harbor at sunset
-    note_label: Selected projects
-    note: West Branch Trade Center, Westminster — 40,000 sq ft. The Professional Center at 795, Reisterstown — 16,000 sq ft. The Professional Center II at 795 — 20,000 sq ft. Y of Central Maryland, Westminster branch — 26,500 sq ft. 22 West Pennsylvania Avenue, Towson — 37,500 sq ft. Eldersburg Self Storage Park. Jefferson Codorus Joint Sewer Authority, Pennsylvania — 240,000 gallons a day.
     show_developments_list: false
     features:
       - title: Office & retail

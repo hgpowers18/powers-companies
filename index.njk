@@ -199,9 +199,13 @@
             </li>
             {%- endfor %}
           </ul>
-          {%- if division.list_note %}
-          <p class="rail__note">{{ division.list_note }}</p>
-          {%- endif %}
+        </div>
+        {%- endif %}
+        {%- if division.note %}
+
+        <div class="past">
+          <div class="eyebrow past__label">{{ division.note_label }}</div>
+          <p class="past__text">{{ division.note }}</p>
         </div>
         {%- endif %}
       </section>

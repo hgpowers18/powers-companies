@@ -216,11 +216,18 @@ singletons:
               required: false,
             }
           - {
-              name: list_note,
-              label: Note under the communities,
+              name: note_label,
+              label: Label on the closing line,
+              widget: string,
+              required: false,
+              hint: "For example: Earlier communities, Selected projects.",
+            }
+          - {
+              name: note,
+              label: Closing line,
               widget: text,
               required: false,
-              hint: "Used for the roll of earlier communities. Leave empty to hide it.",
+              hint: "The roll of everything else built. Leave empty to hide it and its label.",
             }
           - {
               name: show_developments_list,

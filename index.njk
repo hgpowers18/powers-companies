@@ -152,7 +152,11 @@
           <div>
             <div class="division__label">{{ division.label }}</div>
             <h3 class="division__title">{{ division.title }}</h3>
-            <p class="division__body">{{ division.body }}</p>
+            <div class="division__body">
+              {%- for paragraph in division.paragraphs %}
+              <p>{{ paragraph }}</p>
+              {%- endfor %}
+            </div>
             <div class="division__features">
               {%- for feature in division.features %}
               <div>
@@ -199,9 +203,13 @@
             </li>
             {%- endfor %}
           </ul>
-          {%- if division.list_note %}
-          <p class="rail__note">{{ division.list_note }}</p>
-          {%- endif %}
+        </div>
+        {%- endif %}
+        {%- if division.note %}
+
+        <div class="past">
+          <div class="eyebrow past__label">{{ division.note_label }}</div>
+          <p class="past__text">{{ division.note }}</p>
         </div>
         {%- endif %}
       </section>

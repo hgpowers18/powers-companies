@@ -557,12 +557,14 @@ section[id] {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: clamp(32px, 5vw, 72px);
-  align-items: center;
+  align-items: stretch;
 }
 
+/* The photo takes its height from the column of copy beside it rather than
+   from a fixed shape, so neither side is left with a stretch of nothing. */
 .division__media {
   position: relative;
-  aspect-ratio: 5 / 4;
+  min-height: 420px;
   overflow: hidden;
   background: #e7e0d0;
 }
@@ -603,6 +605,14 @@ section[id] {
   max-width: 520px;
 }
 
+.division__body p {
+  margin: 0 0 16px;
+}
+
+.division__body p:last-child {
+  margin-bottom: 0;
+}
+
 .division__features {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -637,8 +647,6 @@ section[id] {
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  border-top: 1px solid #ddd5c2;
-  padding-top: 20px;
   margin-bottom: 22px;
 }
 
@@ -771,14 +779,28 @@ section[id] {
   margin-bottom: 0;
 }
 
-/* The roll of earlier communities reads as a footnote to the rail, not as
-   another paragraph of the pitch. */
-.rail__note {
-  font-size: 13.5px;
-  line-height: 1.7;
-  color: #8a7f6a;
-  margin: 24px 0 0;
-  max-width: 780px;
+/* ========== WHAT ELSE GOT BUILT ========== */
+/* Closes each division: a rule, a label, and the roll of everything that
+   didn't get a card of its own. */
+.past {
+  max-width: 1320px;
+  margin: clamp(34px, 4vw, 52px) auto 0;
+  padding-top: 22px;
+  border-top: 1px solid #ddd5c2;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 20px clamp(32px, 5vw, 72px);
+}
+
+.past__label {
+  padding-top: 2px;
+}
+
+.past__text {
+  font-size: 15px;
+  line-height: 1.75;
+  color: #6b6459;
+  margin: 0;
 }
 
 /* ========== CONTACT ========== */
@@ -1226,6 +1248,17 @@ section[id] {
   .division__grid {
     grid-template-columns: 1fr !important;
     gap: 28px !important;
+  }
+
+  /* Stacked there is no column to match, so the photo goes back to a shape. */
+  .division__media {
+    aspect-ratio: 5 / 4;
+    min-height: 0 !important;
+  }
+
+  .past {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
   }
 
   .division__features {

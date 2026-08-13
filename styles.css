@@ -792,64 +792,27 @@ section[id] {
 }
 
 /* ========== WHAT ELSE GOT BUILT ========== */
-/* Closes each division with everything that didn't get a card of its own. Set
-   as an index rather than a sentence: forty names in a row of prose is a wall,
-   the same forty in ruled columns is a record. */
+/* Closes each division: a rule, a label, and the roll of everything that
+   didn't get a card of its own. */
 .past {
   max-width: 1320px;
   margin: clamp(34px, 4vw, 52px) auto 0;
-  padding-top: 24px;
+  padding-top: 22px;
   border-top: 1px solid #ddd5c2;
-}
-
-.past__head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 8px 28px;
-  margin-bottom: 20px;
-}
-
-.past__lead {
-  font-size: 14px;
-  line-height: 1.6;
-  color: #8a7f6a;
-  margin: 0;
-}
-
-.past__grid {
-  list-style: none;
-  margin: 0;
-  padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(212px, 1fr));
-  gap: 0 clamp(24px, 3vw, 44px);
+  grid-template-columns: 220px 1fr;
+  gap: 20px clamp(32px, 5vw, 72px);
 }
 
-.past__item {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  padding: 13px 0;
-  border-top: 1px solid #e8e1d2;
+.past__label {
+  padding-top: 2px;
 }
 
-.past__name {
-  font-family: "DM Sans", sans-serif;
-  font-size: 15.5px;
-  line-height: 1.25;
-  color: #1c1a17;
-}
-
-/* Pushed to the foot of its row so the towns still line up across a row when
-   one of the names above them takes two lines. */
-.past__where {
-  margin-top: auto;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 10.5px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #9c927e;
+.past__text {
+  font-size: 15px;
+  line-height: 1.75;
+  color: #6b6459;
+  margin: 0;
 }
 
 /* ========== CONTACT ========== */
@@ -1362,17 +1325,6 @@ section[id] {
   .footer__grid {
     grid-template-columns: 1fr !important;
     gap: 32px !important;
-  }
-
-  /* Forty names one under the other is a long scroll on a phone, and the
-     names are short enough to pair up. */
-  .past__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 0 22px !important;
-  }
-
-  .past__name {
-    font-size: 14.5px;
   }
 }
 

@@ -220,36 +220,18 @@ singletons:
             }
           - {
               name: note_label,
-              label: Heading on the closing list,
+              label: Label on the closing line,
               widget: string,
               required: false,
               hint: "For example: Earlier communities, Selected projects.",
             }
           - {
-              name: note_lead,
-              label: Line beside that heading,
-              widget: string,
+              name: note,
+              label: Closing line,
+              widget: text,
               required: false,
+              hint: "The roll of everything else built. Leave empty to hide it and its label.",
             }
-          - name: note_items
-            label: Closing list
-            label_singular: entry
-            widget: list
-            required: false
-            collapsed: true
-            summary: "{{fields.name}}"
-            hint: >-
-              Everything built that has no card of its own. Remove them all to
-              hide the list and its heading.
-            fields:
-              - { name: name, label: Name, widget: string }
-              - {
-                  name: where,
-                  label: Under the name,
-                  widget: string,
-                  required: false,
-                  hint: "The town, plus anything worth adding: “Westminster · 40,000 sq ft”.",
-                }
           - {
               name: show_developments_list,
               label: List the developments here,

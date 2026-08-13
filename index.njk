@@ -205,25 +205,11 @@
           </ul>
         </div>
         {%- endif %}
-        {%- if division.note_items.length %}
+        {%- if division.note %}
 
         <div class="past">
-          <div class="past__head">
-            <div class="eyebrow">{{ division.note_label }}</div>
-            {%- if division.note_lead %}
-            <p class="past__lead">{{ division.note_lead }}</p>
-            {%- endif %}
-          </div>
-          <ul class="past__grid">
-            {%- for item in division.note_items %}
-            <li class="past__item">
-              <span class="past__name">{{ item.name }}</span>
-              {%- if item.where %}
-              <span class="past__where">{{ item.where }}</span>
-              {%- endif %}
-            </li>
-            {%- endfor %}
-          </ul>
+          <div class="eyebrow past__label">{{ division.note_label }}</div>
+          <p class="past__text">{{ division.note }}</p>
         </div>
         {%- endif %}
       </section>

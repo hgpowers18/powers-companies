@@ -68,88 +68,7 @@ divisions:
     image_alt: Aerial view of a residential development
     list_eyebrow: Our communities
     note_label: Earlier communities
-    note_lead: Built, sold and lived in.
-    note_items:
-      - name: Bounty Vista
-        where: Ellicott City
-      - name: Brynwood Hills
-        where: Eldersburg
-      - name: Camelot
-        where: Westminster
-      - name: Carroll Pointe
-        where: Westminster
-      - name: Cokesbury Manor
-        where: Abingdon
-      - name: Collins Estates
-        where: Eldersburg
-      - name: Creekside
-        where: Taneytown
-      - name: Diamond Hills
-        where: Westminster
-      - name: Eagleview Estates
-        where: Westminster
-      - name: Fields of Sagamore
-        where: Reisterstown
-      - name: Forest Oaks
-        where: Edgewood
-      - name: Franklin Station
-        where: Reisterstown
-      - name: Glyndon Meadows
-        where: Reisterstown
-      - name: Green Meadows
-        where: Taneytown
-      - name: Hammonds Estates
-        where: Eldersburg
-      - name: Hawk Ridge Farm
-        where: Sykesville
-      - name: Heritage Hills
-        where: Dundalk
-      - name: Holden Hills
-        where: Westminster
-      - name: Marks Manor
-        where: Randallstown
-      - name: Marshalee Estates
-        where: Elkridge
-      - name: McDonogh Chase
-        where: Owings Mills
-      - name: Piedmont Estates
-        where: Finksburg
-      - name: Piney Meadow
-        where: Eldersburg
-      - name: Plains of Paran
-        where: Randallstown
-      - name: Pooledale
-        where: Eldersburg
-      - name: Reservoir Woods
-        where: Randallstown
-      - name: Rockburn Township
-        where: Ellicott City
-      - name: Roops Mill
-        where: Westminster
-      - name: Stonemill
-        where: Reisterstown
-      - name: Summit Ridge
-        where: Mount Airy
-      - name: Sun Valley
-        where: Westminster
-      - name: The Hills at Valley View
-        where: Codorus, PA
-      - name: The Meadows
-        where: Reisterstown
-      - name: The Village at South Mountain
-        where: Dillsburg, PA
-      - name: Washingtonville
-        where: Baltimore
-      - name: West Valley Oaks
-        where: Bel Air
-      - name: Whitehurst
-        where: Randallstown
-      - name: Winands Overlook
-        where: Randallstown
-      - name: Worthington Green
-        where: Owings Mills
-      - name: Zabel Farm
-        where: Eldersburg
+    note: Bounty Vista, Brynwood Hills, Camelot, Carroll Pointe, Cokesbury Manor, Collins Estates, Creekside, Diamond Hills, Eagleview Estates, Fields of Sagamore, Forest Oaks, Franklin Station, Glyndon Meadows, Green Meadows, Hammonds Estates, Hawk Ridge Farm, Heritage Hills, Holden Hills, Marks Manor, Marshalee Estates, McDonogh Chase, Piedmont Estates, Piney Meadow, Plains of Paran, Pooledale, Reservoir Woods, Rockburn Township, Roops Mill, Stonemill, Summit Ridge, Sun Valley, The Hills at Valley View, The Meadows, The Village at South Mountain, Washingtonville, West Valley Oaks, Whitehurst, Winands Overlook, Worthington Green and Zabel Farm — built, sold and lived in.
     show_developments_list: true
     features:
       - title: Custom & semi-custom
@@ -171,21 +90,7 @@ divisions:
     image: /uploads/image_8c751d14.jpg
     image_alt: Baltimore Inner Harbor at sunset
     note_label: Selected projects
-    note_items:
-      - name: West Branch Trade Center
-        where: Westminster · 40,000 sq ft
-      - name: The Professional Center at 795
-        where: Reisterstown · 16,000 sq ft
-      - name: The Professional Center II at 795
-        where: Reisterstown · 20,000 sq ft
-      - name: Y of Central Maryland
-        where: Westminster · 26,500 sq ft
-      - name: 22 West Pennsylvania Avenue
-        where: Towson · 37,500 sq ft
-      - name: Eldersburg Self Storage Park
-        where: Eldersburg
-      - name: Jefferson Codorus Joint Sewer Authority
-        where: Codorus, PA · 240,000 gal a day
+    note: West Branch Trade Center, Westminster — 40,000 sq ft. The Professional Center at 795, Reisterstown — 16,000 sq ft. The Professional Center II at 795 — 20,000 sq ft. Y of Central Maryland, Westminster branch — 26,500 sq ft. 22 West Pennsylvania Avenue, Towson — 37,500 sq ft. Eldersburg Self Storage Park. Jefferson Codorus Joint Sewer Authority, Pennsylvania — 240,000 gallons a day.
     show_developments_list: false
     features:
       - title: Office & retail

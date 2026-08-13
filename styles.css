@@ -516,12 +516,13 @@ section[id] {
   margin: 0 auto;
 }
 
+/* Two columns on the same rhythm as the divisions below, so the paragraph
+   sits over their column of copy instead of drifting off to the right. */
 .divisions-intro__row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  align-items: end;
+  gap: clamp(24px, 5vw, 72px);
 }
 
 .divisions-intro__eyebrow {
@@ -540,15 +541,26 @@ section[id] {
 
 .divisions-intro__body {
   font-size: 17px;
-  line-height: 1.65;
+  line-height: 1.7;
   color: #5e584d;
-  max-width: 380px;
+  max-width: 520px;
   margin: 0;
 }
 
 /* ========== DIVISION BLOCK ========== */
 .division {
   padding: clamp(28px, 4vw, 52px) clamp(20px, 4vw, 56px);
+}
+
+/* Each division opens on a rule so 01 and 02 read as two separate things.
+   Inset to the content, not bled to the window, to line up with the rules
+   inside the sections. */
+.division::before {
+  content: "";
+  display: block;
+  max-width: 1320px;
+  margin: 0 auto clamp(36px, 4.5vw, 60px);
+  border-top: 1px solid #ddd5c2;
 }
 
 .division__grid {
@@ -1292,8 +1304,8 @@ section[id] {
   }
 
   .divisions-intro__row {
-    flex-direction: column;
-    align-items: flex-start !important;
+    grid-template-columns: 1fr !important;
+    align-items: start !important;
   }
 }
 

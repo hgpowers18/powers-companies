@@ -8,6 +8,17 @@ meta:
     image_alt: Powers Companies
   url: https://powers-companies.vercel.app
   lang: en
+banner:
+  messages:
+    - parts:
+        - text: Now leasing at
+          href: ''
+        - text: Towson
+          href: '#'
+        - text: and
+          href: ''
+        - text: Reisterstown
+          href: '#'
 nav:
   logo_dark: /uploads/powers-logo.png
   logo_light: /uploads/powers-logo-white.png
@@ -121,7 +132,7 @@ contact:
     required: Please fill this in.
     invalid: Enter an email address we can reply to.
     too_long: Please shorten this.
-  photo: /uploads/image_1a8e3b4b.jpg
+  photo: /uploads/image-3.webp
   photo_alt: Custom stone home at sunset
   office_label: Office
   address_lines:
@@ -160,12 +171,3 @@ footer:
       href: '#contact'
   copyright: Powers Companies. All rights reserved.
   equal_housing: Equal Housing Opportunity
-banner:
-  messages:
-    - parts:
-        - text: Now leasing at
-        - href: '#'
-          text: Towson
-        - text: and
-        - href: '#'
-          text: Reisterstown

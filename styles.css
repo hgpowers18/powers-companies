@@ -144,21 +144,78 @@ section[id] {
   padding: 0 clamp(20px, 4vw, 56px);
   height: var(--nav-h);
   background: rgba(243, 239, 230, 0.86);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
   border-bottom: 1px solid #e0d8c7;
+  transition: background 320ms ease, border-color 320ms ease;
 }
 
 .nav__logo {
+  position: relative;
   display: flex;
   align-items: center;
   cursor: pointer;
 }
 
-.nav__logo img {
+.nav__logo-img {
   height: 38px;
   width: auto;
   display: block;
+  transition: opacity 320ms ease;
+}
+
+/* Both marks are stacked so the swap crossfades with the bar's tint. */
+.nav__logo-img--light {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+/* Frosted glass takes the tone of what it sits over: cream on the light
+   sections, dark over the hero video and the dark bands. A cream tint over
+   those dark sections would only ever blend down to a muddy grey. */
+.nav.is-ramping {
+  transition: none;
+}
+
+/* Over the hero the glass thickens as you scroll (see --nav-* in main.js), so
+   the video reads cleanly at rest and the copy still passes behind frost. */
+.nav.is-dark {
+  background: rgba(18, 16, 13, var(--nav-tint, 0.55));
+  backdrop-filter: blur(var(--nav-blur, 18px)) saturate(1.2);
+  -webkit-backdrop-filter: blur(var(--nav-blur, 18px)) saturate(1.2);
+  border-bottom-color: rgba(243, 239, 230, var(--nav-rule, 0.14));
+}
+
+.nav.is-dark .nav__logo-img--dark {
+  opacity: 0;
+}
+
+.nav.is-dark .nav__logo-img--light {
+  opacity: 1;
+}
+
+.nav.is-dark .nav__link {
+  color: rgba(243, 239, 230, 0.88);
+}
+
+.nav.is-dark .nav__link:hover {
+  color: #dcb771;
+}
+
+.nav.is-dark .nav__cta {
+  background: #f3efe6;
+  color: #1c1a17;
+}
+
+.nav.is-dark .nav__cta:hover {
+  background: #c19a4f;
+}
+
+.nav.is-dark .nav__burger {
+  border-color: rgba(243, 239, 230, 0.55);
+  color: #f3efe6;
 }
 
 .nav__links {
@@ -173,6 +230,7 @@ section[id] {
   letter-spacing: 0.01em;
   color: #3b362c;
   cursor: pointer;
+  transition: color 320ms ease;
 }
 
 .nav__link:hover {
@@ -190,6 +248,7 @@ section[id] {
   font-weight: 600;
   letter-spacing: 0.03em;
   cursor: pointer;
+  transition: background 320ms ease, color 320ms ease;
 }
 
 .nav__cta:hover {
@@ -209,13 +268,19 @@ section[id] {
   font-size: 20px;
   cursor: pointer;
   padding: 0;
+  transition: border-color 320ms ease, color 320ms ease;
 }
 
+/* Fixed so opening the menu never shifts the hero out from under the nav. */
 .mobile-menu {
   display: none;
-  position: sticky;
+  position: fixed;
   top: calc(var(--nav-h) + var(--announce-h));
+  left: 0;
+  right: 0;
   z-index: 99;
+  max-height: calc(100svh - var(--nav-h) - var(--announce-h));
+  overflow-y: auto;
   background: #f3efe6;
   border-bottom: 1px solid #e0d8c7;
   padding: 20px clamp(20px, 4vw, 56px) 26px;
@@ -252,23 +317,73 @@ section[id] {
 
 /* ========== HERO ========== */
 .hero {
-  padding: clamp(48px, 7vw, 96px) clamp(20px, 4vw, 56px) clamp(40px, 5vw, 72px);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #14120f;
+  /* Slide up under the sticky nav so the video runs edge to edge. */
+  margin-top: -78px;
+  /* Vertical rhythm keys off viewport height so the stats bar stays above the
+     fold on short laptop screens as well as tall desktops. */
+  padding: calc(78px + clamp(24px, 6vh, 80px)) clamp(20px, 4vw, 56px) clamp(20px, 3vh, 52px);
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+}
+
+.hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero__poster,
+.hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* The poster carries the hero until the video is actually painting frames,
+   and stays put if the video is skipped or fails. */
+.hero__video {
+  opacity: 0;
+  transition: opacity 900ms ease;
+}
+
+.hero__video.is-playing {
+  opacity: 1;
+}
+
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(18, 16, 13, 0.68) 0%, rgba(18, 16, 13, 0.34) 38%, rgba(18, 16, 13, 0.82) 100%),
+    radial-gradient(ellipse 120% 85% at 28% 42%, rgba(18, 16, 13, 0.1) 0%, rgba(18, 16, 13, 0.55) 100%);
 }
 
 .hero__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
   max-width: 1320px;
   margin: 0 auto;
-}
-
-.hero__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(390px, 1fr));
-  gap: clamp(32px, 5vw, 72px);
-  align-items: stretch;
+  grid-template-rows: 1fr auto;
+  gap: clamp(24px, 4vh, 64px);
 }
 
 .hero__copy {
   min-width: 0;
+  max-width: 900px;
+  align-self: center;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -283,17 +398,19 @@ section[id] {
 }
 
 .hero__eyebrow {
-  margin-bottom: 30px;
+  margin-bottom: clamp(16px, 2.6vh, 28px);
+  color: #dcb771;
 }
 
 .hero__title {
   font-family: "DM Sans", sans-serif;
   font-weight: 400;
-  font-size: clamp(34px, 4.2vw, 60px);
+  font-size: clamp(36px, min(5.2vw, 8vh), 72px);
   line-height: 1.04;
   letter-spacing: -0.02em;
-  margin: 0 0 28px;
-  color: #1c1a17;
+  margin: 0 0 clamp(18px, 2.6vh, 26px);
+  color: #f7f4ec;
+  text-shadow: 0 1px 30px rgba(18, 16, 13, 0.45);
   text-wrap: balance;
   width: 100%;
   max-width: 100%;
@@ -301,15 +418,15 @@ section[id] {
 
 .hero__title em {
   font-style: italic;
-  color: #c19a4f;
+  color: #dcb771;
 }
 
 .hero__body {
-  font-size: 17px;
+  font-size: clamp(17px, 1.4vw, 19px);
   line-height: 1.6;
-  color: #5e584d;
-  max-width: 520px;
-  margin: 0 0 28px;
+  color: rgba(243, 239, 230, 0.84);
+  max-width: 560px;
+  margin: 0 0 clamp(20px, 3.4vh, 32px);
 }
 
 .audio-btn {
@@ -332,6 +449,21 @@ section[id] {
   color: #1c1a17;
 }
 
+.hero .audio-btn {
+  background: rgba(243, 239, 230, 0.12);
+  border: 1px solid rgba(243, 239, 230, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #f3efe6;
+  transition: background 220ms ease, border-color 220ms ease, color 220ms ease;
+}
+
+.hero .audio-btn:hover {
+  background: #c19a4f;
+  border-color: #c19a4f;
+  color: #1c1a17;
+}
+
 .audio-btn__badge {
   display: inline-flex;
   align-items: center;
@@ -341,135 +473,60 @@ section[id] {
   border-radius: 50%;
   background: #c19a4f;
   color: #1c1a17;
-  font-size: 10px;
   flex-shrink: 0;
+  transition: background 220ms ease, color 220ms ease;
+}
+
+/* Hover fills the button with the same gold as the badge, so invert the badge
+   to keep the circle from disappearing into it. */
+.audio-btn:hover .audio-btn__badge {
+  background: #1c1a17;
+  color: #c19a4f;
+}
+
+/* Drawn rather than typed: ▶ and ❚❚ get substituted with colour emoji on iOS. */
+.audio-btn__icon {
+  width: 11px;
+  height: 11px;
+  display: block;
+}
+
+/* A triangle reads as off-centre when its bounding box is centred. */
+.audio-btn__icon--play {
+  margin-left: 1px;
+}
+
+.audio-btn__icon--pause {
+  display: none;
+}
+
+.audio-btn.is-playing .audio-btn__icon--play {
+  display: none;
+}
+
+.audio-btn.is-playing .audio-btn__icon--pause {
+  display: block;
 }
 
 .audio-btn__label {
   font-size: 16px;
 }
 
-.carousel {
-  position: relative;
-  display: flex;
-  min-height: 100%;
-}
-
-.carousel__frame {
-  position: relative;
-  flex: 1;
-  width: 100%;
-  overflow: hidden;
-  background: #e7e0d0;
-}
-
-.carousel__img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 1400ms cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: opacity;
-  backface-visibility: hidden;
-}
-
-.carousel__img.is-active {
-  opacity: 1;
-}
-
-.carousel__scrim {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(20, 18, 15, 0.45) 0%, rgba(20, 18, 15, 0) 45%);
-  pointer-events: none;
-}
-
-.carousel__arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 42px;
-  height: 42px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(243, 239, 230, 0.88);
-  color: #1c1a17;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-  padding: 0;
-}
-
-.carousel__arrow--prev {
-  left: 14px;
-}
-
-.carousel__arrow--next {
-  right: 14px;
-}
-
-.carousel__arrow:hover {
-  background: #c19a4f;
-}
-
-.carousel__dots {
-  position: absolute;
-  left: 20px;
-  right: 20px;
-  bottom: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.carousel__dots-row {
-  display: flex;
-  gap: 8px;
-}
-
-.carousel__dot {
-  width: 26px;
-  height: 4px;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  background: rgba(243, 239, 230, 0.45);
-}
-
-.carousel__dot.is-active {
-  background: #c19a4f;
-}
-
-.carousel__accent {
-  position: absolute;
-  top: -1px;
-  right: -1px;
-  width: 64px;
-  height: 64px;
-  border-top: 2px solid #c19a4f;
-  border-right: 2px solid #c19a4f;
-  pointer-events: none;
-}
-
 /* ========== STATS ========== */
 .stats {
-  margin-top: clamp(48px, 6vw, 84px);
-  border-top: 1px solid #ddd5c2;
+  align-self: end;
+  border-top: 1px solid rgba(243, 239, 230, 0.22);
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
 }
 
 .stats__cell {
-  padding: 28px;
-  border-right: 1px solid #ddd5c2;
+  padding: clamp(14px, 2vh, 26px) 28px;
+  border-right: 1px solid rgba(243, 239, 230, 0.22);
 }
 
 .stats__cell:first-child {
-  padding: 28px 28px 28px 0;
+  padding-left: 0;
 }
 
 .stats__cell:last-child {
@@ -478,13 +535,13 @@ section[id] {
 
 .stats__value {
   font-family: "DM Sans", sans-serif;
-  font-size: clamp(34px, 4vw, 52px);
+  font-size: clamp(28px, min(3.4vw, 5.6vh), 50px);
   line-height: 1;
-  color: #1c1a17;
+  color: #f7f4ec;
 }
 
 .stats__value span {
-  color: #c19a4f;
+  color: #dcb771;
 }
 
 .stats__label {
@@ -492,7 +549,7 @@ section[id] {
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #938974;
+  color: rgba(243, 239, 230, 0.62);
   margin-top: 10px;
 }
 
@@ -552,12 +609,13 @@ section[id] {
   margin: 0 auto;
 }
 
+/* Two columns on the same rhythm as the divisions below, so the paragraph
+   sits over their column of copy instead of drifting off to the right. */
 .divisions-intro__row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  align-items: end;
+  gap: clamp(24px, 5vw, 72px);
 }
 
 .divisions-intro__eyebrow {
@@ -576,9 +634,9 @@ section[id] {
 
 .divisions-intro__body {
   font-size: 17px;
-  line-height: 1.65;
+  line-height: 1.7;
   color: #5e584d;
-  max-width: 380px;
+  max-width: 520px;
   margin: 0;
 }
 
@@ -587,18 +645,31 @@ section[id] {
   padding: clamp(28px, 4vw, 52px) clamp(20px, 4vw, 56px);
 }
 
+/* Each division opens on a rule so 01 and 02 read as two separate things.
+   Inset to the content, not bled to the window, to line up with the rules
+   inside the sections. */
+.division::before {
+  content: "";
+  display: block;
+  max-width: 1320px;
+  margin: 0 auto clamp(36px, 4.5vw, 60px);
+  border-top: 1px solid #ddd5c2;
+}
+
 .division__grid {
   max-width: 1320px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: clamp(32px, 5vw, 72px);
-  align-items: center;
+  align-items: stretch;
 }
 
+/* The photo takes its height from the column of copy beside it rather than
+   from a fixed shape, so neither side is left with a stretch of nothing. */
 .division__media {
   position: relative;
-  aspect-ratio: 5 / 4;
+  min-height: 420px;
   overflow: hidden;
   background: #e7e0d0;
 }
@@ -639,6 +710,14 @@ section[id] {
   max-width: 520px;
 }
 
+.division__body p {
+  margin: 0 0 16px;
+}
+
+.division__body p:last-child {
+  margin-bottom: 0;
+}
+
 .division__features {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -658,6 +737,175 @@ section[id] {
   font-size: 14.5px;
   line-height: 1.55;
   color: #5e584d;
+}
+
+/* ========== COMMUNITIES RAIL ========== */
+/* Too many communities to read as a column, so they run sideways: swipe on a
+   phone, arrows or a trackpad on a desktop, snapping a card at a time. */
+.rail {
+  max-width: 1320px;
+  margin: clamp(40px, 5vw, 64px) auto 0;
+}
+
+.rail__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 22px;
+}
+
+.rail__eyebrow {
+  margin: 0;
+}
+
+.rail__arrows {
+  display: flex;
+  gap: 8px;
+}
+
+.rail__arrows[hidden] {
+  display: none;
+}
+
+.rail__arrow {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  background: transparent;
+  border: 1px solid #ddd5c2;
+  color: #1c1a17;
+  cursor: pointer;
+  transition: background 200ms ease, border-color 200ms ease, color 200ms ease;
+}
+
+.rail__arrow svg {
+  width: 16px;
+  height: 16px;
+}
+
+.rail__arrow:hover:not(:disabled) {
+  background: #1c1a17;
+  border-color: #1c1a17;
+  color: #f3efe6;
+}
+
+.rail__arrow:disabled {
+  color: #b3a892;
+  border-color: #e8e1d2;
+  cursor: default;
+}
+
+.rail__track {
+  display: flex;
+  align-items: stretch;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0 0 4px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  /* The arrows and the swipe are the affordance; the bar itself would cut
+     across the bottom of the cards. */
+  scrollbar-width: none;
+}
+
+.rail__track::-webkit-scrollbar {
+  display: none;
+}
+
+.rail__track:focus-visible {
+  outline: 2px solid #c19a4f;
+  outline-offset: 4px;
+}
+
+.community {
+  flex: 0 0 auto;
+  width: clamp(248px, 74vw, 292px);
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 24px 26px;
+  background: #fbf9f3;
+  border: 1px solid #e6dfcf;
+}
+
+.community__status {
+  align-self: flex-start;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 5px 9px;
+  margin-bottom: 18px;
+  background: #c19a4f;
+  color: #1c1a17;
+}
+
+.community--sold .community__status {
+  background: #1c1a17;
+  color: #f3efe6;
+}
+
+.community__name {
+  font-family: "DM Sans", sans-serif;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 0 0 8px;
+  color: #1c1a17;
+}
+
+.community__place {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8a7f6a;
+  margin-bottom: 14px;
+}
+
+.community__body {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #5e584d;
+}
+
+.community__body p {
+  margin: 0 0 8px;
+}
+
+.community__body p:last-child {
+  margin-bottom: 0;
+}
+
+/* ========== WHAT ELSE GOT BUILT ========== */
+/* Closes each division: a rule, a label, and the roll of everything that
+   didn't get a card of its own. */
+.past {
+  max-width: 1320px;
+  margin: clamp(34px, 4vw, 52px) auto 0;
+  padding-top: 22px;
+  border-top: 1px solid #ddd5c2;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 20px clamp(32px, 5vw, 72px);
+}
+
+.past__label {
+  padding-top: 2px;
+}
+
+.past__text {
+  font-size: 15px;
+  line-height: 1.75;
+  color: #6b6459;
+  margin: 0;
 }
 
 /* ========== CONTACT ========== */
@@ -708,6 +956,11 @@ section[id] {
   border: 1px solid #c19a4f;
   background: #252017;
   padding: 44px 36px;
+}
+
+/* Focused only to move the reader to it after a send; the border is the cue. */
+.contact__success:focus {
+  outline: none;
 }
 
 .contact__success-title {
@@ -764,6 +1017,57 @@ section[id] {
   border-color: #c19a4f;
 }
 
+.field--invalid input,
+.field--invalid textarea {
+  border-color: #c96f5b;
+}
+
+/* Overrides the mono uppercase treatment the labels share. */
+.field .field__error {
+  font-family: "Hanken Grotesk", sans-serif;
+  font-size: 13.5px;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #d59182;
+}
+
+.field .field__error:empty {
+  display: none;
+}
+
+/* Off screen rather than display:none, which a bot can spot and skip. */
+.contact__trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.contact__error {
+  border: 1px solid #c96f5b;
+  background: #2a1d19;
+  padding: 18px 20px;
+}
+
+.contact__error.is-hidden {
+  display: none;
+}
+
+.contact__error-title {
+  font-family: "DM Sans", sans-serif;
+  font-size: 18px;
+  color: #f3efe6;
+  margin-bottom: 6px;
+}
+
+.contact__error p {
+  font-size: 15px;
+  line-height: 1.55;
+  color: #c7b7a9;
+  margin: 0;
+}
+
 .contact__submit {
   align-self: flex-start;
   background: #c19a4f;
@@ -779,6 +1083,12 @@ section[id] {
 
 .contact__submit:hover {
   background: #f3efe6;
+}
+
+.contact__submit:disabled {
+  background: #6f5c33;
+  color: #2a251d;
+  cursor: default;
 }
 
 .contact__aside {
@@ -990,32 +1300,70 @@ section[id] {
     display: inline-flex !important;
   }
 
-  .hero__grid {
-    grid-template-columns: 1fr !important;
-    gap: 32px !important;
+  .hero {
+    padding-top: calc(78px + 28px);
+    padding-bottom: 20px;
   }
 
-  .carousel {
-    min-height: 0 !important;
+  .hero__inner {
+    gap: 24px;
   }
 
-  .carousel__frame {
-    aspect-ratio: 4 / 3;
+  .hero__eyebrow {
+    margin-bottom: 18px;
   }
 
+  .hero__title {
+    font-size: clamp(30px, 7.6vw, 44px);
+    margin-bottom: 18px;
+  }
+
+  .hero__body {
+    font-size: 16.5px;
+    margin-bottom: 24px;
+  }
+
+  /* One tight row on phones — a stacked bar would push the stats off screen. */
   .stats {
-    grid-template-columns: 1fr 1fr !important;
+    grid-template-columns: repeat(3, 1fr) !important;
   }
 
   .stats__cell {
-    padding: 22px 18px !important;
-    border-right: none !important;
-    border-top: 1px solid #ddd5c2;
+    padding: 14px 12px !important;
+  }
+
+  .stats__cell:first-child {
+    padding-left: 0 !important;
+  }
+
+  .stats__cell:last-child {
+    padding-right: 0 !important;
+  }
+
+  .stats__value {
+    font-size: clamp(22px, 6.4vw, 30px);
+  }
+
+  .stats__label {
+    font-size: 9.5px;
+    letter-spacing: 0.1em;
+    margin-top: 7px;
   }
 
   .division__grid {
     grid-template-columns: 1fr !important;
     gap: 28px !important;
+  }
+
+  /* Stacked there is no column to match, so the photo goes back to a shape. */
+  .division__media {
+    aspect-ratio: 5 / 4;
+    min-height: 0 !important;
+  }
+
+  .past {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
   }
 
   .division__features {
@@ -1049,8 +1397,8 @@ section[id] {
   }
 
   .divisions-intro__row {
-    flex-direction: column;
-    align-items: flex-start !important;
+    grid-template-columns: 1fr !important;
+    align-items: start !important;
   }
 }
 
@@ -1074,13 +1422,46 @@ section[id] {
 }
 
 @media (max-width: 520px) {
-  .stats {
-    grid-template-columns: 1fr !important;
-  }
-
   .footer__bottom {
     flex-direction: column;
     align-items: flex-start !important;
+  }
+}
+
+/* Short landscape phones: shrink the hero to its content rather than forcing a
+   full viewport it can't fill comfortably. */
+@media (max-height: 560px) and (orientation: landscape) {
+  .hero {
+    min-height: 0;
+    padding-top: calc(78px + 14px);
+  }
+
+  .hero__inner {
+    gap: 14px;
+  }
+
+  .hero__eyebrow {
+    margin-bottom: 12px;
+  }
+
+  .hero__title {
+    font-size: clamp(24px, 4vw, 36px);
+    margin-bottom: 12px;
+  }
+
+  .hero__body {
+    font-size: 15.5px;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .hero .audio-btn {
+    padding: 12px 24px;
+  }
+
+  .stats__cell {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
   }
 }
 
@@ -1089,8 +1470,8 @@ section[id] {
     scroll-behavior: auto;
   }
 
-  .carousel__img {
-    transition: none;
+  .hero__video {
+    display: none;
   }
 
   .announce__viewport {
@@ -1109,172 +1490,4 @@ section[id] {
     text-align: center;
     padding: 0 16px;
   }
-}
-
-/* ========== ADMIN ========== */
-.admin-body {
-  background: var(--cream);
-  color: var(--ink);
-}
-
-.admin {
-  max-width: 760px;
-  margin: 0 auto;
-  padding: clamp(36px, 6vw, 72px) clamp(20px, 4vw, 40px) 80px;
-}
-
-.admin__brand {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 36px;
-}
-
-.admin__brand img {
-  height: 36px;
-  width: auto;
-  display: block;
-}
-
-.admin__back {
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  border-bottom: 1px solid var(--gold);
-  padding-bottom: 2px;
-}
-
-.admin__back:hover {
-  color: #8d6d2e;
-}
-
-.admin h1 {
-  font-family: "DM Sans", sans-serif;
-  font-weight: 400;
-  font-size: clamp(32px, 4vw, 48px);
-  letter-spacing: -0.02em;
-  margin: 0 0 12px;
-}
-
-.admin__lede {
-  margin: 0 0 28px;
-  max-width: 52ch;
-  font-size: 16px;
-  line-height: 1.6;
-  color: #5e584d;
-}
-
-.admin__lede code {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 12.5px;
-  color: var(--ink);
-}
-
-.admin__line {
-  display: grid;
-  gap: 8px;
-  margin-bottom: 14px;
-}
-
-.admin__line-label {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #8d6d2e;
-}
-
-.admin__remove {
-  background: none;
-  border: none;
-  padding: 0;
-  font: inherit;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #8a7f6a;
-  cursor: pointer;
-}
-
-.admin__remove:hover {
-  color: var(--ink);
-}
-
-.admin textarea {
-  width: 100%;
-  min-height: 76px;
-  resize: vertical;
-  padding: 14px 16px;
-  border: 1px solid #e0d8c7;
-  background: #faf8f3;
-  color: var(--ink);
-  font: inherit;
-  font-size: 16px;
-  line-height: 1.5;
-}
-
-.admin textarea:focus {
-  outline: 2px solid var(--gold);
-  outline-offset: 1px;
-  border-color: transparent;
-}
-
-.admin__actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px;
-  margin-top: 8px;
-}
-
-.admin__save,
-.admin__add,
-.admin__reset {
-  font: inherit;
-  cursor: pointer;
-  letter-spacing: 0.03em;
-}
-
-.admin__save,
-.admin__add {
-  border: none;
-  padding: 12px 20px;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.admin__save {
-  background: var(--ink);
-  color: var(--cream);
-}
-
-.admin__save:hover {
-  background: var(--gold);
-  color: var(--ink);
-}
-
-.admin__add,
-.admin__reset {
-  background: transparent;
-  color: var(--ink);
-  border: 1px solid #c8bfa9;
-  padding: 11px 18px;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.admin__add:hover,
-.admin__reset:hover {
-  border-color: var(--gold);
-  color: #8d6d2e;
-}
-
-.admin__status {
-  min-height: 1.4em;
-  margin: 16px 0 0;
-  font-size: 14px;
-  color: #8d6d2e;
 }

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="{{ site.meta.lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ site.meta.title }}</title>
+  <meta name="description" content="{{ site.meta.description }}">
+  <link rel="canonical" href="{{ site.meta.url }}/">
+
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#1c1a17">
+
+  {# Messages, Slack and the social networks read these rather than the title
+     above, so the preview card can stay shorter than the Google listing. #}
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Powers Companies">
+  <meta property="og:url" content="{{ site.meta.url }}/">
+  <meta property="og:title" content="{{ site.meta.social.title }}">
+  <meta property="og:description" content="{{ site.meta.social.description }}">
+  <meta property="og:image" content="{{ site.meta.url }}{{ site.meta.social.image }}">
+  <meta property="og:image:alt" content="{{ site.meta.social.image_alt }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ site.meta.social.title }}">
+  <meta name="twitter:description" content="{{ site.meta.social.description }}">
+  <meta name="twitter:image" content="{{ site.meta.url }}{{ site.meta.social.image }}">
+  <meta name="twitter:image:alt" content="{{ site.meta.social.image_alt }}">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="{{ site.hero.video.poster }}" fetchpriority="high">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page">
+
+    {%- if site.banner.messages.length %}
+    <div class="announce" id="announce" role="region" aria-label="Now leasing">
+      <div class="announce__viewport">
+        <div class="announce__track">
+          <div class="announce__seq">
+            <div class="announce__group">
+              {%- for message in site.banner.messages %}
+              <span class="announce__item">
+                {%- for part in message.parts -%}
+                  {%- if part.href -%}
+                  <a href="{{ part.href }}">{{ part.text }}</a>
+                  {%- else -%}
+                  {{ part.text }}
+                  {%- endif -%}
+                {%- endfor -%}
+              </span>
+              <span class="announce__sep" aria-hidden="true"></span>
+              {%- endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {%- endif %}
+
+    <nav class="nav is-dark" aria-label="Primary">
+      <a href="#top" class="nav__logo">
+        <img class="nav__logo-img nav__logo-img--dark" src="{{ site.nav.logo_dark }}" alt="{{ site.nav.logo_alt }}" width="560" height="181">
+        <img class="nav__logo-img nav__logo-img--light" src="{{ site.nav.logo_light }}" alt="" width="560" height="181" aria-hidden="true">
+      </a>
+      <div class="nav__links">
+        {%- for link in site.nav.links %}
+        <a href="{{ link.href }}" class="nav__link">{{ link.label }}</a>
+        {%- endfor %}
+        <a href="{{ site.nav.cta.href }}" class="nav__cta">{{ site.nav.cta.label }}</a>
+      </div>
+      <button
+        id="menu-btn"
+        class="nav__burger"
+        type="button"
+        aria-label="Menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <span id="menu-icon">☰</span>
+      </button>
+    </nav>
+
+    <div id="mobile-menu" class="mobile-menu">
+      {%- for link in site.nav.links %}
+      <a href="{{ link.href }}" class="mobile-menu__link" data-close-menu>{{ link.label }}</a>
+      {%- endfor %}
+      <a href="{{ site.nav.cta.href }}" class="mobile-menu__cta" data-close-menu>{{ site.nav.cta.label }}</a>
+    </div>
+
+    <main id="top">
+
+      <section class="hero" data-nav="dark" aria-label="Hero">
+        <div class="hero__media" aria-hidden="true">
+          <img class="hero__poster" src="{{ site.hero.video.poster }}" alt="" width="1920" height="1080" fetchpriority="high">
+          <video
+            id="hero-video"
+            class="hero__video"
+            data-src="{{ site.hero.video.desktop }}"
+            data-src-mobile="{{ site.hero.video.mobile }}"
+            preload="none"
+            autoplay
+            muted
+            loop
+            playsinline
+            webkit-playsinline="true"
+            disableremoteplayback
+            disablepictureinpicture
+            tabindex="-1"
+          ></video>
+          <div class="hero__scrim"></div>
+        </div>
+
+        <div class="hero__inner">
+          <div class="hero__copy">
+            <div class="eyebrow hero__eyebrow">{{ site.hero.eyebrow }}</div>
+            <h1 class="hero__title">{{ site.hero.title_lead }} <em>{{ site.hero.title_emphasis }}</em></h1>
+            <p class="hero__body">{{ site.hero.body }}</p>
+            <button id="audio-btn" class="audio-btn" type="button" aria-pressed="false" data-audio-src="{{ site.hero.audio.file }}" data-play-label="{{ site.hero.audio.play_label }}" data-pause-label="{{ site.hero.audio.pause_label }}">
+              <span class="audio-btn__badge" aria-hidden="true">
+                <svg class="audio-btn__icon audio-btn__icon--play" viewBox="0 0 14 14" focusable="false">
+                  <path d="M4 2.4 11 7l-7 4.6Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"></path>
+                </svg>
+                <svg class="audio-btn__icon audio-btn__icon--pause" viewBox="0 0 14 14" focusable="false">
+                  <rect x="3.2" y="2.2" width="2.9" height="9.6" rx="1.1" fill="currentColor"></rect>
+                  <rect x="7.9" y="2.2" width="2.9" height="9.6" rx="1.1" fill="currentColor"></rect>
+                </svg>
+              </span>
+              <span id="audio-label" class="audio-btn__label">{{ site.hero.audio.play_label }}</span>
+            </button>
+          </div>
+
+          <div class="stats">
+            {%- for stat in site.stats %}
+            <div class="stats__cell">
+              <div class="stats__value">{{ stat.value }}<span>{{ stat.suffix }}</span></div>
+              <div class="stats__label">{{ stat.label }}</div>
+            </div>
+            {%- endfor %}
+          </div>
+        </div>
+      </section>
+
+      <section class="ethos" data-nav="dark" aria-label="Our approach">
+        <div class="ethos__inner">
+          <div class="eyebrow ethos__eyebrow">{{ site.ethos.eyebrow }}</div>
+          <p class="ethos__lead">{{ site.ethos.lead_text }} <em>{{ site.ethos.lead_emphasis }}</em></p>
+          <div class="ethos__grid">
+            {%- for paragraph in site.ethos.paragraphs %}
+            <p>{{ paragraph }}</p>
+            {%- endfor %}
+          </div>
+        </div>
+      </section>
+
+      <section class="divisions-intro" aria-label="What we build">
+        <div class="divisions-intro__inner">
+          <div class="divisions-intro__row">
+            <div>
+              <div class="eyebrow divisions-intro__eyebrow">{{ site.divisions_intro.eyebrow }}</div>
+              <h2 class="divisions-intro__title">{{ site.divisions_intro.title_line_1 }}<br>{{ site.divisions_intro.title_line_2 }}</h2>
+            </div>
+            <p class="divisions-intro__body">{{ site.divisions_intro.body }}</p>
+          </div>
+        </div>
+      </section>
+      {%- for division in site.divisions %}
+
+      <section id="{{ division.id }}" class="division" aria-label="{{ division.aria_label }}">
+        <div class="division__grid">
+          <div class="division__media">
+            <img src="{{ division.image }}" alt="{{ division.image_alt }}" loading="lazy">
+          </div>
+          <div>
+            <div class="division__label">{{ division.label }}</div>
+            <h3 class="division__title">{{ division.title }}</h3>
+            <div class="division__body">
+              {%- for paragraph in division.paragraphs %}
+              <p>{{ paragraph }}</p>
+              {%- endfor %}
+            </div>
+            <div class="division__features">
+              {%- for feature in division.features %}
+              <div>
+                <div class="division__feature-title">{{ feature.title }}</div>
+                <div class="division__feature-body">{{ feature.body }}</div>
+              </div>
+              {%- endfor %}
+            </div>
+          </div>
+        </div>
+        {%- if division.show_developments_list and collections.developments.length %}
+
+        <div class="rail">
+          <div class="rail__bar">
+            <div class="eyebrow rail__eyebrow">{{ division.list_eyebrow }}</div>
+            <div class="rail__arrows" data-rail-arrows hidden>
+              <button class="rail__arrow" type="button" data-rail-dir="-1" aria-label="Previous communities">
+                <svg viewBox="0 0 16 16" focusable="false" aria-hidden="true">
+                  <path d="M10 2.5 4.5 8l5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </button>
+              <button class="rail__arrow" type="button" data-rail-dir="1" aria-label="Next communities">
+                <svg viewBox="0 0 16 16" focusable="false" aria-hidden="true">
+                  <path d="M6 2.5 11.5 8 6 13.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <ul class="rail__track" data-rail tabindex="0" aria-label="{{ division.list_eyebrow }}">
+            {%- for entry in collections.developments %}
+            {#- A status with the word "sold" in it is stamped dark; anything else
+                reads as still available and is stamped gold. #}
+            <li class="community{% if 'sold' in (entry.data.status | lower) %} community--sold{% endif %}">
+              {%- if entry.data.status %}
+              <div class="community__status">{{ entry.data.status }}</div>
+              {%- endif %}
+              <h4 class="community__name">{{ entry.data.title }}</h4>
+              {%- if entry.data.location %}
+              <div class="community__place">{{ entry.data.location }}</div>
+              {%- endif %}
+              {%- if entry.templateContent %}
+              <div class="community__body">{{ entry.templateContent | safe }}</div>
+              {%- endif %}
+            </li>
+            {%- endfor %}
+          </ul>
+        </div>
+        {%- endif %}
+        {%- if division.note %}
+
+        <div class="past">
+          <div class="eyebrow past__label">{{ division.note_label }}</div>
+          <p class="past__text">{{ division.note }}</p>
+        </div>
+        {%- endif %}
+      </section>
+      {%- endfor %}
+
+      <section id="contact" class="contact" data-nav="dark" aria-label="Contact">
+        <div class="contact__inner">
+          <div class="eyebrow contact__eyebrow">{{ site.contact.eyebrow }}</div>
+          <h2 class="contact__title">{{ site.contact.title_line_1 }}<br>{{ site.contact.title_line_2 }}</h2>
+          <div class="contact__grid">
+            <div>
+              <div id="contact-success" class="contact__success is-hidden" role="status">
+                <div class="contact__success-title">{{ site.contact.success_title }}</div>
+                <p>{{ site.contact.success_body }}</p>
+              </div>
+              <form
+                id="contact-form"
+                class="contact__form"
+                action="/api/contact"
+                method="post"
+                novalidate
+                data-error-required="{{ site.contact.validation.required }}"
+                data-error-invalid="{{ site.contact.validation.invalid }}"
+                data-error-too-long="{{ site.contact.validation.too_long }}"
+              >
+                <div class="contact__row">
+                  <label class="field">
+                    <span>{{ site.contact.labels.name }}</span>
+                    <input name="name" required maxlength="120" autocomplete="name" aria-describedby="error-name">
+                    <span class="field__error" id="error-name"></span>
+                  </label>
+                  <label class="field">
+                    <span>{{ site.contact.labels.phone }}</span>
+                    <input name="phone" type="tel" maxlength="40" autocomplete="tel" aria-describedby="error-phone">
+                    <span class="field__error" id="error-phone"></span>
+                  </label>
+                </div>
+                <label class="field">
+                  <span>{{ site.contact.labels.email }}</span>
+                  <input name="email" type="email" required maxlength="200" autocomplete="email" aria-describedby="error-email">
+                  <span class="field__error" id="error-email"></span>
+                </label>
+                <label class="field">
+                  <span>{{ site.contact.labels.message }}</span>
+                  <textarea name="message" rows="5" maxlength="4000" aria-describedby="error-message"></textarea>
+                  <span class="field__error" id="error-message"></span>
+                </label>
+                {# A field no visitor sees. Anything that fills it is a bot, and
+                   its submission is dropped. #}
+                <label class="contact__trap" aria-hidden="true">
+                  <span>Company</span>
+                  <input name="company" type="text" tabindex="-1" autocomplete="off">
+                </label>
+                <div id="contact-error" class="contact__error is-hidden" role="alert">
+                  <div class="contact__error-title">{{ site.contact.error_title }}</div>
+                  <p>{{ site.contact.error_body }}</p>
+                </div>
+                <button class="contact__submit" type="submit" data-sending-label="{{ site.contact.labels.sending }}">{{ site.contact.labels.submit }}</button>
+              </form>
+            </div>
+            <div class="contact__aside">
+              <div class="contact__photo">
+                <img src="{{ site.contact.photo }}" alt="{{ site.contact.photo_alt }}" loading="lazy">
+              </div>
+              <div class="contact__info">
+                <div>
+                  <div class="contact__info-label">{{ site.contact.office_label }}</div>
+                  <div class="contact__info-value">{% for line in site.contact.address_lines %}{{ line }}{% if not loop.last %}<br>{% endif %}{% endfor %}</div>
+                </div>
+                <div>
+                  <div class="contact__info-label">{{ site.contact.phone_label }}</div>
+                  <div class="contact__info-value">Office&nbsp; {{ site.contact.office_phone }}<br>Fax&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ site.contact.fax_phone }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="footer" data-nav="dark">
+      <div class="footer__inner">
+        <div class="footer__grid">
+          <div class="footer__brand">
+            <a href="#top" class="footer__logo">
+              <img src="{{ site.footer.logo }}" alt="{{ site.footer.logo_alt }}" width="560" height="181">
+            </a>
+            <p>{{ site.footer.tagline }}</p>
+            <div class="footer__award">
+              <img src="{{ site.footer.award.image }}" alt="" width="320" height="318">
+              <div class="footer__award-text">
+                <span class="footer__award-title">{{ site.footer.award.title }}</span>
+                <span class="footer__award-meta">{{ site.footer.award.meta }}</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="footer__heading">{{ site.footer.divisions_heading }}</div>
+            <div class="footer__links">
+              {%- for link in site.footer.division_links %}
+              <a href="{{ link.href }}">{{ link.label }}</a>
+              {%- endfor %}
+            </div>
+          </div>
+          <div>
+            <div class="footer__heading">{{ site.footer.office_heading }}</div>
+            <div class="footer__office">{% for line in site.footer.office_lines %}{{ line }}{% if not loop.last %}<br>{% endif %}{% endfor %}</div>
+          </div>
+          <div>
+            <div class="footer__heading">{{ site.footer.connect_heading }}</div>
+            <div class="footer__links">
+              {%- for link in site.footer.connect_links %}
+              <a href="{{ link.href }}">{{ link.label }}</a>
+              {%- endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="footer__bottom">
+          <div class="footer__copy">© <span id="year">2026</span> {{ site.footer.copyright }}</div>
+          <div class="footer__eho">
+            <span class="footer__eho-mark" aria-hidden="true">⌂</span>
+            <span class="footer__eho-text">{{ site.footer.equal_housing }}</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+  <script src="banner.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

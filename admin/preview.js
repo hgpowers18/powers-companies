@@ -11,7 +11,12 @@ const SitePreview = createClass({
     const messages = plain(data && data.getIn(["banner", "messages"])) || [];
 
     const banner = messages
-      .map((message) => (message.parts || []).map((part) => (part && part.text) || "").join(""))
+      .map((message) =>
+        (message.parts || [])
+          .map((part) => ((part && part.text) || "").trim())
+          .filter(Boolean)
+          .join(" "),
+      )
       .filter(Boolean);
 
     return h(

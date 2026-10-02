@@ -80,8 +80,8 @@ divisions:
       - title: Standard, not extra
         body: Energy Star certification, concealed sprinklers, maple kitchens.
   - id: commercial
-    aria_label: Commercial and Office
-    label: 02 — COMMERCIAL & OFFICE
+    aria_label: Commercial, Office, & Manufacturing
+    label: 02 — COMMERCIAL, OFFICE & MANUFACTURING
     title: Office, retail, industrial. We've done it all.
     paragraphs:
       - Office space, retail centers, industrial parks — we'll take any parcel of land and turn it into the business space you envisioned. Cutting-edge, attractive, and delivered on budget.

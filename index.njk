@@ -243,7 +243,7 @@
       <section id="contact" class="contact" data-nav="dark" aria-label="Contact">
         <div class="contact__inner">
           <div class="eyebrow contact__eyebrow">{{ site.contact.eyebrow }}</div>
-          <h2 class="contact__title">{{ site.contact.title_line_1 }}<br>{{ site.contact.title_line_2 }}</h2>
+          <h2 class="contact__title">{{ site.contact.title_line_1 }}{% if site.contact.title_line_2 %}<br>{{ site.contact.title_line_2 }}{% endif %}</h2>
           <div class="contact__grid">
             <div>
               <div id="contact-success" class="contact__success is-hidden" role="status">

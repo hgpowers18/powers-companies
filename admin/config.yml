@@ -293,8 +293,14 @@ singletons:
         collapsed: true
         fields:
           - { name: eyebrow, label: Small label, widget: string }
-          - { name: title_line_1, label: Heading line 1, widget: string }
-          - { name: title_line_2, label: Heading line 2, widget: string }
+          - { name: title_line_1, label: Heading, widget: string }
+          - {
+              name: title_line_2,
+              label: Second line,
+              widget: string,
+              required: false,
+              hint: "Optional. Leave blank for a single-line heading.",
+            }
           - { name: success_title, label: Thank-you heading, widget: string }
           - { name: success_body, label: Thank-you message, widget: text }
           - {

@@ -1044,6 +1044,10 @@ section[id] {
   overflow: hidden;
 }
 
+.contact__captcha {
+  align-items: flex-start;
+}
+
 .contact__error {
   border: 1px solid #c96f5b;
   background: #2a1d19;

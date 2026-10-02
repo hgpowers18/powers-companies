@@ -93,9 +93,20 @@ not.
 
 The page posts the form in the background and swaps in the thank-you panel. If scripts are
 blocked the browser posts the form normally instead and the function answers with a plain page
-saying the same thing, so the form still works. Two spam defences are in place: a hidden field
-that only a bot fills in (its submission is quietly dropped) and a per-address cap of five
-submissions in ten minutes.
+saying the same thing.
+
+Three spam defences are in place: a hidden field that only a bot fills in (its submission is
+quietly dropped), a [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/) captcha
+above the send button, and a per-address cap of five submissions in ten minutes. The captcha
+needs two more environment variables, then a redeploy so the public key is built into the page:
+
+- `TURNSTILE_SITE_KEY` — the site key from a Turnstile widget (Cloudflare dashboard → Turnstile).
+  Add this site's hostname to the widget. Use **Managed** mode.
+- `TURNSTILE_SECRET_KEY` — that widget's secret key. The function rejects a submission unless
+  Cloudflare accepts its token.
+
+Until both are set, the widget stays off and the other two defences still apply. The captcha
+needs JavaScript, so a browser with scripts blocked is asked to try again once they are on.
 
 ## Working locally
 

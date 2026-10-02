@@ -16,9 +16,15 @@
  *                     than one
  *   CONTACT_FROM    - the From address, on a domain verified with Resend, e.g.
  *                     "Powers Companies <website@powerscompanies.com>"
+ *
+ * Optional, and both are required for the captcha to actually check anyone:
+ *   TURNSTILE_SITE_KEY    - public key, read at build time by _data/turnstile.js
+ *   TURNSTILE_SECRET_KEY  - secret key, used here to verify the widget token
  */
 
 const HONEYPOT = "company";
+const TURNSTILE_FIELD = "cf-turnstile-response";
+const TURNSTILE_VERIFY = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 
 // Long enough for anything a person writes, short enough that the endpoint
 // cannot be used to post an essay. The inputs carry the same maxlength.
@@ -88,6 +94,70 @@ const emailBody = ({ name, email, phone, message }) =>
     "",
     message || "(No message.)",
   ].join("\n");
+
+let captchaWarningShown = false;
+
+/**
+ * Ask Cloudflare whether this submission's captcha token is genuine.
+ *
+ * "skipped" means the secret is not configured, so the honeypot and the rate
+ * limit are the only checks. Anything else is a reason to refuse the send.
+ * Tokens are single use and expire after five minutes.
+ */
+const verifyTurnstile = async (token, ip, hostname) => {
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+
+  if (!secret) {
+    if (!captchaWarningShown) {
+      captchaWarningShown = true;
+      console.warn(
+        "Contact form: TURNSTILE_SECRET_KEY is not set, so the captcha is not being checked.",
+      );
+    }
+
+    return "skipped";
+  }
+
+  if (!token || token.length > 2048) return "invalid";
+
+  let response;
+
+  try {
+    response = await fetch(TURNSTILE_VERIFY, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        secret,
+        response: token,
+        ...(ip ? { remoteip: ip } : {}),
+      }),
+    });
+  } catch (error) {
+    console.error("Contact form: could not reach Turnstile.", error);
+
+    return "error";
+  }
+
+  const result = await response.json().catch(() => null);
+
+  if (!response.ok || !result) return "error";
+
+  if (!result.success) {
+    console.error("Contact form: Turnstile rejected the token.", result["error-codes"]);
+
+    return "invalid";
+  }
+
+  if (result.hostname && result.hostname !== hostname) {
+    console.error(
+      `Contact form: Turnstile hostname ${result.hostname} did not match ${hostname}.`,
+    );
+
+    return "invalid";
+  }
+
+  return "ok";
+};
 
 /** Hand the submission to Resend. Resolves to true when it was accepted. */
 const sendEmail = async (submission) => {
@@ -233,10 +303,29 @@ export default {
           );
     }
 
+    const ip = (request.headers.get("x-forwarded-for") ?? "").split(",")[0].trim();
+    const captcha = await verifyTurnstile(
+      String(fields[TURNSTILE_FIELD] ?? "").trim(),
+      ip,
+      new URL(request.url).hostname,
+    );
+
+    if (captcha === "invalid") {
+      return wantsJSON
+        ? jsonResponse(400, { ok: false, error: "captcha" })
+        : htmlResponse(
+            400,
+            "Please confirm you’re not a robot.",
+            "The verification did not go through. Go back, complete the check " +
+              "above the send button, and try again. JavaScript needs to be " +
+              "enabled for that.",
+          );
+    }
+
+    if (captcha === "error") return fail(502, "captcha_unavailable");
+
     // Counted here rather than on arrival, so someone mistyping their email a
     // few times is not locked out.
-    const ip = (request.headers.get("x-forwarded-for") ?? "").split(",")[0].trim();
-
     if (ip && rateLimited(ip)) return fail(429, "rate_limited");
 
     return (await sendEmail(submission)) ? succeed() : fail(502, "send_failed");

@@ -132,6 +132,7 @@ contact:
     required: Please fill this in.
     invalid: Enter an email address we can reply to.
     too_long: Please shorten this.
+    captcha: Please confirm you're not a robot.
   photo: /uploads/image-3.webp
   photo_alt: Custom stone home at sunset
   office_label: Office

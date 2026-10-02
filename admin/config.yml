@@ -329,6 +329,7 @@ singletons:
               - { name: required, label: Field left empty, widget: string }
               - { name: invalid, label: Email address not usable, widget: string }
               - { name: too_long, label: Answer too long, widget: string }
+              - { name: captcha, label: Captcha not completed, widget: string }
           - { name: photo, label: Photo, widget: image }
           - { name: photo_alt, label: Photo description, widget: string }
           - { name: office_label, label: "“Office” heading", widget: string }

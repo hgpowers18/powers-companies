@@ -45,10 +45,11 @@
               {%- for message in site.banner.messages %}
               <span class="announce__item">
                 {%- for part in message.parts -%}
+                  {%- if not loop.first %} {% endif -%}
                   {%- if part.href -%}
-                  <a href="{{ part.href }}">{{ part.text }}</a>
+                  <a href="{{ part.href }}">{{ part.text | trim }}</a>
                   {%- else -%}
-                  {{ part.text }}
+                  {{ part.text | trim }}
                   {%- endif -%}
                 {%- endfor -%}
               </span>
@@ -259,6 +260,7 @@
                 data-error-required="{{ site.contact.validation.required }}"
                 data-error-invalid="{{ site.contact.validation.invalid }}"
                 data-error-too-long="{{ site.contact.validation.too_long }}"
+                data-error-captcha="{{ site.contact.validation.captcha }}"
               >
                 <div class="contact__row">
                   <label class="field">
@@ -288,6 +290,14 @@
                   <span>Company</span>
                   <input name="company" type="text" tabindex="-1" autocomplete="off">
                 </label>
+                {%- if turnstile.siteKey %}
+                {# Rendered by the Turnstile script after main.js, which owns the
+                   callbacks. The token it writes is checked in api/contact.js. #}
+                <div class="field contact__captcha">
+                  <div id="contact-captcha" data-sitekey="{{ turnstile.siteKey }}"></div>
+                  <span class="field__error" id="error-captcha"></span>
+                </div>
+                {%- endif %}
                 <div id="contact-error" class="contact__error is-hidden" role="alert">
                   <div class="contact__error-title">{{ site.contact.error_title }}</div>
                   <p>{{ site.contact.error_body }}</p>
@@ -366,5 +376,8 @@
   </div>
   <script src="banner.js"></script>
   <script src="main.js"></script>
+  {%- if turnstile.siteKey %}
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onTurnstileLoad" defer></script>
+  {%- endif %}
 </body>
 </html>

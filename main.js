@@ -260,9 +260,39 @@
       required: form.dataset.errorRequired || "Please fill this in.",
       invalid: form.dataset.errorInvalid || "Please check this.",
       too_long: form.dataset.errorTooLong || "Please shorten this.",
+      captcha: form.dataset.errorCaptcha || "Please confirm you're not a robot.",
     };
 
+    const captchaMount = document.getElementById("contact-captcha");
+    const captchaError = document.getElementById("error-captcha");
+    let captchaId = null;
     let sending = false;
+
+    function showCaptchaError(show) {
+      const field = captchaMount && captchaMount.closest(".field");
+
+      if (field) field.classList.toggle("field--invalid", show);
+      if (captchaError) captchaError.textContent = show ? messages.captcha : "";
+    }
+
+    function resetCaptcha() {
+      if (captchaId !== null && window.turnstile) window.turnstile.reset(captchaId);
+    }
+
+    // The Turnstile script is deferred and calls this once it has loaded.
+    window.onTurnstileLoad = () => {
+      if (!captchaMount || !window.turnstile || captchaId !== null) return;
+
+      captchaId = window.turnstile.render(captchaMount, {
+        sitekey: captchaMount.dataset.sitekey,
+        theme: "dark",
+        size: "normal",
+        appearance: "always",
+        callback() {
+          showCaptchaError(false);
+        },
+      });
+    };
 
     function setFieldError(input, code) {
       const field = input.closest(".field");
@@ -325,6 +355,15 @@
 
       if (!validate()) return;
 
+      // Present only when a site key was built into the page. A missing token
+      // is caught here; api/contact.js checks the token itself.
+      if (captchaMount && !new FormData(form).get("cf-turnstile-response")) {
+        showCaptchaError(true);
+        captchaMount.scrollIntoView({ block: "nearest" });
+
+        return;
+      }
+
       setSending(true);
 
       try {
@@ -337,9 +376,14 @@
         const result = await response.json().catch(() => ({}));
 
         if (!response.ok || !result.ok) {
+          // The token is single use, so a rejected send needs a fresh one.
+          resetCaptcha();
+
+          if (result.error === "captcha") showCaptchaError(true);
           // Only fall back to the general message when the endpoint has not
           // told us which field it objected to.
-          if (!result.fields || !showFieldErrors(result.fields)) showFormError(true);
+          else if (!result.fields || !showFieldErrors(result.fields)) showFormError(true);
+
           setSending(false);
 
           return;

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Banner — Powers Companies</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="admin-body">
+  <div class="announce" id="announce-preview" role="region" aria-label="Banner preview"></div>
+
+  <main class="admin">
+    <div class="admin__brand">
+      <img src="uploads/powers-logo.png" alt="Powers Companies" width="560" height="181">
+      <a class="admin__back" href="index.html">View site</a>
+    </div>
+
+    <h1>Banner</h1>
+    <p class="admin__lede">These lines rotate across the gold bar. Link each leasing agent like <code>[Towson](https://…)</code>. The # links are placeholders until those URLs are ready. Saving updates the banner in this browser.</p>
+
+    <div id="lines"></div>
+
+    <div class="admin__actions">
+      <button id="add-line" class="admin__add" type="button">Add a line</button>
+      <button id="save" class="admin__save" type="button">Save</button>
+      <button id="reset" class="admin__reset" type="button">Reset to placeholder</button>
+    </div>
+    <p id="status" class="admin__status" role="status"></p>
+  </main>
+
+  <script src="banner.js"></script>
+  <script>
+    (() => {
+      const linesEl = document.getElementById("lines");
+      const statusEl = document.getElementById("status");
+      const preview = document.getElementById("announce-preview");
+      let lines = (PowersBanner.load() || PowersBanner.DEFAULT_MESSAGES.slice()).slice();
+
+      function currentLines() {
+        return Array.from(linesEl.querySelectorAll("textarea")).map((field) => field.value);
+      }
+
+      function paint() {
+        linesEl.replaceChildren();
+        lines.forEach((line, index) => {
+          const wrap = document.createElement("div");
+          wrap.className = "admin__line";
+
+          const label = document.createElement("div");
+          label.className = "admin__line-label";
+          label.appendChild(document.createTextNode(`Line ${index + 1}`));
+
+          if (lines.length > 1) {
+            const remove = document.createElement("button");
+            remove.type = "button";
+            remove.className = "admin__remove";
+            remove.textContent = "Remove";
+            remove.addEventListener("click", () => {
+              lines = currentLines();
+              lines.splice(index, 1);
+              paint();
+            });
+            label.appendChild(remove);
+          }
+
+          const field = document.createElement("textarea");
+          field.value = line;
+          field.setAttribute("aria-label", `Banner line ${index + 1}`);
+          field.addEventListener("input", () => {
+            statusEl.textContent = "";
+            PowersBanner.mount(preview, currentLines());
+          });
+
+          wrap.appendChild(label);
+          wrap.appendChild(field);
+          linesEl.appendChild(wrap);
+        });
+
+        PowersBanner.mount(preview, currentLines());
+      }
+
+      document.getElementById("add-line").addEventListener("click", () => {
+        lines = currentLines();
+        lines.push("");
+        paint();
+        const fields = linesEl.querySelectorAll("textarea");
+        fields[fields.length - 1].focus();
+      });
+
+      document.getElementById("save").addEventListener("click", () => {
+        const saved = PowersBanner.save(currentLines());
+        if (!saved.length) {
+          statusEl.textContent = "Add at least one line before saving.";
+          return;
+        }
+        lines = saved;
+        paint();
+        statusEl.textContent = "Saved. The homepage banner is using these lines in this browser.";
+      });
+
+      document.getElementById("reset").addEventListener("click", () => {
+        PowersBanner.clear();
+        lines = PowersBanner.DEFAULT_MESSAGES.slice();
+        paint();
+        statusEl.textContent = "Back to the placeholder.";
+      });
+
+      paint();
+    })();
+  </script>
+</body>
+</html>

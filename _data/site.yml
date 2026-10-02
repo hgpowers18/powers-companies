@@ -116,7 +116,7 @@ divisions:
 contact:
   eyebrow: Contact
   title_line_1: Let's Talk
-  title_line_2: xxx
+  title_line_2: ""
   success_title: Thank you.
   success_body: We've received your message and a member of the Powers team will be in touch shortly.
   error_title: That didn't go through.

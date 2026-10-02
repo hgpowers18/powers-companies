@@ -26,6 +26,19 @@ logo:
 media_folder: uploads
 public_folder: /uploads
 
+# A full-size photo is big enough that GitHub drops the save and the browser
+# only reports "Failed to fetch". Shrink it in the browser before the upload.
+media_libraries:
+  default:
+    config:
+      slugify_filename: true
+      transformations:
+        raster_image:
+          format: webp
+          quality: 85
+          width: 2048
+          height: 2048
+
 singletons:
   - name: site
     label: Site content

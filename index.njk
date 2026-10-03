@@ -199,37 +199,45 @@
           {%- if division.list_eyebrow %}
           <div class="eyebrow directory__eyebrow">{{ division.list_eyebrow }}</div>
           {%- endif %}
+          {%- macro community_cards(entries, collapse) %}
+            {%- for entry in entries %}
+            <li class="community{% if collapse and loop.index0 >= 4 %} community--extra{% endif %}">
+              {%- if entry.data.type %}
+              <div class="community__type">{{ entry.data.type }}</div>
+              {%- endif %}
+              <h4 class="community__name">{{ entry.data.title }}</h4>
+              {%- if entry.data.location %}
+              <div class="community__place">{{ entry.data.location }}</div>
+              {%- endif %}
+            </li>
+            {%- endfor %}
+          {%- endmacro %}
           {%- set groups = division.development_types or ["Single-family", "Multifamily"] %}
-          {%- for group in groups %}
-          {%- set group_entries = collections.developments | ofType(group) %}
-          {%- if group_entries.length %}
-          <section class="directory__group" aria-label="{{ group }}">
+          {%- set packed = collections.developments | packDevelopments(groups) %}
+          {%- for bucket in packed.headed %}
+          {%- set group_id = "directory-" + division.id + "-" + (bucket.type | lower | replace(" ", "-")) %}
+          <section class="directory__group" aria-label="{{ bucket.type }}">
             <div class="directory__head">
-              <h3 class="directory__label">{{ group }}</h3>
-              <div class="directory__count">{{ group_entries.length }}</div>
+              <h3 class="directory__label">{{ bucket.type }}</h3>
+              <div class="directory__count">{{ bucket.entries | length }}</div>
             </div>
-            {%- set group_id = "directory-" + (group | lower | replace(" ", "-")) %}
-            <ul class="directory__grid{% if group_entries.length > 4 %} is-collapsed{% endif %}" id="{{ group_id }}" data-directory>
-              {%- for entry in group_entries %}
-              <li class="community{% if loop.index0 >= 4 %} community--extra{% endif %}">
-                {%- if entry.data.type %}
-                <div class="community__type">{{ entry.data.type }}</div>
-                {%- endif %}
-                <h4 class="community__name">{{ entry.data.title }}</h4>
-                {%- if entry.data.location %}
-                <div class="community__place">{{ entry.data.location }}</div>
-                {%- endif %}
-              </li>
-              {%- endfor %}
+            <ul class="directory__grid{% if bucket.entries.length > 4 %} is-collapsed{% endif %}" id="{{ group_id }}" data-directory>
+              {{ community_cards(bucket.entries, bucket.entries.length > 4) }}
             </ul>
-            {%- if group_entries.length > 4 %}
-            <button class="directory__more" type="button" data-directory-more aria-expanded="false" aria-controls="{{ group_id }}" data-label-more="Show all {{ group_entries.length }}" data-label-less="Show fewer">
-              Show all {{ group_entries.length }}
+            {%- if bucket.entries.length > 4 %}
+            <button class="directory__more" type="button" data-directory-more aria-expanded="false" aria-controls="{{ group_id }}" data-label-more="Show all {{ bucket.entries | length }}" data-label-less="Show fewer">
+              Show all {{ bucket.entries | length }}
             </button>
             {%- endif %}
           </section>
-          {%- endif %}
           {%- endfor %}
+          {%- if packed.packed.length %}
+          <section class="directory__group" aria-label="{{ division.aria_label }}">
+            <ul class="directory__grid" id="directory-{{ division.id }}-packed" data-directory>
+              {{ community_cards(packed.packed, false) }}
+            </ul>
+          </section>
+          {%- endif %}
         </div>
         {%- endif %}
         {%- if division.note %}

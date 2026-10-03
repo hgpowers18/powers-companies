@@ -12,11 +12,23 @@ export default function (eleventyConfig) {
       .sort((a, b) => (a.data.order ?? Infinity) - (b.data.order ?? Infinity)),
   );
 
-  // Nunjucks can't filter a collection on a nested field, so the directory
-  // asks for one development type at a time and keeps the collection order.
-  eleventyConfig.addFilter("ofType", (entries, type) =>
-    (entries || []).filter((entry) => entry?.data?.type === type),
-  );
+  // A type with enough cards to fill a row keeps its own heading. Shorter
+  // types share one grid, because a heading over one or two cards leaves a
+  // blank row. Order follows the type list, then the collection order.
+  eleventyConfig.addFilter("packDevelopments", (entries, types) => {
+    const source = entries || [];
+    const headed = [];
+    const packed = [];
+
+    for (const type of Array.isArray(types) ? types : []) {
+      const group = source.filter((entry) => entry?.data?.type === type);
+      if (!group.length) continue;
+      if (group.length >= 4) headed.push({ type, entries: group });
+      else packed.push(...group);
+    }
+
+    return { headed, packed };
+  });
 
   // Assets and the CMS shell ship as-is; only .njk files are templated.
   eleventyConfig.addPassthroughCopy("styles.css");

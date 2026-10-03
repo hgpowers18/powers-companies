@@ -48,7 +48,7 @@ stats:
   - value: 2,500
     suffix: +
     label: Homes built
-  - value: '35'
+  - value: '40'
     suffix: +
     label: Years building
   - value: 5,000
@@ -132,6 +132,7 @@ contact:
     required: Please fill this in.
     invalid: Enter an email address we can reply to.
     too_long: Please shorten this.
+    captcha: Captcha not completed
   photo: /uploads/image-3.webp
   photo_alt: Custom stone home at sunset
   office_label: Office

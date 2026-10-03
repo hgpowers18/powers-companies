@@ -39,6 +39,12 @@ button {
   --cream: #f3efe6;
 }
 
+/* The leasing bar is optional. Zero its height when it isn't on the page so
+   the nav and the hero still land flush with the viewport. */
+body:not(:has(#announce)) {
+  --announce-h: 0px;
+}
+
 section[id] {
   scroll-margin-top: calc(var(--nav-h) + var(--announce-h) + 10px);
 }
@@ -322,12 +328,14 @@ section[id] {
   overflow: hidden;
   background: #14120f;
   /* Slide up under the sticky nav so the video runs edge to edge. */
-  margin-top: -78px;
+  margin-top: calc(var(--nav-h) * -1);
   /* Vertical rhythm keys off viewport height so the stats bar stays above the
-     fold on short laptop screens as well as tall desktops. */
-  padding: calc(78px + clamp(24px, 6vh, 80px)) clamp(20px, 4vw, 56px) clamp(20px, 3vh, 52px);
-  min-height: 100vh;
-  min-height: 100svh;
+     fold on short laptop screens as well as tall desktops. The leasing bar
+     sits above this section, so the hero is one viewport minus that bar —
+     otherwise the metric labels fall past the fold. */
+  padding: calc(var(--nav-h) + clamp(24px, 6vh, 80px)) clamp(20px, 4vw, 56px) clamp(20px, 3vh, 52px);
+  min-height: calc(100vh - var(--announce-h));
+  min-height: calc(100svh - var(--announce-h));
   display: flex;
 }
 
@@ -1305,7 +1313,7 @@ section[id] {
   }
 
   .hero {
-    padding-top: calc(78px + 28px);
+    padding-top: calc(var(--nav-h) + 28px);
     padding-bottom: 20px;
   }
 
@@ -1437,7 +1445,7 @@ section[id] {
 @media (max-height: 560px) and (orientation: landscape) {
   .hero {
     min-height: 0;
-    padding-top: calc(78px + 14px);
+    padding-top: calc(var(--nav-h) + 14px);
   }
 
   .hero__inner {

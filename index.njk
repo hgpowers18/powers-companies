@@ -195,40 +195,34 @@
         </div>
         {%- if division.show_developments_list and collections.developments.length %}
 
-        <div class="rail">
-          <div class="rail__bar">
-            <div class="eyebrow rail__eyebrow">{{ division.list_eyebrow }}</div>
-            <div class="rail__arrows" data-rail-arrows hidden>
-              <button class="rail__arrow" type="button" data-rail-dir="-1" aria-label="Previous communities">
-                <svg viewBox="0 0 16 16" focusable="false" aria-hidden="true">
-                  <path d="M10 2.5 4.5 8l5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
-                </svg>
-              </button>
-              <button class="rail__arrow" type="button" data-rail-dir="1" aria-label="Next communities">
-                <svg viewBox="0 0 16 16" focusable="false" aria-hidden="true">
-                  <path d="M6 2.5 11.5 8 6 13.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
-                </svg>
-              </button>
+        <div class="directory">
+          {%- if division.list_eyebrow %}
+          <div class="eyebrow directory__eyebrow">{{ division.list_eyebrow }}</div>
+          {%- endif %}
+          {%- for group in ["Single-family", "Multifamily"] %}
+          {%- set group_entries = collections.developments | ofType(group) %}
+          {%- if group_entries.length %}
+          <section class="directory__group" aria-label="{{ group }}">
+            <div class="directory__head">
+              <h3 class="directory__label">{{ group }}</h3>
+              <div class="directory__count">{{ group_entries.length }}</div>
             </div>
-          </div>
-          <ul class="rail__track" data-rail tabindex="0" aria-label="{{ division.list_eyebrow }}">
-            {%- for entry in collections.developments %}
-            {#- A status with the word "sold" in it is stamped dark; anything else
-                reads as still available and is stamped gold. #}
-            <li class="community{% if 'sold' in (entry.data.status | lower) %} community--sold{% endif %}">
-              {%- if entry.data.status %}
-              <div class="community__status">{{ entry.data.status }}</div>
-              {%- endif %}
-              <h4 class="community__name">{{ entry.data.title }}</h4>
-              {%- if entry.data.location %}
-              <div class="community__place">{{ entry.data.location }}</div>
-              {%- endif %}
-              {%- if entry.templateContent %}
-              <div class="community__body">{{ entry.templateContent | safe }}</div>
-              {%- endif %}
-            </li>
-            {%- endfor %}
-          </ul>
+            <ul class="directory__grid">
+              {%- for entry in group_entries %}
+              <li class="community">
+                {%- if entry.data.type %}
+                <div class="community__type">{{ entry.data.type }}</div>
+                {%- endif %}
+                <h4 class="community__name">{{ entry.data.title }}</h4>
+                {%- if entry.data.location %}
+                <div class="community__place">{{ entry.data.location }}</div>
+                {%- endif %}
+              </li>
+              {%- endfor %}
+            </ul>
+          </section>
+          {%- endif %}
+          {%- endfor %}
         </div>
         {%- endif %}
         {%- if division.note %}

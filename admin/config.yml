@@ -398,8 +398,10 @@ collections:
     label_singular: Development
     icon: location_city
     description: >-
-      Each entry appears in the Developments section of the page, in the order
-      shown here. Drag an entry to move it.
+      Each entry appears in the Developments section of the page, grouped by
+      type, in the order shown here. Drag an entry to move it. Entries marked
+      Placeholder stay in this list and are left off the public page until
+      they are ready.
     folder: content/developments
     extension: md
     format: yaml-frontmatter
@@ -408,7 +410,7 @@ collections:
     reorder: true
     slug: "{{slug}}"
     summary: "{{title}}"
-    sortable_fields: [title, location, status]
+    sortable_fields: [title, location, status, type]
     fields:
       - { name: title, label: Name, widget: string }
       - {
@@ -416,20 +418,22 @@ collections:
           label: Location,
           widget: string,
           required: false,
-          hint: "For example: Reisterstown, MD",
+          hint: "For example: Eldersburg, MD",
+        }
+      - {
+          name: type,
+          label: Type of development,
+          widget: select,
+          options: ["Single-family", "Multifamily", "Placeholder"],
+          default: "Single-family",
+          hint: "Shown as a tag on the card. Placeholder entries are kept here
+            and left off the public page.",
         }
       - {
           name: status,
           label: Status,
           widget: string,
           required: false,
-          hint: "For example: Now selling, Coming soon, Sold out. Anything with
-            the word “sold” in it is stamped dark on the card; everything else
-            is stamped gold.",
-        }
-      - {
-          name: body,
-          label: Description,
-          widget: markdown,
-          required: false,
+          default: "Sold out",
+          hint: "Kept with the entry. The public card shows the type, not this status.",
         }

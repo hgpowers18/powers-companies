@@ -1,9 +1,7 @@
 ---
-title: Clas Farm
-location: Sykesville, Carroll County
-status: Sold out
+title: "Clas Farm"
+location: "Eldersburg, MD"
+status: "Sold out"
+type: "Single-family"
 order: 4
 ---
-
-Seven single-family homes on homesites of an acre and more, priced from the
-upper $800s.

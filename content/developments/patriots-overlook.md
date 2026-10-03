@@ -1,9 +1,7 @@
 ---
-title: Patriot's Overlook
-location: Manchester, Carroll County
-status: Sold out
-order: 8
+title: "Patriots Overlook"
+location: "Manchester, MD"
+status: "Sold out"
+type: "Single-family"
+order: 30
 ---
-
-Four distinctive homesites in Manchester, each one matched to its own home
-style and floor plan.

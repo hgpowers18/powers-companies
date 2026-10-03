@@ -1,9 +1,7 @@
 ---
-title: Gerstmyer
-location: Eldersburg, Carroll County
-status: Coming soon
-order: 1
+title: "Gerstmyer"
+location: "Eldersburg, MD"
+status: "Sold out"
+type: "Single-family"
+order: 13
 ---
-
-Our next Eldersburg community. Homesites and floor plans are being finalized
-now — call the office to hear about them first.

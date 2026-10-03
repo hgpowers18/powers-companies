@@ -1,7 +1,7 @@
 ---
-title: "Liberty Trace"
+title: "Collins Estates"
 location: "Eldersburg, MD"
 status: "Sold out"
 type: "Single-family"
-order: 23
+order: 6
 ---

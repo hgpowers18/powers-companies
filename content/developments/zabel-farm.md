@@ -1,7 +1,7 @@
 ---
-title: "Liberty Trace"
+title: "Zabel Farm"
 location: "Eldersburg, MD"
 status: "Sold out"
 type: "Single-family"
-order: 23
+order: 53
 ---

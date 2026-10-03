@@ -12,6 +12,12 @@ export default function (eleventyConfig) {
       .sort((a, b) => (a.data.order ?? Infinity) - (b.data.order ?? Infinity)),
   );
 
+  // Nunjucks can't filter a collection on a nested field, so the directory
+  // asks for one development type at a time and keeps the collection order.
+  eleventyConfig.addFilter("ofType", (entries, type) =>
+    (entries || []).filter((entry) => entry?.data?.type === type),
+  );
+
   // Assets and the CMS shell ship as-is; only .njk files are templated.
   eleventyConfig.addPassthroughCopy("styles.css");
   eleventyConfig.addPassthroughCopy("main.js");

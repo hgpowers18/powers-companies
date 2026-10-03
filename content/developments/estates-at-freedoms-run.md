@@ -1,7 +1,7 @@
 ---
-title: "Liberty Trace"
+title: "Estates at Freedom's Run"
 location: "Eldersburg, MD"
 status: "Sold out"
 type: "Single-family"
-order: 23
+order: 11
 ---

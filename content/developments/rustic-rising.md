@@ -1,7 +1,7 @@
 ---
-title: "Liberty Trace"
+title: "Rustic Rising"
 location: "Eldersburg, MD"
 status: "Sold out"
 type: "Single-family"
-order: 23
+order: 37
 ---

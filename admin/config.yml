@@ -276,7 +276,15 @@ singletons:
               name: show_developments_list,
               label: List the developments here,
               widget: boolean,
-              hint: "When on, everything from the Developments list appears in this section.",
+              hint: "When on, developments whose type is listed below appear in this section.",
+            }
+          - {
+              name: development_types,
+              label: Types listed in this section,
+              widget: list,
+              required: false,
+              hint: "Must match a development's type. Homes lists Single-family and Multifamily. Commercial lists Self storage, Office, Leisure, and Manufacturing.",
+              field: { name: type, label: Type, widget: string },
             }
           - name: features
             label: Two highlights
@@ -424,7 +432,7 @@ collections:
           name: type,
           label: Type of development,
           widget: select,
-          options: ["Single-family", "Multifamily", "Placeholder"],
+          options: ["Single-family", "Multifamily", "Self storage", "Office", "Leisure", "Manufacturing", "Placeholder"],
           default: "Single-family",
           hint: "Shown as a tag on the card. Placeholder entries are kept here
             and left off the public page.",

@@ -81,6 +81,9 @@ divisions:
     note_label: ''
     note: ''
     show_developments_list: true
+    development_types:
+      - Single-family
+      - Multifamily
     features:
       - title: Custom & semi-custom
         body: Bring us your plans or build on ours.
@@ -103,7 +106,12 @@ divisions:
     list_eyebrow: ''
     note_label: ''
     note: ''
-    show_developments_list: false
+    show_developments_list: true
+    development_types:
+      - Self storage
+      - Office
+      - Leisure
+      - Manufacturing
     features:
       - title: Office & retail
         body: Spaces designed around how your business runs.

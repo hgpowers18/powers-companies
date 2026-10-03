@@ -199,7 +199,8 @@
           {%- if division.list_eyebrow %}
           <div class="eyebrow directory__eyebrow">{{ division.list_eyebrow }}</div>
           {%- endif %}
-          {%- for group in ["Single-family", "Multifamily"] %}
+          {%- set groups = division.development_types or ["Single-family", "Multifamily"] %}
+          {%- for group in groups %}
           {%- set group_entries = collections.developments | ofType(group) %}
           {%- if group_entries.length %}
           <section class="directory__group" aria-label="{{ group }}">

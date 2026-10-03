@@ -207,9 +207,10 @@
               <h3 class="directory__label">{{ group }}</h3>
               <div class="directory__count">{{ group_entries.length }}</div>
             </div>
-            <ul class="directory__grid">
+            {%- set group_id = "directory-" + (group | lower | replace(" ", "-")) %}
+            <ul class="directory__grid{% if group_entries.length > 4 %} is-collapsed{% endif %}" id="{{ group_id }}" data-directory>
               {%- for entry in group_entries %}
-              <li class="community">
+              <li class="community{% if loop.index0 >= 4 %} community--extra{% endif %}">
                 {%- if entry.data.type %}
                 <div class="community__type">{{ entry.data.type }}</div>
                 {%- endif %}
@@ -220,6 +221,11 @@
               </li>
               {%- endfor %}
             </ul>
+            {%- if group_entries.length > 4 %}
+            <button class="directory__more" type="button" data-directory-more aria-expanded="false" aria-controls="{{ group_id }}" data-label-more="Show all {{ group_entries.length }}" data-label-less="Show fewer">
+              Show all {{ group_entries.length }}
+            </button>
+            {%- endif %}
           </section>
           {%- endif %}
           {%- endfor %}

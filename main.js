@@ -133,6 +133,27 @@
     }
   }
 
+  /* ========== COMMUNITIES DIRECTORY ========== */
+  // The first row stays on the page. The rest of a long group opens from the
+  // button under it, and closing it brings that group back up under the nav.
+  document.querySelectorAll("[data-directory-more]").forEach((button) => {
+    const group = button.closest(".directory__group");
+    const grid = group && group.querySelector("[data-directory]");
+    if (!grid) return;
+
+    const moreLabel = button.dataset.labelMore || button.textContent;
+    const lessLabel = button.dataset.labelLess || "Show fewer";
+
+    button.addEventListener("click", () => {
+      const collapsed = grid.classList.toggle("is-collapsed");
+      button.setAttribute("aria-expanded", collapsed ? "false" : "true");
+      button.textContent = collapsed ? moreLabel : lessLabel;
+      if (collapsed) {
+        group.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      }
+    });
+  });
+
   /* ========== AUDIO ========== */
   const audioBtn = document.getElementById("audio-btn");
   const audioLabel = document.getElementById("audio-label");

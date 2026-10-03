@@ -759,6 +759,10 @@ section[id] {
   margin: 0 0 28px;
 }
 
+.directory__group {
+  scroll-margin-top: calc(var(--nav-h) + var(--announce-h) + 16px);
+}
+
 .directory__group + .directory__group {
   margin-top: clamp(36px, 4vw, 52px);
 }
@@ -797,6 +801,29 @@ section[id] {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+.directory__grid.is-collapsed .community--extra {
+  display: none;
+}
+
+.directory__more {
+  margin-top: 16px;
+  background: transparent;
+  color: #1c1a17;
+  border: 1px solid #1c1a17;
+  padding: 11px 18px;
+  font-family: "Host Grotesk", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 200ms ease, color 200ms ease;
+}
+
+.directory__more:hover {
+  background: #1c1a17;
+  color: #f3efe6;
 }
 
 .community {

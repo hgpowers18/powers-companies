@@ -23,7 +23,7 @@ const SitePreview = createClass({
       "div",
       {
         style: {
-          fontFamily: '"Hanken Grotesk", sans-serif',
+          fontFamily: '"Host Grotesk", sans-serif',
           color: "#1c1a17",
           background: "#f3efe6",
           padding: "20px 24px 40px",
@@ -89,7 +89,7 @@ const SitePreview = createClass({
                 "data-key-path": "divisions." + index + ".title",
                 tabIndex: 0,
                 style: {
-                  fontFamily: '"DM Sans", sans-serif',
+                  fontFamily: '"Host Grotesk", sans-serif',
                   fontWeight: 400,
                   fontSize: "28px",
                   lineHeight: 1.15,

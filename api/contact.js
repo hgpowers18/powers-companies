@@ -219,10 +219,11 @@ const htmlResponse = (status, heading, body) =>
     `<!doctype html><html lang="en"><head><meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>${heading}</title>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap">
       <style>
         body { margin: 0; min-height: 100vh; display: grid; place-items: center;
                padding: 40px 20px; background: #1c1a17; color: #f3efe6;
-               font-family: "Hanken Grotesk", -apple-system, sans-serif; }
+               font-family: "Host Grotesk", -apple-system, sans-serif; }
         main { max-width: 520px; border: 1px solid #c19a4f; background: #252017; padding: 44px 36px; }
         h1 { font-size: 28px; font-weight: 400; margin: 0 0 12px; }
         p { font-size: 16px; line-height: 1.6; color: #bdb4a2; margin: 0 0 24px; }

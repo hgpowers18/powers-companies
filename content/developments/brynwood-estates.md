@@ -1,5 +1,5 @@
 ---
-title: "Brynwood Estates"
+title: "Brynwood Hills"
 location: "Eldersburg, MD"
 status: "Sold out"
 type: "Single-family"

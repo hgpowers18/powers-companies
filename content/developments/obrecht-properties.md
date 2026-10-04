@@ -1,7 +1,7 @@
 ---
 title: "Obrecht Properties"
 location: "Eldersburg, MD"
-status: "Sold out"
+status: "Coming"
 type: "Single-family"
 order: 28
 ---

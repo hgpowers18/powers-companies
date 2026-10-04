@@ -37,7 +37,7 @@
   <div class="page">
 
     {%- if site.banner.messages.length %}
-    <div class="announce" id="announce" role="region" aria-label="Now leasing">
+    <div class="announce" id="announce" role="region" aria-label="Announcements">
       <div class="announce__viewport">
         <div class="announce__track">
           <div class="announce__seq">
@@ -183,6 +183,7 @@
               <p>{{ paragraph }}</p>
               {%- endfor %}
             </div>
+            {%- if division.features.length %}
             <div class="division__features">
               {%- for feature in division.features %}
               <div>
@@ -191,6 +192,7 @@
               </div>
               {%- endfor %}
             </div>
+            {%- endif %}
           </div>
         </div>
         {%- if division.show_developments_list and collections.developments.length %}
@@ -202,6 +204,14 @@
           {%- macro community_cards(entries, collapse) %}
             {%- for entry in entries %}
             <li class="community{% if collapse and loop.index0 >= 4 %} community--extra{% endif %}">
+              {%- set banner = entry.data.status %}
+              {%- if banner and banner != "Sold out" and banner != "To revisit" %}
+              {%- if entry.data.link %}
+              <a class="community__banner" href="{{ entry.data.link }}">{{ banner }}</a>
+              {%- else %}
+              <div class="community__banner">{{ banner }}</div>
+              {%- endif %}
+              {%- endif %}
               {%- if entry.data.type %}
               <div class="community__type">{{ entry.data.type }}</div>
               {%- endif %}

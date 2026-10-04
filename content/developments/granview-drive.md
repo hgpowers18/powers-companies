@@ -1,7 +1,7 @@
 ---
-title: "Granview Drive"
+title: "Grandview Drive"
 location: "Taneytown, MD"
 status: "Sold out"
 type: "Single-family"
-order: 1
+order: 14.5
 ---

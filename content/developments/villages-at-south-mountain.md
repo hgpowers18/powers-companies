@@ -1,7 +1,7 @@
 ---
 title: "Villages at South Mountain"
 location: "Pennsylvania"
-status: "Sold out"
+status: "Coming"
 type: "Single-family"
 order: 43
 ---

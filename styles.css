@@ -868,6 +868,28 @@ section[id] {
   color: #8a7f6a;
 }
 
+.community__banner {
+  margin: -16px -16px 14px;
+  padding: 7px 16px;
+  background: var(--gold);
+  color: var(--ink);
+  font-family: "Host Grotesk", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.35;
+}
+
+a.community__banner {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+a.community__banner:hover {
+  color: #3a2c14;
+}
+
 /* ========== WHAT ELSE GOT BUILT ========== */
 /* Closes each division: a rule, a label, and the roll of everything that
    didn't get a card of its own. */
@@ -1088,9 +1110,8 @@ section[id] {
 .contact__photo {
   position: relative;
   aspect-ratio: 16 / 11;
-  width: 600px;
-  max-width: 100%;
-  height: 357px;
+  width: min(600px, 100%);
+  max-height: 357px;
   overflow: hidden;
   background: #211d17;
 }
@@ -1276,6 +1297,100 @@ section[id] {
   font-size: 12px;
   color: #6f685c;
   letter-spacing: 0.04em;
+}
+
+/* Short laptops: the sticky bar stays put, so a jump to a section only has
+   the rest of the window to land in. Width-based padding keeps these blocks
+   as tall as a desktop, and the form or the feature row gets sliced off.
+   Height-based spacing brings the landing back onto the screen. The community
+   lists below a division stay long on purpose. */
+@media (max-height: 1000px) and (min-width: 861px) {
+  .contact {
+    padding: clamp(28px, 4svh, 56px) clamp(20px, 4vw, 56px) clamp(20px, 3svh, 40px);
+  }
+
+  .contact__eyebrow {
+    margin-bottom: 12px;
+  }
+
+  .contact__title {
+    font-size: clamp(36px, 6svh, 56px);
+    margin-bottom: clamp(16px, 2.2svh, 28px);
+  }
+
+  .contact__form,
+  .contact__aside {
+    gap: 12px;
+  }
+
+  .contact .field input,
+  .contact .field textarea {
+    padding-block: 10px;
+  }
+
+  .contact .field textarea {
+    height: clamp(72px, 10svh, 100px);
+  }
+
+  .contact__photo {
+    max-height: min(240px, 28svh);
+  }
+
+  .contact__info {
+    padding-top: 16px;
+    gap: 16px;
+  }
+
+  .contact__submit {
+    padding-block: 12px;
+  }
+
+  .division {
+    padding-top: 16px;
+    padding-bottom: 28px;
+  }
+
+  .division::before {
+    margin-bottom: 14px;
+  }
+
+  .division__label {
+    margin-bottom: 8px;
+  }
+
+  .division__title {
+    font-size: clamp(26px, 3.4svh, 36px);
+    margin-bottom: 10px;
+  }
+
+  .division__body {
+    font-size: 15px;
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+
+  .division__body p {
+    margin-bottom: 8px;
+  }
+
+  .division__features {
+    gap: 10px 20px;
+    padding-top: 12px;
+  }
+
+  .division__feature-title {
+    font-size: 16px;
+    margin-bottom: 2px;
+  }
+
+  .division__feature-body {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .division__media {
+    min-height: 240px;
+  }
 }
 
 /* ========== RESPONSIVE ========== */

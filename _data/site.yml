@@ -11,14 +11,17 @@ meta:
 banner:
   messages:
     - parts:
-        - text: Now leasing at
+        - text: New leasing in
           href: ''
         - text: Towson
-          href: '#'
+          href: 'mailto:csmith@trialliance.com,abrink@trialliance.com'
         - text: and
           href: ''
         - text: Reisterstown
-          href: '#'
+          href: 'mailto:csmith@trialliance.com,abrink@trialliance.com'
+    - parts:
+        - text: 2 pad sites available at West Branch Trade Center in Westminster, MD
+          href: ''
 nav:
   logo_dark: /uploads/powers-logo.png
   logo_light: /uploads/powers-logo-white.png
@@ -26,7 +29,7 @@ nav:
   links:
     - label: Developments
       href: '#homes'
-    - label: Commercial & Office
+    - label: Commercial, Office and Manufacturing
       href: '#commercial'
   cta:
     label: Let's Talk
@@ -63,18 +66,17 @@ ethos:
     - We build commercial spaces and residential homes that are cutting edge and attractive — and we'll astound you with our creative use of space, style, and design.
 divisions_intro:
   eyebrow: What we build
-  title_line_1: Two divisions.
+  title_line_1: Many divisions.
   title_line_2: One standard.
-  body: Everything from a single custom home to a full industrial park — under one roof, with one team accountable end to end.
+  body: Everything from a custom single family home to a full industrial park, large scale single and multifamily development, to commercial and office construction. We are diverse but we don't lose sight of the attention to detail — under one roof, one team.
 divisions:
   - id: homes
     aria_label: Developments
     label: 01 — DEVELOPMENTS
     title: The land, then the homes.
     paragraphs:
-      - We buy the parcel, lay out the homesites, and build the houses that go on them. Three-acre lots on Liberty Reservoir, wooded tracts in Woodstock, waterfront in Essex — the plan follows the ground, and almost every community we have opened is now sold out.
-      - The brothers who choose the land are the same people walking the site while the drywall goes up. A community of twenty-three homes still gets the attention of a one-off custom build, because the plan stays with the people who chose the land.
-      - A single custom house and a full community are the same practice. Read the parcel, lot it so the homes belong there, and carry that standard through to the last closing.
+      - Every great community starts as an open field, our field of dreams. We turn that land into opportunities where builders can build and families can thrive and grow. We're involved at every step.
+      - We look for farms and large parcels with strong potential and purpose. Good access to roads and utilities, favorable topography, and a location where people want to live. Before that, we study zoning, soil conditions, schools, and market demand to make sure every property meets with our strict scrutiny. Planning amenities like walking trails, parks and playgrounds, open green space, ponds, pavilions, pools, clubhouses, and gathering areas. Each is chosen to fit the neighborhood and the people who will live there.
     image: /uploads/image_f874027c.jpg
     image_alt: Aerial view of a residential development
     list_eyebrow: Our communities
@@ -84,23 +86,14 @@ divisions:
     development_types:
       - Single-family
       - Multifamily
-    features:
-      - title: Custom & semi-custom
-        body: Bring us your plans or build on ours.
-      - title: Homesites
-        body: One to three-plus acres, most of them wooded and private.
-      - title: Where we build
-        body: Eldersburg, Sykesville, Manchester, Reisterstown, Woodstock, Essex.
-      - title: Standard, not extra
-        body: Energy Star certification, concealed sprinklers, maple kitchens.
+    features: []
   - id: commercial
     aria_label: Commercial, Office, & Manufacturing
     label: 02 — COMMERCIAL, OFFICE & MANUFACTURING
     title: Office, retail, industrial, & manufacturing. We've done it all.
     paragraphs:
-      - Office space, retail centers, industrial parks, self storage— we'll take any parcel of land and turn it into the business space you envisioned. Cutting-edge, attractive, and delivered on budget.
-      - The West Branch Trade Center runs to 40,000 square feet on Tech Court in Westminster. A shrub-covered lot on Sykesville Road became the 26,500 square foot Westminster branch of the Y of Central Maryland. The Professional Center at 795 leased out in full, with Carroll Hospital Center at the front of it, and a second building followed.
-      - Across the Pennsylvania line we built the Jefferson Codorus Joint Sewer Authority a treatment plant that handles 240,000 gallons a day for two townships. The range runs from a suite of consulting rooms to public infrastructure, and the same team sees each of them through.
+      - We develop office, retail, industrial and manufacturing properties from the ground up, handling everything from site acquisition and financing to entitlements, design and construction.
+      - We build projects that fit how tenants operate and hold their value over time.
     image: /uploads/usdj01rlsngjso4m2da0.avif
     image_alt: Baltimore Inner Harbor at sunset
     list_eyebrow: ''
@@ -120,7 +113,7 @@ divisions:
       - title: Build to suit
         body: A single suite or a 40,000 square foot shell.
       - title: Where we build
-        body: Westminster, Reisterstown, Towson, Eldersburg, southern Pennsylvania.
+        body: Westminster, Reisterstown, Towson, Eldersburg, Southern Pennsylvania.
 contact:
   eyebrow: Contact
   title_line_1: Let's Talk
@@ -163,7 +156,7 @@ footer:
   division_links:
     - label: Developments
       href: '#homes'
-    - label: Commercial & Office
+    - label: Commercial, Office and Manufacturing
       href: '#commercial'
   office_heading: Office
   office_lines:

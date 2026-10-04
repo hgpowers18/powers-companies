@@ -234,7 +234,7 @@ singletons:
           - { name: body, label: Paragraph, widget: text }
 
       - name: divisions
-        label: The two sections
+        label: The sections
         widget: list
         collapsed: true
         allow_add: false
@@ -443,5 +443,12 @@ collections:
           widget: string,
           required: false,
           default: "Sold out",
-          hint: "Kept with the entry. The public card shows the type, not this status.",
+          hint: "Sold out stays off the public card. Any other status, such as Coming or Space available for lease, shows as a gold banner on the card.",
+        }
+      - {
+          name: link,
+          label: Link,
+          widget: string,
+          required: false,
+          hint: "Optional. Turns the status banner into a link. Use a full https:// address or a mailto: address.",
         }

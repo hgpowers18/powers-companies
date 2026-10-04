@@ -1,7 +1,7 @@
 ---
 title: "Crestview"
 location: "Hampstead, MD"
-status: "Sold out"
+status: "Coming"
 type: "Single-family"
 order: 7
 ---

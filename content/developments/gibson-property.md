@@ -1,7 +1,7 @@
 ---
 title: "Gibson Property"
 location: "Eldersburg, MD"
-status: "Sold out"
+status: "Coming"
 type: "Single-family"
 order: 14
 ---

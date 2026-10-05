@@ -865,6 +865,15 @@ section[id] {
   letter-spacing: 0.06em;
 }
 
+a.community__chip {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+a.community__chip:hover {
+  color: #3a2c14;
+}
+
 .community__name {
   font-family: "Host Grotesk", sans-serif;
   font-weight: 400;
@@ -883,28 +892,6 @@ section[id] {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #8a7f6a;
-}
-
-.community__banner {
-  margin: -16px -16px 14px;
-  padding: 7px 16px;
-  background: var(--gold);
-  color: var(--ink);
-  font-family: "Host Grotesk", sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  line-height: 1.35;
-}
-
-a.community__banner {
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-a.community__banner:hover {
-  color: #3a2c14;
 }
 
 /* ========== WHAT ELSE GOT BUILT ========== */

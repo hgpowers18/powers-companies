@@ -443,12 +443,12 @@ collections:
           widget: string,
           required: false,
           default: "Sold out",
-          hint: "Sold out stays off the public card. Space available for lease shows as a gold banner. Other statuses, such as Coming or 2 pad sites available for sale, show as a chip on the card.",
+          hint: "Sold out stays off the public card. Any other status, such as Coming or Space available for lease, shows as a gold chip on the card.",
         }
       - {
           name: link,
           label: Link,
           widget: string,
           required: false,
-          hint: "Optional. Turns a Space available for lease banner into a link. Use a full https:// address or a mailto: address.",
+          hint: "Optional. Turns the status chip into a link. Use a full https:// address or a mailto: address.",
         }

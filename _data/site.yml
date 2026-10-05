@@ -105,15 +105,7 @@ divisions:
       - Office
       - Leisure
       - Manufacturing
-    features:
-      - title: Office & retail
-        body: Spaces designed around how your business runs.
-      - title: Industrial parks
-        body: Large-scale development, managed end to end.
-      - title: Build to suit
-        body: A single suite or a 40,000 square foot shell.
-      - title: Where we build
-        body: Westminster, Reisterstown, Towson, Eldersburg, Southern Pennsylvania.
+    features: []
 contact:
   eyebrow: Contact
   title_line_1: Let's Talk

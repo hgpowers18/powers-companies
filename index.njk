@@ -204,16 +204,25 @@
           {%- macro community_cards(entries, collapse) %}
             {%- for entry in entries %}
             <li class="community{% if collapse and loop.index0 >= 4 %} community--extra{% endif %}">
-              {%- set banner = entry.data.status %}
-              {%- if banner and banner != "Sold out" and banner != "To revisit" %}
+              {%- set status = entry.data.status %}
+              {%- set showStatus = status and status != "Sold out" and status != "To revisit" %}
+              {%- set isBanner = showStatus and "for lease" in status %}
+              {%- if isBanner %}
               {%- if entry.data.link %}
-              <a class="community__banner" href="{{ entry.data.link }}">{{ banner }}</a>
+              <a class="community__banner" href="{{ entry.data.link }}">{{ status }}</a>
               {%- else %}
-              <div class="community__banner">{{ banner }}</div>
+              <div class="community__banner">{{ status }}</div>
               {%- endif %}
               {%- endif %}
-              {%- if entry.data.type %}
-              <div class="community__type">{{ entry.data.type }}</div>
+              {%- if entry.data.type or (showStatus and not isBanner) %}
+              <div class="community__tags">
+                {%- if entry.data.type %}
+                <div class="community__type">{{ entry.data.type }}</div>
+                {%- endif %}
+                {%- if showStatus and not isBanner %}
+                <div class="community__chip">{{ status }}</div>
+                {%- endif %}
+              </div>
               {%- endif %}
               <h4 class="community__name">{{ entry.data.title }}</h4>
               {%- if entry.data.location %}

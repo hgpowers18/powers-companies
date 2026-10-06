@@ -7,7 +7,7 @@ backend:
   # Sign in through GitHub itself, brokered by api/oauth.js on this site rather
   # than Netlify. Update base_url, the OAuth app's callback URL and
   # ALLOWED_DOMAINS together if the site moves to a custom domain.
-  base_url: https://powers-companies.vercel.app
+  base_url: https://powerscompanies.com
   auth_endpoint: api/oauth
   # Token sign-in stays available as a fallback. Once the GitHub button is
   # confirmed working, narrow this to [oauth] to hide it.
@@ -87,7 +87,7 @@ singletons:
                   label: Preview image description,
                   widget: string,
                 }
-          - { name: url, widget: hidden, default: "https://powers-companies.vercel.app" }
+          - { name: url, widget: hidden, default: "https://powerscompanies.com" }
           - { name: lang, widget: hidden, default: en }
 
       - name: banner

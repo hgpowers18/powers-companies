@@ -88,8 +88,16 @@ section[id] {
   animation: announce-rotate linear infinite;
 }
 
-.announce:hover .announce__track,
-.announce:focus-within .announce__track {
+/* Pause in place while the pointer is over the bar, and while a link is
+   reached from the keyboard. A click focuses the link too, but that must
+   not pin the bar after the pointer leaves. */
+@media (hover: hover) and (pointer: fine) {
+  .announce:hover .announce__track {
+    animation-play-state: paused;
+  }
+}
+
+.announce:has(a:focus-visible) .announce__track {
   animation-play-state: paused;
 }
 

@@ -33,16 +33,6 @@
 
     const seconds = Math.max(16, seq.getBoundingClientRect().width / 46);
     track.style.animationDuration = `${seconds}s`;
-
-    el.addEventListener("focusin", () => {
-      track.style.animation = "none";
-      track.style.transform = "translateX(0)";
-    });
-    el.addEventListener("focusout", (event) => {
-      if (el.contains(event.relatedTarget)) return;
-      track.style.animation = "";
-      track.style.transform = "";
-    });
   }
 
   document.addEventListener("DOMContentLoaded", () => {

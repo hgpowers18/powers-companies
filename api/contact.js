@@ -22,7 +22,7 @@
  *   TURNSTILE_SECRET_KEY  - secret key, used here to verify the widget token
  */
 
-const HONEYPOT = "company";
+const HONEYPOT = "leave_blank";
 const TURNSTILE_FIELD = "cf-turnstile-response";
 const TURNSTILE_VERIFY = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 
@@ -289,7 +289,11 @@ export default {
 
     // A bot filling the hidden field gets the same answer as everyone else, so
     // it has nothing to learn from, but nothing is sent.
-    if (String(fields[HONEYPOT] ?? "").trim()) return succeed();
+    if (String(fields[HONEYPOT] ?? "").trim()) {
+      console.warn("Contact form: dropped a submission that filled the hidden field.");
+
+      return succeed();
+    }
 
     const { submission, errors } = validate(fields);
 

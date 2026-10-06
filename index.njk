@@ -311,8 +311,8 @@
                 {# A field no visitor sees. Anything that fills it is a bot, and
                    its submission is dropped. #}
                 <label class="contact__trap" aria-hidden="true">
-                  <span>Company</span>
-                  <input name="company" type="text" tabindex="-1" autocomplete="off">
+                  <span>Leave blank</span>
+                  <input name="leave_blank" type="text" tabindex="-1" autocomplete="off">
                 </label>
                 {%- if turnstile.siteKey %}
                 {# Rendered by the Turnstile script after main.js, which owns the

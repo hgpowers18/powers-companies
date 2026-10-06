@@ -219,7 +219,7 @@
     const submitLabel = submitBtn ? submitBtn.textContent : "";
     const sendingLabel = (submitBtn && submitBtn.dataset.sendingLabel) || "Sending…";
     const inputs = Array.from(form.querySelectorAll("input, textarea")).filter(
-      (input) => input.name !== "company",
+      (input) => input.name !== "leave_blank",
     );
 
     // api/contact.js reports a problem with a field as one of these codes, so

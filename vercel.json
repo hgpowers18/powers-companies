@@ -2,5 +2,24 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm run build",
   "outputDirectory": "_site",
-  "framework": null
+  "framework": null,
+  "redirects": [
+    { "source": "/powers-financing", "destination": "/", "permanent": true },
+    { "source": "/powers-financing/", "destination": "/", "permanent": true },
+    { "source": "/powers-financing/:path*", "destination": "/", "permanent": true },
+    { "source": "/powers-commercial", "destination": "/#commercial", "permanent": true },
+    { "source": "/powers-commercial/", "destination": "/#commercial", "permanent": true },
+    { "source": "/powers-commercial/:path*", "destination": "/#commercial", "permanent": true },
+    { "source": "/powers-remodeling", "destination": "/", "permanent": true },
+    { "source": "/powers-remodeling/", "destination": "/", "permanent": true },
+    { "source": "/powers-remodeling/:path*", "destination": "/", "permanent": true },
+    { "source": "/homes", "destination": "/#homes", "permanent": true },
+    { "source": "/homes/", "destination": "/#homes", "permanent": true },
+    { "source": "/homes/:path*", "destination": "/#homes", "permanent": true },
+    { "source": "/contact-us", "destination": "/#contact", "permanent": true },
+    { "source": "/contact-us/", "destination": "/#contact", "permanent": true },
+    { "source": "/new-homes", "destination": "/#homes", "permanent": true },
+    { "source": "/new-homes/", "destination": "/#homes", "permanent": true },
+    { "source": "/new-homes/:path*", "destination": "/#homes", "permanent": true }
+  ]
 }

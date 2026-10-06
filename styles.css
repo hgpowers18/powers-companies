@@ -1456,14 +1456,26 @@ a.community__chip:hover {
     mask-image: linear-gradient(90deg, transparent, #000 16px, #000 calc(100% - 16px), transparent);
   }
 
-  a.community__chip,
   .directory__more {
     min-height: 44px;
   }
 
+  /* The lease labels are links. Stretching the badge itself made it twice as
+     tall as the labels beside it, so the extra tap area hangs off the badge. */
   a.community__chip {
+    position: relative;
     display: inline-flex;
     align-items: center;
+  }
+
+  a.community__chip::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 44px;
+    transform: translateY(-50%);
   }
 
   .contact__captcha {

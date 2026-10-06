@@ -184,7 +184,7 @@ const sendEmail = async (submission) => {
         from: CONTACT_FROM,
         to: CONTACT_TO.split(",").map((address) => address.trim()),
         reply_to: submission.email,
-        subject: `Website enquiry from ${submission.name}`,
+        subject: `Website enquiry from ${submission.name.replace(/[\r\n]+/g, " ")}`,
         text: emailBody(submission),
       }),
     });

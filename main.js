@@ -17,6 +17,11 @@
     if (mobileMenu) mobileMenu.classList.toggle("is-open", open);
     if (menuIcon) menuIcon.textContent = open ? "✕" : "☰";
     if (menuBtn) menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    document.body.classList.toggle("is-menu-open", open);
+    const page = document.querySelector("main");
+    const footer = document.querySelector("footer");
+    if (page) page.inert = open;
+    if (footer) footer.inert = open;
     syncNav();
   }
 
@@ -85,6 +90,15 @@
     if (e.key === "Escape" && menuOpen) setMenu(false);
   });
 
+  // The dim layer behind the open menu is the page itself, so a tap there
+  // closes it. The button and the menu handle their own taps.
+  document.addEventListener("click", (event) => {
+    if (!menuOpen) return;
+    if (menuBtn && menuBtn.contains(event.target)) return;
+    if (mobileMenu && mobileMenu.contains(event.target)) return;
+    setMenu(false);
+  });
+
   /* ========== HERO VIDEO ========== */
   const heroVideo = document.getElementById("hero-video");
 
@@ -94,7 +108,7 @@
     const frugal = !!conn && (conn.saveData === true || /(^|-)2g$/.test(conn.effectiveType || ""));
     const mobileSrc = heroVideo.dataset.srcMobile;
     const src =
-      mobileSrc && window.matchMedia("(max-width: 760px)").matches
+      mobileSrc && window.matchMedia("(max-width: 860px)").matches
         ? mobileSrc
         : heroVideo.dataset.src;
 
@@ -177,9 +191,11 @@
   });
 
   audio.addEventListener("timeupdate", () => {
-    localStorage.setItem("powersStoryPos", String(audio.currentTime));
     const whole = Math.floor(audio.currentTime);
-    if (whole !== lastSec) lastSec = whole;
+    if (whole === lastSec) return;
+
+    lastSec = whole;
+    localStorage.setItem("powersStoryPos", String(audio.currentTime));
   });
 
   audio.addEventListener("ended", () => {
@@ -254,7 +270,7 @@
       captchaId = window.turnstile.render(captchaMount, {
         sitekey: captchaMount.dataset.sitekey,
         theme: "dark",
-        size: "normal",
+        size: "flexible",
         appearance: "always",
         callback() {
           showCaptchaError(false);

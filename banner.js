@@ -33,6 +33,27 @@
 
     const seconds = Math.max(16, seq.getBoundingClientRect().width / 46);
     track.style.animationDuration = `${seconds}s`;
+
+    // A finger on the bar holds it still so the link can be tapped, then lets
+    // it go — even if the finger slides off the bar. Hover already does this
+    // for a mouse. Clearing the inline state hands control back to the CSS,
+    // so a touch can never leave the bar stuck.
+    let touchHold = false;
+    const hold = (event) => {
+      if (event.pointerType !== "touch") return;
+      touchHold = true;
+      track.style.animationPlayState = "paused";
+    };
+    const release = (event) => {
+      if (!touchHold) return;
+      if (event.pointerType && event.pointerType !== "touch") return;
+      touchHold = false;
+      track.style.animationPlayState = "";
+    };
+
+    el.addEventListener("pointerdown", hold);
+    window.addEventListener("pointerup", release);
+    window.addEventListener("pointercancel", release);
   }
 
   document.addEventListener("DOMContentLoaded", () => {

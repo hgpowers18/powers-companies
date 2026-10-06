@@ -340,7 +340,12 @@
                 </div>
                 <div>
                   <div class="contact__info-label">{{ site.contact.phone_label }}</div>
-                  <div class="contact__info-value">Office&nbsp; {{ site.contact.office_phone }}<br>Fax&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ site.contact.fax_phone }}</div>
+                  <div class="contact__phones">
+                    <span>Office</span>
+                    <a href="{{ site.contact.office_phone | tel }}">{{ site.contact.office_phone }}</a>
+                    <span>Fax</span>
+                    <span>{{ site.contact.fax_phone }}</span>
+                  </div>
                 </div>
               </div>
             </div>

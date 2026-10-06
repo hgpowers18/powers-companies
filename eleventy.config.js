@@ -15,6 +15,17 @@ export default function (eleventyConfig) {
   // A type with enough cards to fill a row keeps its own heading. Shorter
   // types share one grid, because a heading over one or two cards leaves a
   // blank row. Order follows the type list, then the collection order.
+  // Turn a written phone number into a tel: link. A 10-digit US number gets
+  // the country code; anything else is dialed as typed.
+  eleventyConfig.addFilter("tel", (value) => {
+    const digits = String(value ?? "").replace(/\D/g, "");
+
+    if (digits.length === 10) return `tel:+1${digits}`;
+    if (digits.length === 11 && digits.startsWith("1")) return `tel:+${digits}`;
+
+    return digits ? `tel:${digits}` : "";
+  });
+
   eleventyConfig.addFilter("packDevelopments", (entries, types) => {
     const source = entries || [];
     const headed = [];
